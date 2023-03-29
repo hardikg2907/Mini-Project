@@ -1,7 +1,7 @@
 import { useState } from "react"
 
 const submitForm = () => {
-
+    
 }
 
 export const CommLogin = () => {
@@ -16,14 +16,14 @@ export const CommLogin = () => {
         <p className="form-title">Committee Login</p>
         <div className="input-container">
             <label htmlFor="email">Email</label>
-            <input type="email" placeholder="Email" name="email" id="email" onChange={(e)=>{setEmail(e.currentTarget.value)}}/>
+            <input type="email" placeholder="Email" name="email" id="email" onChange={(e)=>{setEmail(e.currentTarget.value)}} autoComplete="off"/>
         </div>
         <div className="input-container">
             <label htmlFor="password">Password</label>
             <input type="password" placeholder="Password" name="password" id="password" onChange={(e)=>{setPass(e.currentTarget.value)}}/>
         </div>
 
-        <button type="submit" className="btn submit">Submit</button>
+        <button type="submit" className="submit">Submit</button>
 
     </form>
 }
