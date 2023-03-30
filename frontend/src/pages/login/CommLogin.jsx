@@ -3,7 +3,6 @@ import { Navigate, useNavigate } from "react-router-dom"
 import { useGlobalContext } from "../../context"
 
 
-
 export const CommLogin = () => {
     
     const {loggedIn,setLoggedIn} = useGlobalContext()
