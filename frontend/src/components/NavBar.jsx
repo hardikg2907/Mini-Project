@@ -3,7 +3,7 @@
 export const NavBar = () => {
 
     return (
-        <div>
+        <div className="navba">
             <li>
                 <a href="/profile">Profile</a>
             </li>

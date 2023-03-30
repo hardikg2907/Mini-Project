@@ -90,3 +90,29 @@ body{
     color: black;
 }
 
+.navba{
+  position: sticky;
+  border-bottom: 1px solid black;
+  width: 100%;
+  /* margin-left: -50px; */
+  display: flex;
+  flex-direction: row-reverse;
+  height:40px;
+  z-index: 1;
+}
+
+.navba li{
+  list-style: none;
+  margin-right: 10px;
+  font-size: x-large;  
+}
+
+.navba li a{
+  text-decoration: none;
+  color: black;
+  transition: all 0.2s ease-in-out;
+}
+
+.navba li a:hover{
+  color: white;
+}

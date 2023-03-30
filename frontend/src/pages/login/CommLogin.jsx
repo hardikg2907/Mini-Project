@@ -1,14 +1,20 @@
 import { useState } from "react"
+import { Navigate, useNavigate } from "react-router-dom"
+import { useGlobalContext } from "../../context"
 
-const submitForm = () => {
-    
-}
+
 
 export const CommLogin = () => {
-
+    
+    const {loggedIn,setLoggedIn} = useGlobalContext()
     const [email,setEmail] = useState('');
     const [pass, setPass] = useState('');
-
+    const navigate = useNavigate();
+    
+    const submitForm = () => {
+        setLoggedIn(true)
+        navigate('/permissions')
+    }
 
     return <form className="form" onSubmit={(e)=>{
         e.preventDefault();

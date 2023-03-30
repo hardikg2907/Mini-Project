@@ -5,12 +5,15 @@ import './App.css'
 import { Profile } from './pages/profile/Profile'
 import { NavBar } from './components/NavBar'
 import {Permission} from './pages/permissions/Permission'
+import { useGlobalContext } from './context'
 
 export default function App() {
 
+    const {loggedIn,setLoggedIn} = useGlobalContext()
+
     return (
         <main className="container">
-                    <NavBar/>
+                    {loggedIn && <NavBar/>}
             <BrowserRouter>
                 <Routes>
                     <Route path="/login" element={<CommLogin/>}/>
