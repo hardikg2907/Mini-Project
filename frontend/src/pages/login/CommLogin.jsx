@@ -5,23 +5,20 @@ import { useGlobalContext } from "../../context"
 
 export const CommLogin = () => {
     
-    const {loggedIn,setLoggedIn} = useGlobalContext()
+    // const {loggedIn,setLoggedIn} = useGlobalContext()
     const [email,setEmail] = useState('');
     const [pass, setPass] = useState('');
     const navigate = useNavigate();
     
     const submitForm = () => {
-        setLoggedIn(true)
-        navigate('/permissions')
+        
     }
 
-    return <form className="form" onSubmit={(e)=>{
-        e.preventDefault();
-        submitForm()}}>
+    return <form className="form" action="http://localhost:3000/user/login" method="POST">
         <p className="form-title">Committee Login</p>
         <div className="input-container">
-            <label htmlFor="email">Email</label>
-            <input type="email" placeholder="Email" name="email" id="email" onChange={(e)=>{setEmail(e.currentTarget.value)}} autoComplete="off"/>
+            <label htmlFor="username">Email</label>
+            <input type="email" placeholder="Email" name="username" id="username" onChange={(e)=>{setEmail(e.currentTarget.value)}} autoComplete="off"/>
         </div>
         <div className="input-container">
             <label htmlFor="password">Password</label>
