@@ -1,5 +1,5 @@
 import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom'
-import { CommLogin } from './pages/login/CommLogin'
+import { Home } from './pages/Home'
 import './App.css'
 // import { NavBar } from './components/NavBar'
 import { Profile } from './pages/profile/Profile'
@@ -16,7 +16,7 @@ export default function App() {
             <BrowserRouter>
                     {user && <NavBar/>}
                 <Routes>
-                    <Route path="/" element={!user?<CommLogin/>:<Navigate to='/permissions'/>}/>
+                    <Route path="/" element={!user?<Home/>:<Navigate to='/permissions'/>}/>
                     <Route path='/profile' element={user?<Profile/>:<Navigate to='/'/>}/>
                     <Route path='/permissions' element={user?<Permission/>:<Navigate to='/'/>}/>
                 </Routes>

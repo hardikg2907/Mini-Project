@@ -10,6 +10,10 @@ const userSchema = new mongoose.Schema({
         required: true,
         unique: true,
     },
+    name: {
+        type: String,
+        required: true
+    },
     password: {
         type: String,
         required: true
@@ -49,6 +53,12 @@ userSchema.statics.signup = async function(email, password){
     return user
 
 }
+
+// static update method
+// userSchema.statics.update = async function(body) {
+
+    
+// }
 
 //static login method
 userSchema.statics.login = async function(email,password) {

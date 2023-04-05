@@ -1,5 +1,6 @@
 const User = require('../models/userModel')
 const jwt = require('jsonwebtoken')
+const bcrypt = require('bcrypt')
 // const { create } = require('../models/workoutModel')
 
 const createToken = (_id) => {
@@ -41,7 +42,38 @@ const signupUser = async (req,res) => {
     }
 }
 
+// update user 
+const changeDetails = async (req,res) => {
+    
+}
+
+// change password
+const changePassword = async (req,res) => {
+    const {email,password, confirmPassword} = req.body
+
+    if(password!==confirmPassword)
+    return res.status(400).json({error: 'Both passwords should match.'})
+
+    const exists = await User.findOne({email})
+    if(!exists) throw Error('Email doesn\'t exist')
+
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(password, salt)
+    try{
+        const user = await User.findOneAndUpdate({email},{password:hash})
+
+        return res.status(200).json(user)
+    }
+    catch(error)
+    {
+        return res.status(400).json({error: error})
+    }
+    
+}
+
 module.exports = {
     loginUser,
-    signupUser
+    signupUser,
+    changePassword,
+    changeDetails
 }

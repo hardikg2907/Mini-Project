@@ -9,7 +9,7 @@ export const NavBar = () => {
     }
 
     return (
-        <div className="navba">
+        <div className="navbar">
             <Link to='/profile'>
                 <h2>Profile</h2>
             </Link>

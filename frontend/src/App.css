@@ -1,118 +1,242 @@
-:root{
-    --bg-color: #2c8494;
-    --accent-color: #90cede;
-    /* --dark-bg-color: #150e60;  */
+:root {
+  --bg-color: #3DA6FC;
+  --box-color: #fdb120;
+  --accent-color: #f0f0f0;
+  --font: 'Poppins';
+  /* --dark-bg-color: #150e60;  */
 }
 
-body{
-    background-color: var(--bg-color);
+body {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  background-color: var(--bg-color);
+  font-family: var(--font);
+  scrollbar-width: thin;
+  scrollbar-gutter: stable;
+}
+
+.home{
+  display: flex;
+  flex-direction: row;
+}
+
+.header{
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  text-align: center;
+  font-family: var(--font);
+  color: #ffffff;
+  font-size: 3rem;
+  border: #000 solid;
 }
 
 .form {
-    background-color: var(--accent-color);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 1rem;
-    max-width: 350px;
-    border-radius: 0.5rem;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-    border: 1px solid rgba(0, 0, 0, 0.1);
-  }
-  
-  .form-title {
-    font-size: 1.25rem;
-    line-height: 1.75rem;
-    font-weight: 600;
-    text-align: center;
-    color: #000;
-  }
-  
-  .input-container {
-    margin: auto;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-  
-  .input-container input, .form button {
-    outline: none;
-    border: 2px solid #e5e7eb;
-    margin: 8px 0;
-  }
-  
-  .input-container input {
-    background-color: #fff;
-    padding: 1rem;
-    padding-right: 3rem;
-    font-size: 0.875rem;
-    line-height: 1.25rem;
-    width: 300px;
-    border-radius: 0.5rem;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    /* margin-left: auto; */
-    margin-right: auto;
-  }
-
-  .input-container input:focus{
-    border: 2px solid black;
-    transition: all 0.2s ease-in-out;
-  }
-  
-  .submit {
-    display: block;
-    padding-top: 0.75rem;
-    background-color: transparent;
-    padding-bottom: 0.75rem;
-    padding-left: 1.25rem;
-    padding-right: 1.25rem;
-    color: #ffffff;
-    font-size: 0.875rem;
-    line-height: 1.25rem;
-    font-weight: 500;
-    width: 300px;
-    margin: 1rem;
-    margin-right: 3rem;
-    border-radius: 0.5rem;
-    text-transform: uppercase;
-    transition: all 0.2s ease-in-out;
-    border: 4px solid black;
-  }
-
-.submit:hover{
-    border: 2px solid black;
-    color: black;
+  background-color: var(--accent-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 1rem;
+  padding: 1rem;  
+  height: 480px;
+  width: 310px;
+  border-radius: 30px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  position: relative;
+  top: 1rem;
+  left: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.navba{
+.form-title {
+  margin-top: 1rem;
+  margin-left: 0.25rem;
+  font-size: 2rem;
+  line-height: 1.75rem;
+  font-weight: 600;
+  text-align: left;
+  color: #000;
+}
+
+.input-container, .submit-box {
+  margin: auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-container{
+  top: -1.4rem;
+}
+
+.input-container:last-child{
+  margin-top: 10px;
+}
+
+.form button {
+  outline: none;
+  border: 2px solid #e5e7eb;
+  margin: 8px 0;
+  /* margin-bottom: -10px; */
+}
+
+.input-container input {
+  outline: none;
+  border: 2px solid #e5e7eb;
+  background-color: #fff;
+  padding: 1rem;
+  padding-right: 1rem;
+  font-size: 0.8rem;
+  line-height: 0.6rem;
+  width: 16.5rem;
+  border-radius: 0.8rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.input-container input:focus {
+  border: 2px solid black;
+  transition: all 0.2s ease-in-out;
+}
+
+.submit-box{
+  top: -1.2rem;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.submit {
+
+  display: block;
+  background-color: transparent;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  color: #ffffff;
+  background-color: var(--box-color);
+  font-size: 1rem;
+  /* line-height: 1rem; */
+  font-weight: 500;
+  width: 300px;
+  margin: 1rem;
+  margin-right: 3rem;
+  border-radius: 0.8rem;
+  /* text-transform: uppercase; */
+  transition: all 0.2s ease-in-out;
+}
+
+.forgotDiv{
+  text-align: right;
+  margin-right: 0.5rem;
+}
+
+.error{
+  position: relative;
+  text-align: center;
+  top: -1.4rem;
+  font-size: 1rem;
+  color:#ea4335;
+  opacity: 0%;
+}
+
+.forgot{
+  padding-left: 1px;
+  position: relative;
+  top: -1.8rem;
+  font-size: 0.85rem;
+  color: #ea4335;
+  cursor: pointer;
+  /* border: 1px solid red; */
+  /* visibility: hidden; */
+}
+
+.google{
+  position: relative;
+  top: -1rem;
+  color: #000;
+  background-color: #f0f0f0;
+  /* box-shadow: ; */
+}
+
+.submit:hover {
+  border: 2px solid black;
+  color: black;
+}
+
+.userType{
+  top: 1.1rem;
+  position: relative;
+  left: -17px;
+  right: 0px;
+  display: flex;
+  width: 343.5px;
+  justify-content: center;
+  /* border: #000 solid; */
+}
+
+.comm, .fac{
+  padding: 1rem;
+  text-align: center;
+  /* border: #000 solid; */
+  position: relative;
+  cursor: pointer;
+  width: 100%;
+  offset: 0px 4px;
+  box-shadow: rgba(0,0,0,0.25);
+}
+
+.comm{
+  padding-right: 1rem;
+  border-bottom-left-radius: 30px;
+  background-color: var(--box-color);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+  /* background-color: var(--accent-color); */
+}
+
+.fac{
+  padding-left: 1rem;
+  border-bottom-right-radius: 30px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+
+  /* background-color: var(--box-color); */
+  background-color: var(--accent-color);
+}
+
+.navbar {
   position: sticky;
   border-bottom: 1px solid black;
   width: 100%;
   /* margin-left: -50px; */
   display: flex;
   flex-direction: row-reverse;
-  height:40px;
+  height: 40px;
   z-index: 1;
 }
 
-.navba li{
+.navbar li {
   list-style: none;
   margin-right: 10px;
-  font-size: x-large;  
+  font-size: x-large;
 }
 
-.navba li a{
+.navbar li a {
   text-decoration: none;
   color: black;
   transition: all 0.2s ease-in-out;
 }
 
-.navba li a:hover{
+.navbar li a:hover {
   color: white;
+}
+
+.calendar{
+  width: 700px;
+  position: relative;
+  margin-left: 100px;
+  top: 4rem;
+  right: -20px;
 }
