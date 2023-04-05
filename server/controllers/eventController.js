@@ -21,7 +21,8 @@ const createEvent = async (req,res) => {
             startTime,
             endTime,
             venues,
-            status
+            status,
+            user: req.id
         })
 
         if(event) res.status(200).json(req.body)
@@ -37,7 +38,9 @@ const createEvent = async (req,res) => {
 const getAllEvents = async (req,res) => {
     
     try{
-        const response = await Event.find({})
+        const status = req.query.status
+        // console.log(req.query)
+        const response = Object.keys(req.query).length !== 0 ? await Event.find({status}):await Event.find({})
         
         res.status(200).json(response)
     }
@@ -61,6 +64,21 @@ const getEvent = async (req,res) => {
     }
     
     res.status(200).json(response)
+}
+
+// get event according to status
+const getEventsStatus = async(req,res) => {
+    const status = req.query.status
+
+    try{
+        const response = await Event.find({status})
+        
+        res.status(200).json(response)
+    }
+    catch(error)
+    {
+        return res.status(404).json({error})
+    }
 }
 
 // updating event
@@ -102,5 +120,6 @@ module.exports = {
     getAllEvents,
     getEvent,
     updateEvent,
-    deleteEvent
+    deleteEvent,
+    getEventsStatus
 }

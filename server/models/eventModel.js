@@ -18,13 +18,22 @@ const eventSchema = new mongoose.Schema({
         required: true
     },
     venues: {
-        type: [String],
-        required: true
+        type: [{
+            type: mongoose.SchemaTypes.ObjectId,
+            ref: 'Venue'
+        }],
+        // required: true
     },
     status: {
         type: String,
         required: true,
         default: 'pending'
+    },
+    user:{
+        type: {
+            type: mongoose.SchemaTypes.ObjectId,
+            ref: 'User'
+        }
     }
 })
 

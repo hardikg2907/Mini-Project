@@ -23,10 +23,13 @@ const userSchema = new mongoose.Schema({
         default: 'Write something about yourself here!'
     },
     displayPic: {
-        // type: String 
+        type: String
     },
     events: {
-        type: [String],
+        type: [{
+            type: mongoose.SchemaTypes.ObjectId,
+            ref: 'Event'
+        }],
         default : []
     }
 })

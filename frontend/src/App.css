@@ -11,8 +11,29 @@ body {
   -moz-box-sizing: border-box;
   background-color: var(--bg-color);
   font-family: var(--font);
-  scrollbar-width: thin;
-  scrollbar-gutter: stable;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 
 .home{
@@ -27,8 +48,9 @@ body {
   text-align: center;
   font-family: var(--font);
   color: #ffffff;
-  font-size: 3rem;
-  border: #000 solid;
+  font-size: 2rem;
+  font-weight: 700;
+  /* border: #000 solid; */
 }
 
 .form {
@@ -138,7 +160,8 @@ body {
   top: -1.4rem;
   font-size: 1rem;
   color:#ea4335;
-  opacity: 0%;
+  display: flex;
+  height: 20px;
 }
 
 .forgot{

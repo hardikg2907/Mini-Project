@@ -1,4 +1,7 @@
 export const Profile = () => {
 
-    return <div>Profile</div>
+    return <div>
+        <h2>Profile
+        </h2>
+    </div>
 }

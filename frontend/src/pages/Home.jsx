@@ -10,12 +10,12 @@ export const Home = () => {
     
     useEffect(()=>{
         const fetchData = async () => {
-            const response = await axios('/api/events')
+            const response = await axios.get('/api/events?status=pending')
             const data = response.data
             console.log(data);
 
             setEvents(data.map((element)=>{
-                return {
+                    return {
                     title: element.title,
                     startDate: element.startTime,
                     endDate: element.endTime,
@@ -23,7 +23,7 @@ export const Home = () => {
                 }
             }))
 
-            console.log(events)
+            // console.log(events)
             setIsFetched(true)
 
         }

@@ -3,6 +3,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const userRoutes = require('./routes/user')
 const eventRoutes = require('./routes/events')
+const venueRoutes = require('./routes/venues')
 // const cors = require('cors')
 
 const app = express();
@@ -12,6 +13,7 @@ app.use(express.json())
 
 app.use('/api',userRoutes)
 app.use('/api', eventRoutes)
+app.use('/api',venueRoutes)
 
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true })
     .then(() => {
