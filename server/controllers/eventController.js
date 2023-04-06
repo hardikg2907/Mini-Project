@@ -43,6 +43,7 @@ const getAllEvents = async (req,res) => {
         const response = Object.keys(req.query).length !== 0 ? await Event.find({status}):await Event.find({})
         
         res.status(200).json(response)
+
     }
     catch(error)
     {
