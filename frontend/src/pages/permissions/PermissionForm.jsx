@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from 'react-router-dom'
 import axios from "axios"
-// import Select from 'react-select'
+import Select from 'react-select'
+import { useAuthContext } from "../../context/AuthContext"
 
 export const PermissionForm = () => {
 
@@ -12,14 +13,22 @@ export const PermissionForm = () => {
     const [venues, setVenues] = useState([])
     const [displayVenues, setDisplayVenues] = useState([])
     const navigate = useNavigate()
+    const {user} = useAuthContext()
 
     useEffect(() => {
         const fetchData = async () => {
             const response = await axios.get('/api/venues')
             const data = response.data
 
-            // console.log(data)
-            setDisplayVenues(data)
+            console.log(data)
+
+            setDisplayVenues(data.map((e)=>{
+                return {
+                    value: e._id,
+                    label: e.name
+                }
+            }))
+
         }
         fetchData()
 
@@ -35,7 +44,9 @@ export const PermissionForm = () => {
                 title,
                 description,
                 startTime,
-                endTime
+                endTime,
+                venues,
+                email: user.email
             }),
             headers: {
                 'Content-Type': 'application/json'
@@ -46,15 +57,21 @@ export const PermissionForm = () => {
                 console.log(json)
             })
             .catch(error => console.log(error))
-        
+
         navigate('/permissions')
 
     }
 
-    const checked = (id) => {
-        if (venues.indexOf(id) == -1) setVenues([...venues, id])
-        else setVenues(venues.filter((e) => (e != id)))
+    // const checked = (id) => {
+    //     if (venues.indexOf(id) == -1) setVenues([...venues, id])
+    //     else setVenues(venues.filter((e) => (e != id)))
 
+    //     console.log(venues)
+    // }
+
+    const handleChange = (selectedVenues)=> {
+        // console.log(selected.Venues)
+        setVenues(selectedVenues.map((e)=> {return e.value}));
         console.log(venues)
     }
 
@@ -74,22 +91,14 @@ export const PermissionForm = () => {
             <input type="datetime-local" onChange={(e) => { setEndTime(e.currentTarget.value) }} required />
             <br />
             <label>Venues</label>
-            {/* <Select 
-    isMulti
-    name="colors"
-    options={displayVenues}
-    className="basic-multi-select"
-    classNamePrefix="select"/> */}
-            {/* {
-                displayVenues.map((venue) => {
-                    return (
-                        <div key={venue.name}>
-                            <input type='checkbox' id={venue.name} onChange={(e) => checked(e.currentTarget.id)} />
-                            <label>{venue.name}</label>
-                        </div>
-                    )
-                })
-            } */}
+            <Select
+                isMulti
+                name="colors"
+                options={displayVenues}
+                className="basic-multi-select venues-select"
+                classNamePrefix="select"
+                closeMenuOnSelect={false} 
+                onChange={handleChange}/>
             <br />
             <button type="submit" className="submit">Submit</button>
 

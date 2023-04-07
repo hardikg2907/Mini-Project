@@ -20,8 +20,7 @@ export default function App() {
                     <Route path="/" element={!user?<Home/>:<Navigate to='/permissions'/>}/>
                     <Route path='/profile' element={user?<Profile/>:<Navigate to='/'/>}/>
                     <Route path='/permissions' element={user?<Permission/>:<Navigate to='/'/>}/>
-                    {/* <Route path='/permissions/form' element={user?<PermissionForm/>:<Navigate to='/'/>}/> */}
-                    <Route path='/permissions/form' element={<PermissionForm/>} />
+                    <Route path='/permissions/form' element={user?<PermissionForm/>:<Navigate to='/'/>}/>
                 </Routes>
             </BrowserRouter>
         </main>

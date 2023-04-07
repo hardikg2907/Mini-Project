@@ -267,9 +267,13 @@ body {
 }
 
 .calendar {
-  width: 800px;
+  width: auto;
   position: relative;
   margin-left: 100px;
   top: 4rem;
   right: 30px;
+}
+
+.venues-select{
+  width: 400px;
 }

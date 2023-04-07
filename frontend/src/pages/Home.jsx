@@ -5,17 +5,17 @@ import axios from 'axios'
 
 export const Home = () => {
 
-    const [events,setEvents] = useState([]);
+    const [events, setEvents] = useState([]);
     const [isFetched, setIsFetched] = useState(false)
-    
-    useEffect(()=>{
+
+    useEffect(() => {
         const fetchData = async () => {
             const response = await axios.get('/api/events?status=pending')
             const data = response.data
-            console.log(data);
+            // console.log(data);
 
-            setEvents(data.map((element)=>{
-                    return {
+            setEvents(data.map((element) => {
+                return {
                     title: element.title,
                     startDate: element.startTime,
                     endDate: element.endTime,
@@ -28,19 +28,21 @@ export const Home = () => {
 
         }
         fetchData()
-    },[])
+    }, [])
 
-    return( 
-    <div>
-        <div className="header">Campus Connect</div>
-        <div className="home">
-            <div>
-                <Login/>
-            </div>
-            <div className="calendar">
-                {isFetched && <Calendar events={events}/>}
-            </div>
+    return (
+        <div>
+            <div className="header">Campus Connect</div>
+            {isFetched ?
+                <div className="home">
+                    <div>
+                        <Login />
+                    </div>
+                    <div className="calendar">
+                        {isFetched && <Calendar events={events} />}
+                    </div>
+                </div>
+                : <p>Loading...</p>}
         </div>
-    </div>
-);
+    );
 }

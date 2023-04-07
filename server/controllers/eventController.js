@@ -8,29 +8,32 @@
 // });
 
 const {Event} = require('../models/eventModel')
+const User = require('../models/userModel')
 const mongoose = require('mongoose')
 
 // create event
 const createEvent = async (req,res) => {
-    const {title, description, startTime, endTime, venues,status} = req.body;
+    const {title, description, startTime, endTime, venues,status, email} = req.body;
+    const user = await User.find({email})
+    console.log(JSON.stringify(user[0]._id))
 
     try{
-        const event = await Event.create({
+        const event = await new Event({
             title,
             description,
             startTime,
             endTime,
             venues,
-            status,
-            user: req.id
+            user: JSON.stringify(user[0]._id)
         })
+        console.log(event)
 
         if(event) res.status(200).json(req.body)
 
     }
     catch(error)
     {
-    return res.status(404).json({error})
+    return res.status(404).json({error: 'No valid details'})
     }
 }
 
