@@ -17,7 +17,7 @@ export const PermissionForm = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await axios.get('/api/venues')
+            const response = await axios(`/api/venues?startTime=${startTime}&endTime=${endTime}`)
             const data = response.data
 
             console.log(data)
@@ -61,13 +61,6 @@ export const PermissionForm = () => {
         navigate('/permissions')
 
     }
-
-    // const checked = (id) => {
-    //     if (venues.indexOf(id) == -1) setVenues([...venues, id])
-    //     else setVenues(venues.filter((e) => (e != id)))
-
-    //     console.log(venues)
-    // }
 
     const handleChange = (selectedVenues)=> {
         // console.log(selected.Venues)

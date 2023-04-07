@@ -18,9 +18,13 @@ const Login = () => {
     const submitForm = async (e) => {
         e.preventDefault();
 
-        if(await login(email,password))
-        navigate('/permissions')
+        if(await login(email,password)) {
+            changeColor="#f0f0f0";
+            navigate('/permissions')
+        }
     }
+    
+    // const [color, changeColor]=useState["#3DA6FC"];
 
     return (
         <form className="form" onSubmit={submitForm}>
@@ -40,7 +44,11 @@ const Login = () => {
 
             <div className="submit-box">
                 <div><button type="submit" className="submit" disabled={isLoading}>Log in</button></div>
-                <div style={{display: "flex", color:"#DCD8D8"}}><hr style={{border: "1px solid #DCD8D8", width: "125px", borderRadius: "3px", backgroundColor:"#DCD8D8", height: "2px"}}/>or<hr style={{border: "1px solid #DCD8D8", width: "125px", borderRadius: "3px", backgroundColor:"#DCD8D8", height: "2px"}}/></div>
+                <div style={{display: "flex", color:"#DCD8D8"}}>
+                    <hr style={{border: "1px solid #DCD8D8", width: "125px", borderRadius: "3px", backgroundColor:"#DCD8D8", height: "2px"}}/>
+                    or
+                    <hr style={{border: "1px solid #DCD8D8", width: "125px", borderRadius: "3px", backgroundColor:"#DCD8D8", height: "2px"}}/>
+                </div>
             </div>
             <div className="submit-box">
                 <button className="submit google" disabled={isLoading} onClick={signInWithGoogle}><i className="fa-brands fa-google fa-xl"></i>   Log in with Google</button>

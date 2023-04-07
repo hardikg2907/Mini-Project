@@ -2,7 +2,13 @@
   --bg-color: #3DA6FC;
   --box-color: #fdb120;
   --accent-color: #f0f0f0;
+  --table-color: #CBC9C9;
+  --table-title: #85878B;
+  --table-head: #F7EFEF;
   --font: 'Poppins';
+  --stat-accept:#1AC517;
+  --stat-reject: #EE1010;
+  --stat-pending: #eeb03d;
   /* --dark-bg-color: #150e60;  */
 }
 
@@ -239,11 +245,11 @@ body {
   background-color: var(--accent-color);
 }
 
-.navbar {
+/* .navbar {
   position: sticky;
   border-bottom: 1px solid black;
   width: 100%;
-  /* margin-left: -50px; */
+  margin-left: -50px;
   display: flex;
   flex-direction: row-reverse;
   height: 40px;
@@ -264,7 +270,7 @@ body {
 
 .navbar li a:hover {
   color: white;
-}
+} */
 
 .calendar {
   width: auto;
@@ -276,4 +282,233 @@ body {
 
 .venues-select{
   width: 400px;
+}
+
+.permission{
+  position: relative;
+  left: 8rem;
+  top: 0.6rem;
+}
+
+.permHeader{
+  position: relative;
+  background-color: var(--box-color);
+  width: 18rem;
+  height: 3rem;
+  text-align: center;
+  color: var(--accent-color);
+  border-radius: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#menuToggle
+{
+  display: block;
+  position: relative;
+  top: 50px;
+  left: 50px;
+  z-index: 1;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+#menuToggle a
+{
+  text-decoration: none;
+  color: var(--accent-color);
+  transition: color 0.3s ease;
+}
+
+#menuToggle a:hover
+{
+  color: var(--box-color);
+}
+
+#menuToggle input
+{
+  display: block;
+  width: 40px;
+  height: 32px;
+  position: absolute;
+  top: -7px;
+  left: -5px;
+  cursor: pointer;
+  opacity: 0; /* hide this */
+  z-index: 2; /* and place it over the hamburger */
+  -webkit-touch-callout: none;
+}
+/*
+ * Just a quick hamburger
+ */
+#menuToggle span
+{
+  display: block;
+  width: 33px;
+  height: 4px;
+  margin-bottom: 5px;
+  position: relative;
+  background: var(--accent-color);
+  border-radius: 3px;
+  z-index: 1;
+  transform-origin: 4px 0px;
+  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+              background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+              opacity 0.55s ease;
+}
+
+#menuToggle span:first-child
+{
+  transform-origin: 0% 0%;
+}
+
+#menuToggle span:nth-last-child(2)
+{
+  transform-origin: 0% 100%;
+}
+
+/* 
+ * Transform all the slices of hamburger
+ * into a crossmark.
+ */
+#menuToggle input:checked ~ span
+{
+  opacity: 1;
+  transform: rotate(45deg) translate(-2px, -1px);
+  background: var(--accent-color);
+}
+
+/*
+ * But let's hide the middle one.
+ */
+#menuToggle input:checked ~ span:nth-last-child(3)
+{
+  opacity: 0;
+  transform: rotate(0deg) scale(0.2, 0.2);
+}
+
+/*
+ * Ohyeah and the last one should go the other direction
+ */
+#menuToggle input:checked ~ span:nth-last-child(2)
+{
+  transform: rotate(-45deg) translate(0, -1px);
+}
+
+/*
+ * Make this absolute positioned
+ * at the top left of the screen
+ */
+#menu
+{
+  position: absolute;
+  width: 300px;
+  margin: -100px 0 0 -50px;
+  padding: 50px;
+  padding-top: 125px;
+  background: var(--bg-color);
+  list-style-type: none;
+  -webkit-font-smoothing: antialiased;
+  /* to stop flickering of text in safari */
+  transform-origin: 0% 0%;
+  transform: translate(-100%, 0);
+  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+}
+
+#menu li
+{
+  padding: 10px 0;
+  font-size: 22px;
+}
+
+/*
+ * And let's slide it in from the left
+ */
+#menuToggle input:checked ~ ul
+{
+  transform: none;
+}
+
+.table{
+  top: 1rem;
+  position: relative;
+  width: 62rem;
+  height: 20rem;
+  background-color: var(--table-color);
+  border-radius: 1rem;
+}
+
+.titles{
+  height: 2.2rem;
+  position: relative;
+  display: flex;
+  /* border: #000 solid; */
+  border-top-right-radius: 1rem;
+  border-top-left-radius: 1rem;
+  background-color: var(--table-title);
+}
+
+.tit{
+  cursor: pointer;
+  top: 0.6rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-bottom: 0.4rem;
+  margin-bottom: 1rem;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  width: max-content;
+  height: 0.8rem;
+  text-align: center;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.under{
+  border-bottom: 0.2rem solid var(--box-color);
+}
+
+.headings{
+  height: 1.8rem;
+  left: 1rem;
+  top: 1rem;
+  position: relative;
+  display: flex;
+  background-color: var(--table-head);
+  border-radius: 0.5rem;
+  width: 60rem;
+  z-index: 1;
+}
+
+.hehe{
+  padding-left: 0.2rem;
+  margin-left: 0.2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* border: #000 solid; */
+  width: 100%;
+}
+
+.table .content{
+  height: 2rem;
+  left: 1rem;
+  top: 1.2rem;
+  position: relative;
+  display: flex;
+  width: 60rem;
+  border-bottom: 0.1rem solid var(--table-title);
+}
+
+.content .status{
+  color: var(--stat-pending);
+}
+
+.content-container{
+  overflow: scroll;
+  height: 15rem;
+  overflow-x: hidden;
 }

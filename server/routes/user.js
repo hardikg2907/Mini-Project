@@ -1,5 +1,5 @@
 const express = require('express')
-const {signupUser, loginUser, changePassword, changeDetails} = require('../controllers/userController')
+const {signupUser, loginUser, changePassword, changeDetails,getUserEvents} = require('../controllers/userController')
 
 const router = express.Router();
 
@@ -10,6 +10,8 @@ router.post('/login', loginUser)
 router.post('/signup', signupUser)
 
 router.put('/updatePass', changePassword)
+
+router.get('/getUserEvents', getUserEvents)
 
 // router.patch('/update', changeDetails)
 

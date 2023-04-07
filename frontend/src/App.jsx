@@ -3,19 +3,19 @@ import { Home } from './pages/Home'
 import './App.css'
 // import { NavBar } from './components/NavBar'
 import { Profile } from './pages/profile/Profile'
-import { NavBar } from './components/NavBar'
+import { SideBar } from './components/SideBar'
 import {Permission} from './pages/permissions/Permission'
 import { useAuthContext } from './context/AuthContext'
 import { PermissionForm } from './pages/permissions/PermissionForm'
 
 export default function App() {
 
-    const {user} = useAuthContext()
+    const {user} = useAuthContext();
 
     return (
         <main className="container">
             <BrowserRouter>
-                    {user && <NavBar/>}
+                    {user && <SideBar/>}
                 <Routes>
                     <Route path="/" element={!user?<Home/>:<Navigate to='/permissions'/>}/>
                     <Route path='/profile' element={user?<Profile/>:<Navigate to='/'/>}/>

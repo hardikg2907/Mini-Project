@@ -30,10 +30,8 @@ const eventSchema = new mongoose.Schema({
         default: 'pending'
     },
     user:{
-        type: {
-            type: mongoose.SchemaTypes.ObjectId,
-            ref: 'User'
-        }
+        type:mongoose.SchemaTypes.ObjectId,
+        ref: 'User'
     }
 })
 

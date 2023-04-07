@@ -8,11 +8,11 @@ const userSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
-        unique: true,
+        // unique: true,
     },
     name: {
         type: String,
-        required: true
+        // required: true
     },
     password: {
         type: String,
@@ -25,13 +25,10 @@ const userSchema = new mongoose.Schema({
     displayPic: {
         type: String
     },
-    events: {
-        type: [{
-            type: mongoose.SchemaTypes.ObjectId,
-            ref: 'Event'
-        }],
-        default : []
-    }
+    events: [{
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: 'Event',
+    }]
 })
 
 //static signup method

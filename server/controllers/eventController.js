@@ -1,39 +1,42 @@
-// const Assignment = mongoose.model('Assignment', { dueDate: Date });
-// Assignment.findOne(function(err, doc) {
-//   doc.dueDate.setMonth(3);
-//   doc.save(callback); // THIS DOES NOT SAVE YOUR CHANGE
-
-//   doc.markModified('dueDate');
-//   doc.save(callback); // works
-// });
-
 const {Event} = require('../models/eventModel')
 const User = require('../models/userModel')
+const {addEvent} = require('./userController')
 const mongoose = require('mongoose')
+const {addBooking} = require('./venueController')
 
 // create event
 const createEvent = async (req,res) => {
     const {title, description, startTime, endTime, venues,status, email} = req.body;
-    const user = await User.find({email})
-    console.log(JSON.stringify(user[0]._id))
+    // console.log(email)
+    let user = await User.find({email})
+    // console.log(user[0]._id.valueOf())
+
 
     try{
-        const event = await new Event({
+        const event = await Event.create({
             title,
             description,
             startTime,
             endTime,
+            user: user[0]._id.toString(),
             venues,
-            user: JSON.stringify(user[0]._id)
         })
-        console.log(event)
+        // console.log('event created')
+ 
+        user = addEvent(event._id,user[0]._id.toString())
+        // console.log(user)
+        // console.log(venues)
+        
+        venues.forEach(async (venue)=>{ venue = venue.toString()
+            // console.log(venue)
+            await addBooking(event._id,venue,startTime,endTime)})
 
         if(event) res.status(200).json(req.body)
 
     }
     catch(error)
     {
-    return res.status(404).json({error: 'No valid details'})
+        return res.status(400).json({error})
     }
 }
 
@@ -50,7 +53,7 @@ const getAllEvents = async (req,res) => {
     }
     catch(error)
     {
-        return res.status(404).json({error})
+        return res.status(400).json({error})
     }
 }
 
@@ -64,26 +67,26 @@ const getEvent = async (req,res) => {
     const response = await Event.findById(_id);
 
     if(!response) {
-        return res.status(404).json({error: 'No such Event'})
+        return res.status(400).json({error: 'No such Event'})
     }
     
     res.status(200).json(response)
 }
 
 // get event according to status
-const getEventsStatus = async(req,res) => {
-    const status = req.query.status
+// const getEventsStatus = async(req,res) => {
+//     const status = req.query.status
 
-    try{
-        const response = await Event.find({status})
+//     try{
+//         const response = await Event.find({status})
         
-        res.status(200).json(response)
-    }
-    catch(error)
-    {
-        return res.status(404).json({error})
-    }
-}
+//         res.status(200).json(response)
+//     }
+//     catch(error)
+//     {
+//         return res.status(404).json({error})
+//     }
+// }
 
 // updating event
 const updateEvent = async (req,res) => {
@@ -97,7 +100,7 @@ const updateEvent = async (req,res) => {
     });
 
     if(!response) {
-        return res.status(404).json({error: 'No such Event'})
+        return res.status(400).json({error: 'No such Event'})
     }
     
     res.status(200).json(response)
@@ -108,12 +111,12 @@ const deleteEvent = async (req,res) => {
     const {_id} = req.params
 
     if(!mongoose.Types.ObjectId.isValid(_id)) {
-        return res.status(404).json({error: 'No such Event'})
+        return res.status(400).json({error: 'No such Event'})
     }
     const response = await Event.findByIdAndDelete(_id);
 
     if(!response) {
-        return res.status(404).json({error: 'No such Event'})
+        return res.status(400).json({error: 'No such Event'})
     }
     
     res.status(200).json(response)
@@ -125,5 +128,5 @@ module.exports = {
     getEvent,
     updateEvent,
     deleteEvent,
-    getEventsStatus
+    // getEventsStatus
 }
