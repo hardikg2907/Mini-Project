@@ -48,7 +48,7 @@ body {
   text-align: center;
   font-family: var(--font);
   color: #ffffff;
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: 700;
   /* border: #000 solid; */
 }
@@ -220,13 +220,16 @@ body {
   box-shadow: rgba(0, 0, 0, 0.25);
 }
 
+.yellow{
+  background-color: var(--box-color) !important;
+}
+
 .comm {
   padding-right: 1rem;
   border-bottom-left-radius: 30px;
-  background-color: var(--box-color);
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   border-left: 1px solid rgba(0, 0, 0, 0.1);
-  /* background-color: var(--accent-color); */
+  background-color: var(--accent-color);
 }
 
 .fac {
@@ -234,8 +237,6 @@ body {
   border-bottom-right-radius: 30px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   border-right: 1px solid rgba(0, 0, 0, 0.1);
-
-  /* background-color: var(--box-color); */
   background-color: var(--accent-color);
 }
 

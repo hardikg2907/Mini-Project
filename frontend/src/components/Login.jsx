@@ -22,6 +22,11 @@ const Login = () => {
         navigate('/permissions')
     }
 
+    const [chaddi, setChaddi]=useState('comm');
+    // const changeChaddi=()=>{
+    //     setChaddi()
+    // }
+
     return (
         <form className="form" onSubmit={submitForm}>
             <p className="form-title">Login</p>
@@ -40,14 +45,18 @@ const Login = () => {
 
             <div className="submit-box">
                 <div><button type="submit" className="submit" disabled={isLoading}>Log in</button></div>
-                <div style={{display: "flex", color:"#DCD8D8"}}><hr style={{border: "1px solid #DCD8D8", width: "125px", borderRadius: "3px", backgroundColor:"#DCD8D8", height: "2px"}}/>or<hr style={{border: "1px solid #DCD8D8", width: "125px", borderRadius: "3px", backgroundColor:"#DCD8D8", height: "2px"}}/></div>
+                <div style={{display: "flex", color:"#DCD8D8"}}>
+                    <hr style={{border: "1px solid #DCD8D8", width: "125px", borderRadius: "3px", backgroundColor:"#DCD8D8", height: "2px"}}/>
+                    or
+                    <hr style={{border: "1px solid #DCD8D8", width: "125px", borderRadius: "3px", backgroundColor:"#DCD8D8", height: "2px"}}/>
+                </div>
             </div>
             <div className="submit-box">
                 <button className="submit google" disabled={isLoading} onClick={signInWithGoogle}><i className="fa-brands fa-google fa-xl"></i>   Log in with Google</button>
             </div>
             <div className="userType">
-                <div className="comm">Committee</div>
-                <div className="fac">Faculty</div>
+                <btn className={chaddi=='comm'?'comm yellow':'comm'} onClick={()=>{setChaddi('comm')}}>Committee</btn>
+                <btn className={chaddi=='fac'?'fac yellow':'fac'} onClick={()=>{setChaddi('fac')}}>Faculty</btn>
             </div>
 
         </form>
