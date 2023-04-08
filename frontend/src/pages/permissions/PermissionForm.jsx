@@ -69,32 +69,43 @@ export const PermissionForm = () => {
     }
 
 
-    return <div>
-        <form onSubmit={handleSubmit}>
-            <label>Title</label>
-            <input type="text" onChange={(e) => { setTitle(e.currentTarget.value) }} required />
-            <br />
-            <label>Description</label>
-            <textarea style={{ width: "600px", height: "200px" }} onChange={(e) => { setDescription(e.currentTarget.value) }} required />
-            <br />
-            <label>Start Date(& Time)</label>
-            <input type="datetime-local" onChange={(e) => { setStartTime(e.currentTarget.value) }} required />
-            <br />
-            <label>End Date(& Time)</label>
-            <input type="datetime-local" onChange={(e) => { setEndTime(e.currentTarget.value) }} required />
-            <br />
-            <label>Venues</label>
-            <Select
-                isMulti
-                name="colors"
-                options={displayVenues}
-                className="basic-multi-select venues-select"
-                classNamePrefix="select"
-                closeMenuOnSelect={false} 
-                onChange={handleChange}/>
-            <br />
-            <button type="submit" className="submit">Submit</button>
-
-        </form>
-    </div>
+    return (
+        <div className="permForm">
+            <div className="permHeader"><h2>Permissions Form</h2></div>
+            <form className="mainForm" onSubmit={handleSubmit}>
+                <div className="form-container">
+                    <label>Title</label>
+                    <input type="text" onChange={(e) => { setTitle(e.currentTarget.value) }} required />
+                </div>
+                <div className="form-container">
+                    <label>Description</label>
+                    <textarea style={{height: "10rem" }} onChange={(e) => { setDescription(e.currentTarget.value) }} required />
+                </div>
+                <div className="dateTime">
+                    <div className="form-container fc1">
+                    <label>Start Date & Time</label>
+                    <input type="datetime-local" onChange={(e) => { setStartTime(e.currentTarget.value) }} required />
+                    </div>
+                    <div className="form-container fc2">
+                    <label>End Date & Time</label>
+                    <input type="datetime-local" onChange={(e) => { setEndTime(e.currentTarget.value) }} required />
+                    </div>
+                </div>
+                <div className="form-container">
+                    <label>Venues</label>
+                    <Select
+                        isMulti
+                        name="colors"
+                        options={displayVenues}
+                        className="basic-multi-select venues-select"
+                        classNamePrefix="select"
+                        closeMenuOnSelect={false} 
+                        onChange={handleChange}/>
+                </div>
+                <div className="submit-box">
+                    <button type="submit" className="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    );
 }
