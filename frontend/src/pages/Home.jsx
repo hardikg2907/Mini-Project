@@ -32,7 +32,7 @@ export const Home = () => {
 
     return (
         <div>
-            <div className="header">Campus Connect</div>
+            <div className="header">CampusConnect</div>
             {isFetched ?
                 <div className="home">
                     <div>

@@ -26,6 +26,11 @@ const Login = () => {
     
     // const [color, changeColor]=useState["#3DA6FC"];
 
+    const [chaddi, setChaddi]=useState('comm');
+    // const changeChaddi=()=>{
+    //     setChaddi()
+    // }
+
     return (
         <form className="form" onSubmit={submitForm}>
             <p className="form-title">Login</p>
@@ -54,8 +59,8 @@ const Login = () => {
                 <button className="submit google" disabled={isLoading} onClick={signInWithGoogle}><i className="fa-brands fa-google fa-xl"></i>   Log in with Google</button>
             </div>
             <div className="userType">
-                <div className="comm">Committee</div>
-                <div className="fac">Faculty</div>
+                <btn className={chaddi=='comm'?'comm yellow':'comm'} onClick={()=>{setChaddi('comm')}}>Committee</btn>
+                <btn className={chaddi=='fac'?'fac yellow':'fac'} onClick={()=>{setChaddi('fac')}}>Faculty</btn>
             </div>
 
         </form>
