@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 export const PermissionsTable = ({events}) => {
     const [status, setStatus]=useState('all');
     const navigate = useNavigate()
-    console.log(events);
+    // console.log(events);
 
     return(
         <div className="table">
@@ -27,7 +27,7 @@ export const PermissionsTable = ({events}) => {
                         <div className="hehe">CSI</div>
                         <div className="hehe">{event.title}</div>
                         <div className="hehe">{event.startTime}</div>
-                        <div className="hehe status">Pending</div>
+                        <div className="hehe status">{event.status}</div>
                     </div>)
                 })}
             </div>

@@ -13,7 +13,7 @@ export const Permission = () => {
     const {user} = useAuthContext()
 
     useEffect(()=>{
-        console.log(user.email)
+        // console.log(user.email)
         const fetchData = async () => {
             const response = await axios.get(`/api/getUserEvents?email=${user.email}`)
             const data = response.data[0].events
@@ -21,7 +21,7 @@ export const Permission = () => {
             
 
             setPendingEvents(data.map((element)=>{
-                if(element.status=='pending')
+                // if(element.status=='pending')
                 return {
                     title: element.title,
                     startDate: element.startTime,

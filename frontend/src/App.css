@@ -583,3 +583,7 @@ body {
 .fc2{
   margin-left: 1rem;
 }
+
+textarea{
+  resize: none;
+}
