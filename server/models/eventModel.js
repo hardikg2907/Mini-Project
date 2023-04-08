@@ -32,6 +32,9 @@ const eventSchema = new mongoose.Schema({
     user:{
         type:mongoose.SchemaTypes.ObjectId,
         ref: 'User'
+    },
+    comments: {
+        type: [String]
     }
 })
 

@@ -14,30 +14,21 @@ const getVenues = async (req, res) => {
         let response = await Venue.find({})
         let resp=[]
 
-        // resp = response.filter((e) => {
-        //     // let blocked = false
-        //     e.bookings.forEach(element => {
-        //         const range1 = moment.range(startTime,endTime)
-        //         const range2 = moment.range(element.startTime,element.endTime)
-        //         console.log(range1,range2)
-        //         // if(range1.overlaps(range2))
-        //         //     blocked = true
-        //         console.log(range1.overlaps(range2))
-        //         return !(range1.overlaps(range2))
-        //     })
-        // })
         response.forEach((e)=>{
-            e.bookings.forEach(element=>{
+            if(e.bookings.length>1){
+                e.bookings.forEach(element=>{
                 const range1 = moment.range(startTime,endTime)
                 const range2 = moment.range(element.startTime,element.endTime)
-                console.log(range1,range2)
-                console.log(range1.overlaps(range2))
+                // console.log(range1,range2)
+                // console.log(range1.overlaps(range2))
                 if(!(range1.overlaps(range2)) && resp.indexOf(e)==-1)
                 resp.push(e)
                 else if(range1.overlaps(range2))resp.pop(e)
             })
+            }
+            else resp.push(e)
         })
-        console.log(resp);
+        // console.log(resp);
         res.status(200).json(resp)
     }
     catch (error) {

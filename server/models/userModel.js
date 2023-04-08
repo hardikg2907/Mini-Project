@@ -28,7 +28,10 @@ const userSchema = new mongoose.Schema({
     events: [{
         type: mongoose.SchemaTypes.ObjectId,
         ref: 'Event',
-    }]
+    }],
+    type: {
+        type: String
+    }
 })
 
 //static signup method

@@ -11,15 +11,12 @@ const Login = () => {
 
     const handleGoogleAuth = async (e) => {
         e.preventDefault()
-
-
     }
     
     const submitForm = async (e) => {
         e.preventDefault();
 
         if(await login(email,password)) {
-            changeColor="#f0f0f0";
             navigate('/permissions')
         }
     }

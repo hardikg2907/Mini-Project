@@ -1,10 +1,11 @@
+import moment from 'moment'
+
 export const PendingPermissionCard = ({permission}) =>{
 
     return (
         <div>
             <h3>{permission.title}</h3>
-            <p>{Date(permission.startDate)}</p>
+            <p>{moment(permission.startDate).format('LL')}</p>
         </div>
-        
     )
 }

@@ -46,7 +46,9 @@ const getAllEvents = async (req,res) => {
     try{
         const status = req.query.status
         // console.log(req.query)
-        const response = Object.keys(req.query).length !== 0 ? await Event.find({status}):await Event.find({})
+        const response = Object.keys(req.query).length !== 0 ? await Event.find({status}).populate('user'):await Event.find({}).populate('user')
+        // console.log(response)
+        // const resp = response.map(e=>e.populate('user'))
         
         res.status(200).json(response)
 
