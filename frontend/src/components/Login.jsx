@@ -6,6 +6,7 @@ import { signInWithGoogle } from "../Firebase"
 const Login = () => {
     const [email,setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [type, setType] = useState('Committee')
     const navigate = useNavigate();
     const {login, isLoading, error} = useLogin()
 
@@ -16,7 +17,7 @@ const Login = () => {
     const submitForm = async (e) => {
         e.preventDefault();
 
-        if(await login(email,password)) {
+        if(await login(email,password,type)) {
             navigate('/permissions')
         }
     }
@@ -56,8 +57,8 @@ const Login = () => {
                 <button className="submit google" disabled={isLoading} onClick={signInWithGoogle}><i className="fa-brands fa-google fa-xl"></i>   Log in with Google</button>
             </div>
             <div className="userType">
-                <btn className={chaddi=='comm'?'comm yellow':'comm'} onClick={()=>{setChaddi('comm')}}>Committee</btn>
-                <btn className={chaddi=='fac'?'fac yellow':'fac'} onClick={()=>{setChaddi('fac')}}>Faculty</btn>
+                <btn className={chaddi=='comm'?'comm yellow':'comm'} onClick={()=>{setChaddi('comm'); setType('Committee')}}>Committee</btn>
+                <btn className={chaddi=='fac'?'fac yellow':'fac'} onClick={()=>{setChaddi('fac'); setType('Faculty')}}>Faculty</btn>
             </div>
 
         </form>
