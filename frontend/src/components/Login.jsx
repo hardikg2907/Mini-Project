@@ -52,8 +52,8 @@ const Login = () => {
                 <button className="submit google" disabled={isLoading} onClick={signInWithGoogle}><i className="fa-brands fa-google fa-xl"></i>   Log in with Google</button>
             </div>
             <div className="userType">
-                <btn className={type=='Committee'?'committee yellow':'committee'} onClick={()=>{setType('Committee')}}>Committee</btn>
-                <btn className={type=='Faculty'?'faculty yellow':'faculty'} onClick={()=>{setType('Faculty')}}>Faculty</btn>
+                <div className={type=='Committee'?'committee yellow':'committee'} onClick={()=>{setType('Committee')}}>Committee</div>
+                <div className={type=='Faculty'?'faculty yellow':'faculty'} onClick={()=>{setType('Faculty')}}>Faculty</div>
             </div>
 
         </form>

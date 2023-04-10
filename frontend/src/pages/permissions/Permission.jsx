@@ -39,7 +39,7 @@ export const Permission = () => {
                 // return <PendingPermissionCard key={event._id} permission={event} />
             }) : <p>Loading...</p>}
             <PermissionsTable events={userEvents}/>
-            <div className="permDiv"><Link to='/permissions/form' className="submit reqPermBtn">Request Permission</Link></div>
+            {user.type=='Committee' && <div className="permDiv"><Link to='/permissions/form' className="submit reqPermBtn">Request Permission</Link></div>}
             {showModal && <EventDetail />}
         </div>
     )

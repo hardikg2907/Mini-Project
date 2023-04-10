@@ -14,6 +14,9 @@ import {
   AllDayPanel,
   AppointmentTooltip
 } from '@devexpress/dx-react-scheduler-material-ui';
+// import { useEventContext } from '../context/EventContext';
+
+// const {allEvents} = useEventContext()
 
 const PREFIX = 'Demo';
 

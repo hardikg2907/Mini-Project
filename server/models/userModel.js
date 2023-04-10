@@ -39,7 +39,7 @@ const userSchema = new mongoose.Schema({
 })
 
 //static signup method
-userSchema.statics.signup = async function(email, password){
+userSchema.statics.signup = async function(email, password,type){
 
     // validation
     if(!email || !password) {
@@ -54,7 +54,8 @@ userSchema.statics.signup = async function(email, password){
 
     const user = await this.create({
         email,
-        password: hash
+        password: hash,
+        type
     })
 
     return user

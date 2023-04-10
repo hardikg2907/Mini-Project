@@ -29,7 +29,7 @@ const createEvent = async (req,res) => {
         
         venues.forEach(async (venue)=>{ venue = venue.toString()
             // console.log(venue)
-            await deleteBooking(event._id,venue,startTime,endTime)})
+            await addBooking(event._id,venue,startTime,endTime)})
 
         if(event) res.status(200).json(req.body)
 
@@ -82,6 +82,7 @@ const updateEvent = async (req,res) => {
     if(!mongoose.Types.ObjectId.isValid(_id)) {
         return res.status(404).json({error: 'No such Event'})
     }
+    // console.log(req.body)
     const response = await Event.findOneAndUpdate({_id},{
         ...req.body
     });
@@ -89,14 +90,14 @@ const updateEvent = async (req,res) => {
     if(!response) {
         return res.status(400).json({error: 'No such Event'})
     }
-    
+    // console.log(response)
     res.status(200).json(response)
 }
 
 // deleting event
 const deleteEvent = async (req,res) => {
     const {_id} = req.params
-    let user = await User.find({email})
+    // let user = await User.find({email})
 
     if(!mongoose.Types.ObjectId.isValid(_id)) {
         return res.status(400).json({error: 'No such Event'})
@@ -107,11 +108,11 @@ const deleteEvent = async (req,res) => {
         return res.status(400).json({error: 'No such Event'})
     }
 
-    user = removeEvent(_id,user[0]._id.toString())
+    // user = removeEvent(_id,user[0]._id.toString())
 
-    venues.forEach(async (venue)=>{ venue = venue.toString()
-        // console.log(venue)
-        await deleteBooking(_id,venue)})
+    // venues.forEach(async (venue)=>{ venue = venue.toString()
+    //     // console.log(venue)
+    //     await deleteBooking(_id,venue)})
 
     res.status(200).json(response)
 }

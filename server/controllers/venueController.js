@@ -9,13 +9,15 @@ const getVenues = async (req, res) => {
     // console.log(req.query)
     startTime = new Date(startTime).toISOString()
     endTime = new Date(endTime).toISOString()
+    // console.log(startTime,endTime)
 
     try {
         let response = await Venue.find({})
         let resp=[]
+        // console.log(response)
 
         response.forEach((e)=>{
-            if(e.bookings.length>1){
+            if(e.bookings.length>0){
                 e.bookings.forEach(element=>{
                 const range1 = moment.range(startTime,endTime)
                 const range2 = moment.range(element.startTime,element.endTime)

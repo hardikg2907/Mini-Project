@@ -36,7 +36,7 @@ export const PermissionsTable = ({events}) => {
                         <div className="hehe">CSI</div>
                         <div className="hehe">{event.title}</div>
                         <div className="hehe">{moment(event.startTime).format('LL')}</div>
-                        <div className="hehe status">{event.status}</div>
+                        <div className={`hehe status ${event.status}`}>{event.status}</div>
                     </div>)
                 })}
             </div>

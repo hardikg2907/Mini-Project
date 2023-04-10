@@ -10,6 +10,7 @@ const createToken = (_id) => {
 // login user
 const loginUser = async (req, res) => {
     const { email, password, type } = req.body
+    console.log(email,password)
 
     try {
         const user = await User.login(email, password, type)
@@ -26,10 +27,10 @@ const loginUser = async (req, res) => {
 
 // signup user
 const signupUser = async (req, res) => {
-    const { email, password } = req.body
+    const { email, password,type } = req.body
 
     try {
-        const user = await User.signup(email, password)
+        const user = await User.signup(email, password,type)
 
         const token = createToken(user._id)
 
@@ -71,7 +72,7 @@ const changePassword = async (req, res) => {
 const addEvent = async (eventId, userId) => {
     try {
         const user = await User.updateOne({ _id: userId }, { $push: { events: eventId } })
-        await User.updateOne({email: 'deepak@gandu.com'}, { $push: { permissions: eventId  } })
+        await User.updateOne({email: 'deepak@gmail.com'}, { $push: { permissions: eventId  } })
         // console.log('user created')
 
         return user

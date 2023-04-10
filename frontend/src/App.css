@@ -8,7 +8,7 @@
   --font: 'Poppins';
   --stat-accept:#1AC517;
   --stat-reject: #EE1010;
-  --stat-pending: #eeb03d;
+  --stat-pending: #ce9427;
   --transition: 0.3s ease-in-out all;
   /* --dark-bg-color: #150e60;  */
 }
@@ -530,6 +530,15 @@ body {
 
 .content .status{
   color: var(--stat-pending);
+  text-transform: capitalize;
+}
+
+.approved{
+  color: var(--stat-accept) !important;
+}
+
+.rejected{
+  color: var(--stat-reject) !important;
 }
 
 .content-container{
@@ -740,7 +749,7 @@ button {
   font-family: var(--font);
   font-weight: 500;
   font-size: 1.3rem;
-  margin-top: 0.4rem;
+  margin-top: 0.2rem;
   margin-bottom: 0.5rem;
 }
 

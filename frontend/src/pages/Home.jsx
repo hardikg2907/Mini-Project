@@ -10,7 +10,7 @@ export const Home = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await axios.get('/api/events?status=pending')
+            const response = await axios.get('/api/events?status=approved')
             const data = response.data
             // console.log(data);
 
@@ -32,6 +32,7 @@ export const Home = () => {
 
     return (
         <div>
+            <style>{'body { background-color: #3DA6FC; }'}</style>
             <div className="header">CampusConnect</div>
             {isFetched ?
                 <div className="home">
