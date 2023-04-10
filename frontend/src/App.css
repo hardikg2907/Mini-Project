@@ -158,6 +158,20 @@ body {
   transition: all 0.2s ease-in-out;
 }
 
+.permDiv{
+  display:flex;
+  justify-content: center;
+}
+
+.reqPermBtn{
+  text-align: center;
+  margin-left: 0;
+  margin-top: 2rem;
+  text-decoration: none;
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+
 .forgotDiv {
   text-align: right;
   margin-right: 0.5rem;
@@ -216,8 +230,8 @@ body {
   /* border: #000 solid; */
 }
 
-.comm,
-.fac {
+.committee,
+.faculty {
   padding: 1rem;
   text-align: center;
   /* border: #000 solid; */
@@ -232,7 +246,7 @@ body {
   background-color: var(--box-color) !important;
 }
 
-.comm {
+.committee {
   padding-right: 1rem;
   border-bottom-left-radius: 30px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
@@ -240,7 +254,7 @@ body {
   background-color: var(--accent-color);
 }
 
-.fac {
+.faculty {
   padding-left: 1rem;
   border-bottom-right-radius: 30px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
@@ -287,7 +301,7 @@ body {
   width: 49rem;
 }
 
-.permission{
+.pageHeader{
   position: relative;
   left: 9rem;
   margin-top: 1.5rem;
@@ -628,8 +642,14 @@ textarea{
   position: fixed;
   width: 50rem;
   z-index: 1040;
-  top: 4rem;
-  left: 20rem;
+  overflow: scroll;
+  overflow-x: hidden;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+  outline: none;
+  /* transform: translateX(-50%); */
   /* background-color: white;  */
   /* border: 1px solid rgba(0, 0, 0, 0.2); */
   /* border-radius: 3px; */
@@ -652,20 +672,24 @@ textarea{
 }
 
 .close-button {
-  font-size: 1.5rem;
+  position: relative;
+  font-size: 1.8rem;
   font-weight: 700;
   line-height: 1;
   color: #000;
   border: none;
-  background-color: white;
   opacity: 0.7;
   cursor: pointer;
+  left: 48.2rem;
 }
 
 button {
   cursor: pointer;
-  font-size: 1rem;
-  padding: 10px 12px;
+  font-size: 1.2rem;
+  font-family: var(--font);
+  padding: 0.4rem 0rem;
+  margin: 0rem 0.1rem;
+  width: 8rem;
   border-radius: 5px;
   border: none;
 }
@@ -677,11 +701,61 @@ button {
   gap: 8px;
 }
 
-.secondary-button {
+.resub-button {
   color: #fff;
   background-color: #6c757d;
+  /* background-color: var(--stat-pending); */
 }
-.primary-button {
+.approve-button {
   color: #fff;
-  background-color: #007bff;
+  /* background-color: #007bff; */
+  background-color: var(--stat-accept);
+}
+.reject-button {
+  color: #fff;
+  background-color: var(--stat-reject);
+}
+
+.eventDetail{
+  position: relative;
+  top: -1.5rem;
+  left: 1rem;
+  display: flex;
+  width: 47rem;
+  /* border: #000 solid; */
+  margin: 0rem;
+  padding: 0rem;
+}
+
+.eventDetail h2{
+  margin: 0rem;
+  /* padding-top: 0.7rem; */
+}
+
+.eventDetail p{
+  /* border: #000 solid; */
+  /* margin: 0; */
+  /* padding: 0; */
+  margin-left: 0.5rem;
+  font-family: var(--font);
+  font-weight: 500;
+  font-size: 1.3rem;
+  margin-top: 0.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.commName{
+  margin: 0rem;
+  padding: 0rem;
+  text-align: center;
+  width: 100%;
+}
+
+.permCard {
+  border: #000 solid;
+  margin-top: 1rem;
+  margin-right: 1rem;
+  background-color: var(--table-color);
+  width: 10rem;
+  /* height: 5rem; */
 }

@@ -33,6 +33,11 @@ export const SideBar = () => {
                         </Link>
                     </li>
                     <li>
+                        <Link to='/events'>
+                            <h2>All Events</h2>
+                        </Link>
+                    </li>
+                    <li>
                         <Link to='/permissions'>
                             <h2>Permissions</h2>
                         </Link>

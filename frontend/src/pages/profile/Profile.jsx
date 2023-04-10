@@ -1,7 +1,8 @@
 export const Profile = () => {
 
-    return <div>
-        <h2>Profile
-        </h2>
-    </div>
+    return (
+        <div className='pageHeader'>
+            <div className='permHeader'><h2>Profile</h2></div>
+        </div>
+    );
 }

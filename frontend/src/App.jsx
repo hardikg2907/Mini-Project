@@ -7,6 +7,7 @@ import { SideBar } from './components/SideBar'
 import {Permission} from './pages/permissions/Permission'
 import { useAuthContext } from './context/AuthContext'
 import { PermissionForm } from './pages/permissions/PermissionForm'
+import AllEvents from './pages/AllEvents'
 
 export default function App() {
 
@@ -21,6 +22,7 @@ export default function App() {
                     <Route path='/profile' element={user?<Profile/>:<Navigate to='/'/>}/>
                     <Route path='/permissions' element={user?<Permission/>:<Navigate to='/'/>}/>
                     <Route path='/permissions/form' element={user?<PermissionForm/>:<Navigate to='/'/>}/>
+                    <Route path='/events' element={user?<AllEvents/>:<Navigate to='/'/>}/>
                 </Routes>
             </BrowserRouter>
         </main>

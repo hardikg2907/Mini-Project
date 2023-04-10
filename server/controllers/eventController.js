@@ -1,8 +1,8 @@
 const {Event} = require('../models/eventModel')
 const User = require('../models/userModel')
-const {addEvent} = require('./userController')
+const {addEvent, removeEvent} = require('./userController')
 const mongoose = require('mongoose')
-const {addBooking} = require('./venueController')
+const {addBooking, deleteBooking} = require('./venueController')
 
 // create event
 const createEvent = async (req,res) => {
@@ -29,7 +29,7 @@ const createEvent = async (req,res) => {
         
         venues.forEach(async (venue)=>{ venue = venue.toString()
             // console.log(venue)
-            await addBooking(event._id,venue,startTime,endTime)})
+            await deleteBooking(event._id,venue,startTime,endTime)})
 
         if(event) res.status(200).json(req.body)
 
@@ -75,21 +75,6 @@ const getEvent = async (req,res) => {
     res.status(200).json(response)
 }
 
-// get event according to status
-// const getEventsStatus = async(req,res) => {
-//     const status = req.query.status
-
-//     try{
-//         const response = await Event.find({status})
-        
-//         res.status(200).json(response)
-//     }
-//     catch(error)
-//     {
-//         return res.status(404).json({error})
-//     }
-// }
-
 // updating event
 const updateEvent = async (req,res) => {
     const {_id} = req.params
@@ -111,16 +96,23 @@ const updateEvent = async (req,res) => {
 // deleting event
 const deleteEvent = async (req,res) => {
     const {_id} = req.params
+    let user = await User.find({email})
 
     if(!mongoose.Types.ObjectId.isValid(_id)) {
         return res.status(400).json({error: 'No such Event'})
     }
+    const venues = await Event.findById(_id).venues;
     const response = await Event.findByIdAndDelete(_id);
-
     if(!response) {
         return res.status(400).json({error: 'No such Event'})
     }
-    
+
+    user = removeEvent(_id,user[0]._id.toString())
+
+    venues.forEach(async (venue)=>{ venue = venue.toString()
+        // console.log(venue)
+        await deleteBooking(_id,venue)})
+
     res.status(200).json(response)
 }
 

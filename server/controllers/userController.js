@@ -9,14 +9,14 @@ const createToken = (_id) => {
 
 // login user
 const loginUser = async (req, res) => {
-    const { email, password,type } = req.body
+    const { email, password, type } = req.body
 
     try {
-        const user = await User.login(email, password,type)
+        const user = await User.login(email, password, type)
 
         const token = createToken(user._id)
 
-        res.status(200).json({ email, token })
+        res.status(200).json({ email, token, type})
     }
     catch (error) {
         return res.status(400).json({ error: error.message })
@@ -71,6 +71,7 @@ const changePassword = async (req, res) => {
 const addEvent = async (eventId, userId) => {
     try {
         const user = await User.updateOne({ _id: userId }, { $push: { events: eventId } })
+        await User.updateOne({email: 'deepak@gandu.com'}, { $push: { permissions: eventId  } })
         // console.log('user created')
 
         return user
@@ -81,10 +82,12 @@ const addEvent = async (eventId, userId) => {
 }
 
 const getUserEvents = async (req, res) => {
-    const { email } = req.query
+    const { email,type } = req.query
     // console.log(email)
+    const events = type=='Committee' ? 'events' : 'permissions'
     try {
-        const response = await User.find({ email }).populate('events')
+        const response = await User.find({ email }).populate({path:`${events}`,
+    populate: {path: 'venues user'}})
         // console.log(response)
 
         res.status(200).json(response)
@@ -94,11 +97,25 @@ const getUserEvents = async (req, res) => {
     }
 }
 
+const removeEvent = async (eventId, userId) => {
+    try {
+        const user = await User.updateOne({ _id: userId }, { $pull: { events: eventId } })
+        await User.updateOne({email: 'deepak@gandu.com'}, { $pull: { permissions: eventId  } })
+        // console.log('user created')
+
+        return user
+    }
+    catch (error) {
+        return json({ error: error })
+    }
+}
+
 module.exports = {
     loginUser,
     signupUser,
     changePassword,
     changeDetails,
     addEvent,
-    getUserEvents
+    getUserEvents,
+    removeEvent
 }

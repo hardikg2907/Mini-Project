@@ -29,6 +29,10 @@ const userSchema = new mongoose.Schema({
         type: mongoose.SchemaTypes.ObjectId,
         ref: 'Event',
     }],
+    permissions: [{
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: 'Event'
+    }],
     type: {
         type: String
     }

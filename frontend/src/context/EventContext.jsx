@@ -7,7 +7,7 @@ export const EventContext = createContext()
 export const EventContextProvider = ({ children }) => {
 
     const [allEvents, setAllEvents] = useState([])
-    const [userEvents, setUserEvents] = useState([])
+    // const [userEvents, setUserEvents] = useState([])
     const [isFetched, setIsFetched] = useState(false)
     const [showModal, setShowModal] = useState(false)
     const [selectedEvent,setSelectedEvent] = useState(null)
@@ -29,7 +29,7 @@ export const EventContextProvider = ({ children }) => {
         fetchData()
     },[])
 
-    return (<EventContext.Provider value={{allEvents,userEvents,isFetched,showModal,setShowModal, setUserEvents,selectedEvent,setSelectedEvent}}>
+    return (<EventContext.Provider value={{allEvents,isFetched,showModal,setShowModal,selectedEvent,setSelectedEvent}}>
         {children}
     </EventContext.Provider>)
 }

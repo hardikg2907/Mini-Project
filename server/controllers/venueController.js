@@ -48,4 +48,17 @@ const addBooking = async (eventId, venueId, startTime, endTime) => {
         throw error
     }
 }
-module.exports = { getVenues, addBooking }
+
+const deleteBooking = async (eventId, venueId) => {
+    try {
+        const response = await Venue.updateOne({ _id: venueId }, { $pull: { bookings: { event: eventId } } })
+
+        return response
+
+        // return json(response)    
+    }
+    catch (error) {
+        throw error
+    }
+}
+module.exports = { getVenues, addBooking, deleteBooking }
