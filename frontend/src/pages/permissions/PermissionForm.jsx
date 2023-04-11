@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import axios from "axios"
 import Select from 'react-select'
 import { useAuthContext } from "../../context/AuthContext"
+import moment from 'moment'
 
 export const PermissionForm = () => {
 
@@ -17,6 +18,7 @@ export const PermissionForm = () => {
 
     useEffect(() => {
         const fetchData = async () => {
+            if(startTime<=endTime) return;
             const response = await axios(`/api/venues?startTime=${startTime}&endTime=${endTime}`)
             const data = response.data
 
@@ -84,7 +86,7 @@ export const PermissionForm = () => {
                 <div className="dateTime">
                     <div className="form-container fc1">
                     <label>Start Date & Time</label>
-                    <input type="datetime-local" onChange={(e) => { setStartTime(e.currentTarget.value) }} required />
+                    <input type="datetime-local" onChange={(e) => { setStartTime(e.currentTarget.value); }} required />
                     </div>
                     <div className="form-container fc2">
                     <label>End Date & Time</label>
