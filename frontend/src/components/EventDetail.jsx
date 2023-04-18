@@ -4,7 +4,8 @@ import Modal from "react-overlays/Modal";
 import { useAuthContext } from '../context/AuthContext';
 import moment from 'moment';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,Link,Routes, Route } from 'react-router-dom';
+import { PermissionForm } from '../pages/permissions/PermissionForm';
 
 export const EventDetail = () => {
 
@@ -65,9 +66,9 @@ export const EventDetail = () => {
                             <button className="reject-button" onClick={handleClose}>
                                 Delete
                             </button>
-                            <button className="approve-button" onClick={handleClose}>
-                                Edit
-                            </button>
+                                <Link to={{pathname:`/edit/${selectedEvent._id}`}}>
+                                    <button className="approve-button">Edit</button>
+                                </Link>
                         </div>
                     }
                 </div>

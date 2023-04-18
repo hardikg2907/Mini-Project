@@ -22,7 +22,7 @@ export const Permission = () => {
             const data = user.type=='Committee'? response.data[0].events: response.data[0].permissions
             setUserEvents(data)
 
-            console.log(userEvents)
+            // console.log(userEvents)
             setIsFetched(true)
 
         }

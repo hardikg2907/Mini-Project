@@ -35,6 +35,9 @@ const userSchema = new mongoose.Schema({
     }],
     type: {
         type: String
+    },
+    phone: {
+        type: Number
     }
 })
 

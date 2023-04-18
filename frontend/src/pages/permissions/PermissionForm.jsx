@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react"
-import { useNavigate } from 'react-router-dom'
+import { useNavigate} from 'react-router-dom'
 import axios from "axios"
 import Select from 'react-select'
 import { useAuthContext } from "../../context/AuthContext"
-import moment from 'moment'
+import { useEventContext } from "../../context/EventContext"
+
 
 export const PermissionForm = () => {
 
@@ -11,14 +12,16 @@ export const PermissionForm = () => {
     const [description, setDescription] = useState('')
     const [startTime, setStartTime] = useState(new Date())
     const [endTime, setEndTime] = useState(new Date())
-    const [venues, setVenues] = useState([])
     const [displayVenues, setDisplayVenues] = useState([])
     const navigate = useNavigate()
     const {user} = useAuthContext()
+    const {venues,handleChange} = useEventContext()
+
 
     useEffect(() => {
+
         const fetchData = async () => {
-            if(startTime<=endTime) return;
+            if(startTime>endTime) return;
             const response = await axios(`/api/venues?startTime=${startTime}&endTime=${endTime}`)
             const data = response.data
 
@@ -35,6 +38,7 @@ export const PermissionForm = () => {
         fetchData()
 
     }, [startTime, endTime])
+
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -64,12 +68,6 @@ export const PermissionForm = () => {
 
     }
 
-    const handleChange = (selectedVenues)=> {
-        // console.log(selected.Venues)
-        setVenues(selectedVenues.map((e)=> {return e.value}));
-        console.log(venues)
-    }
-
 
     return (
         <div className="permForm">
@@ -77,7 +75,7 @@ export const PermissionForm = () => {
             <form className="mainForm" onSubmit={handleSubmit}>
                 <div className="form-container">
                     <label>Title</label>
-                    <input type="text" onChange={(e) => { setTitle(e.currentTarget.value) }} required />
+                    <input type="text" onChange={(e) => { setTitle(e.currentTarget.value) }} required/>
                 </div>
                 <div className="form-container">
                     <label>Description</label>
@@ -86,11 +84,11 @@ export const PermissionForm = () => {
                 <div className="dateTime">
                     <div className="form-container fc1">
                     <label>Start Date & Time</label>
-                    <input type="datetime-local" onChange={(e) => { setStartTime(e.currentTarget.value); }} required />
+                    <input type="datetime-local" onChange={(e) => { setStartTime(e.currentTarget.value); }} required/>
                     </div>
                     <div className="form-container fc2">
                     <label>End Date & Time</label>
-                    <input type="datetime-local" onChange={(e) => { setEndTime(e.currentTarget.value) }} required />
+                    <input type="datetime-local" onChange={(e) => { setEndTime(e.currentTarget.value) }} required/>
                     </div>
                 </div>
                 <div className="form-container">

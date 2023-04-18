@@ -10,7 +10,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@chakra-ui/react": "^2.5.4",
     "@devexpress/dx-react-core": "^4.0.3",
     "@devexpress/dx-react-scheduler": "^4.0.3",
     "@devexpress/dx-react-scheduler-material-ui": "^4.0.3",

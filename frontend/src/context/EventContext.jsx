@@ -11,16 +11,16 @@ export const EventContextProvider = ({ children }) => {
     const [isFetched, setIsFetched] = useState(false)
     const [showModal, setShowModal] = useState(false)
     const [selectedEvent,setSelectedEvent] = useState(null)
+    const [venues,setVenues] = useState([])
     const {user} = useAuthContext()
 
     useEffect(()=>{
         // console.log(user.email)
         const fetchData = async () => {
             let response = await axios.get('/api/events')
-            console.log(response.data)
+            // console.log(response.data)
             setAllEvents(response.data)
-            console.log(allEvents)
-            
+            // console.log(allEvents)
             
             setIsFetched(true)
 
@@ -29,7 +29,13 @@ export const EventContextProvider = ({ children }) => {
         fetchData()
     },[])
 
-    return (<EventContext.Provider value={{allEvents,isFetched,showModal,setShowModal,selectedEvent,setSelectedEvent}}>
+    const handleChange = (selectedVenues)=> {
+        // console.log(selected.Venues)
+        setVenues(selectedVenues.map((e)=> {return e.value}));
+        console.log(venues)
+    }
+
+    return (<EventContext.Provider value={{allEvents,isFetched,showModal,setShowModal,selectedEvent,setSelectedEvent,handleChange}}>
         {children}
     </EventContext.Provider>)
 }
