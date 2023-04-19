@@ -24,7 +24,7 @@ export default function App() {
                     <Route path='/permissions' element={user?<Permission/>:<Navigate to='/'/>}/>
                     <Route path='/permissions/form' element={user?<PermissionForm/>:<Navigate to='/'/>}/>
                     <Route path='/events' element={user?<AllEvents/>:<Navigate to='/'/>}/>
-                    <Route path='/edit/:id' element={<EditForm/>}></Route>
+                    <Route path='/edit/:id' element={<EditForm/>}/>
                 </Routes>
             </BrowserRouter>
         </main>

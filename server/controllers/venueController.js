@@ -6,10 +6,10 @@ const moment = MomentRange.extendMoment(Moment);
 
 const getVenues = async (req, res) => {
     let { startTime, endTime } = req.query
-    // console.log(req.query)
-    startTime = new Date(startTime).toISOString()
-    endTime = new Date(endTime).toISOString()
-    // console.log(startTime,endTime)
+    console.log(req.query)
+    startTime = new Date(parseInt(startTime))
+    endTime = new Date(parseInt(endTime))
+    console.log(startTime,endTime)
 
     try {
         let response = await Venue.find({})
@@ -20,7 +20,7 @@ const getVenues = async (req, res) => {
             if(e.bookings.length>0){
                 e.bookings.forEach(element=>{
                 const range1 = moment.range(startTime,endTime)
-                const range2 = moment.range(element.startTime,element.endTime)
+                const range2 = moment.range(new Date(element.startTime),new Date(element.endTime))
                 // console.log(range1,range2)
                 // console.log(range1.overlaps(range2))
                 if(!(range1.overlaps(range2)) && resp.indexOf(e)==-1)

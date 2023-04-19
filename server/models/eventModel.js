@@ -29,6 +29,16 @@ const eventSchema = new mongoose.Schema({
         required: true,
         default: 'pending'
     },
+    statusBar: [{
+        authority: {
+            type: mongoose.SchemaTypes.ObjectId,
+            ref: 'User'
+        },
+        status: {
+            type: String,
+            default: 'pending'
+        }
+    }],
     user:{
         type:mongoose.SchemaTypes.ObjectId,
         ref: 'User'

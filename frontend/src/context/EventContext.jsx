@@ -35,7 +35,7 @@ export const EventContextProvider = ({ children }) => {
         console.log(venues)
     }
 
-    return (<EventContext.Provider value={{allEvents,isFetched,showModal,setShowModal,selectedEvent,setSelectedEvent,handleChange}}>
+    return (<EventContext.Provider value={{allEvents,isFetched,showModal,setShowModal,selectedEvent,setSelectedEvent,handleChange,venues,setVenues}}>
         {children}
     </EventContext.Provider>)
 }

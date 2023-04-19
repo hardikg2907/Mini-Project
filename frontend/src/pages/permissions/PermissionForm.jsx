@@ -22,7 +22,7 @@ export const PermissionForm = () => {
 
         const fetchData = async () => {
             if(startTime>endTime) return;
-            const response = await axios(`/api/venues?startTime=${startTime}&endTime=${endTime}`)
+            const response = await axios(`/api/venues?startTime=${new Date(startTime).getTime()}&endTime=${new Date(endTime).getTime()}`)
             const data = response.data
 
             console.log(data)
@@ -42,6 +42,7 @@ export const PermissionForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+        console.log(venues)
 
         const response = await fetch(
             '/api/events', {

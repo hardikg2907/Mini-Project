@@ -1,12 +1,13 @@
 import axios from "axios"
-import { useState,useEffect } from "react"
-import { useParams,useNavigate } from "react-router-dom"
+import { useState, useEffect } from "react"
+import { useParams, useNavigate } from "react-router-dom"
 import { useEventContext } from "../context/EventContext"
 import { useAuthContext } from "../context/AuthContext"
 import Select from "react-select"
-import moment from "moment"
+// import moment from "moment"
+import * as moment from "moment-timezone"
 
-const EditForm = () =>{
+const EditForm = () => {
 
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
@@ -14,11 +15,11 @@ const EditForm = () =>{
     const [endTime, setEndTime] = useState(new Date())
     const [displayVenues, setDisplayVenues] = useState([])
     const navigate = useNavigate()
-    const {user} = useAuthContext()
-    const {selectedEvent, setSelectedEvent,handleChange,venues} = useEventContext()
-    const {id} = useParams()
+    const { user } = useAuthContext()
+    const { selectedEvent, setSelectedEvent, handleChange, venues } = useEventContext()
+    const { id } = useParams()
 
-    useEffect(()=>{
+    useEffect(() => {
         const fetchSelectedEvent = async () => {
             console.log(id)
 
@@ -30,9 +31,10 @@ const EditForm = () =>{
 
             setTitle(data.title)
             setDescription(data.description)
-            setStartTime(new Date(data.startTime).getTime())
-            console.log(startTime)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
-            setEndTime(new Date(data.endTime).toISOString().replace('Z',''))
+            setStartTime(moment.tz(data.startTime, "Asia/Kolkata").format().slice(0,-6))
+            // console.log(moment.tz(data.startTime, "Asia/Kolkata").format().slice(0,-6))
+            // console.log(new Date(data.startTime).toLocaleString("en-GB", {timeZone: "Asia/Kolkata"}))
+            setEndTime(moment.tz(data.endTime, "Asia/Kolkata").format().slice(0,-6))
         }
         fetchSelectedEvent()
     }, [])
@@ -40,14 +42,14 @@ const EditForm = () =>{
     useEffect(() => {
 
         const fetchData = async () => {
-            if(startTime>endTime) return;
+            if (startTime > endTime) return;
             console.log(startTime)
-            const response = await axios(`/api/venues?startTime=${startTime}&endTime=${endTime}`)
+            const response = await axios(`/api/venues?startTime=${new Date(startTime).getTime()}&endTime=${new Date(endTime).getTime()}`)
             const data = response.data
 
             console.log(data)
 
-            setDisplayVenues(data.map((e)=>{
+            setDisplayVenues(data.map((e) => {
                 return {
                     value: e._id,
                     label: e.name
@@ -64,7 +66,7 @@ const EditForm = () =>{
 
         const response = await fetch(
             '/api/events', {
-            method: 'POST',
+            method: 'PATCH',
             body: JSON.stringify({
                 title,
                 description,
@@ -93,20 +95,20 @@ const EditForm = () =>{
             <form className="mainForm" onSubmit={handleSubmit}>
                 <div className="form-container">
                     <label>Title</label>
-                    <input type="text" onChange={(e) => { setTitle(e.currentTarget.value) }} required value={title}/>
+                    <input type="text" onChange={(e) => { setTitle(e.currentTarget.value) }} required value={title} />
                 </div>
                 <div className="form-container">
                     <label>Description</label>
-                    <textarea style={{height: "10rem" }} onChange={(e) => { setDescription(e.currentTarget.value) }} required value={description} />
+                    <textarea style={{ height: "10rem" }} onChange={(e) => { setDescription(e.currentTarget.value) }} required value={description} />
                 </div>
                 <div className="dateTime">
                     <div className="form-container fc1">
-                    <label>Start Date & Time</label>
-                    <input type="datetime-local" onChange={(e) => { setStartTime(e.currentTarget.value); }} required value={startTime} />
+                        <label>Start Date & Time</label>
+                        <input type="datetime-local" onChange={(e) => { setStartTime(e.currentTarget.value); }} required value={startTime} />
                     </div>
                     <div className="form-container fc2">
-                    <label>End Date & Time</label>
-                    <input type="datetime-local" onChange={(e) => { setEndTime(e.currentTarget.value) }} required value={endTime}/>
+                        <label>End Date & Time</label>
+                        <input type="datetime-local" onChange={(e) => { setEndTime(e.currentTarget.value) }} required value={endTime} />
                     </div>
                 </div>
                 <div className="form-container">
@@ -117,9 +119,9 @@ const EditForm = () =>{
                         options={displayVenues}
                         className="basic-multi-select venues-select"
                         classNamePrefix="select"
-                        closeMenuOnSelect={false} 
+                        closeMenuOnSelect={false}
                         onChange={handleChange}
-                        defaultValue={selectedEvent.venues.map((venue)=>venue.name)}/>
+                        defaultValue={selectedEvent?.venues.map((venue) => venue.name)} />
                 </div>
                 <div className="submit-box">
                     <button type="submit" className="submit">Submit</button>

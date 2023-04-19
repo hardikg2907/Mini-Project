@@ -8,7 +8,8 @@ const {addBooking, deleteBooking} = require('./venueController')
 const createEvent = async (req,res) => {
     const {title, description, startTime, endTime, venues,status, email} = req.body;
     // console.log(email)
-    let user = await User.find({email})
+    let user = await User.find({email}).populate('facultyMentor')
+    console.log(...user)
     // console.log(user[0]._id.valueOf())
 
 
@@ -23,7 +24,7 @@ const createEvent = async (req,res) => {
         })
         // console.log('event created')
  
-        user = addEvent(event._id,user[0]._id.toString())
+        user = await addEvent(event._id,user[0]._id.toString(),user[0].facultyMentor._id)
         // console.log(user)
         // console.log(venues)
         
@@ -103,6 +104,7 @@ const deleteEvent = async (req,res) => {
         return res.status(400).json({error: 'No such Event'})
     }
     const venues = await Event.findById(_id).venues;
+    console.log(venues)
     const response = await Event.findByIdAndDelete(_id);
     if(!response) {
         return res.status(400).json({error: 'No such Event'})
@@ -115,6 +117,14 @@ const deleteEvent = async (req,res) => {
     //     await deleteBooking(_id,venue)})
 
     res.status(200).json(response)
+}
+
+const populatePermissions = async ()=> {
+
+}
+
+const changeStatusBar = async (req,res) => {
+
 }
 
 module.exports = {

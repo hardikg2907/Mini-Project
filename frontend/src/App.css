@@ -328,7 +328,7 @@ body {
   position: fixed;
   top: 2rem;
   left: 2rem;
-  z-index: 1;
+  z-index: 2;
   -webkit-user-select: none;
   user-select: none;
 }
@@ -500,7 +500,7 @@ body {
   background-color: var(--table-head);
   border-radius: 0.5rem;
   width: 60rem;
-  /* z-index: 1; */
+  z-index: 1;
 }
 
 .hehe{

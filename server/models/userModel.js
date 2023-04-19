@@ -38,6 +38,10 @@ const userSchema = new mongoose.Schema({
     },
     phone: {
         type: Number
+    },
+    facultyMentor: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: 'User'
     }
 })
 
