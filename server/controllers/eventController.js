@@ -67,7 +67,7 @@ const getEvent = async (req,res) => {
     if(!mongoose.Types.ObjectId.isValid(_id)) {
         return res.status(404).json({error: 'No such Event'})
     }
-    const response = await Event.findById(_id);
+    const response = await Event.findById(_id).populate('venues');
 
     if(!response) {
         return res.status(400).json({error: 'No such Event'})

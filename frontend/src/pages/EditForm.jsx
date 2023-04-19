@@ -24,7 +24,7 @@ const EditForm = () => {
             console.log(id)
 
             const response = await axios(`/api/event/${id}`)
-            console.log(response)
+            // console.log(response)
             const data = response.data
             setSelectedEvent(data)
             console.log(selectedEvent)
@@ -35,6 +35,13 @@ const EditForm = () => {
             // console.log(moment.tz(data.startTime, "Asia/Kolkata").format().slice(0,-6))
             // console.log(new Date(data.startTime).toLocaleString("en-GB", {timeZone: "Asia/Kolkata"}))
             setEndTime(moment.tz(data.endTime, "Asia/Kolkata").format().slice(0,-6))
+            // setDisplayVenues(data.venues.map((e)=>{
+            //     return {
+            //         value: e._id,
+            //         label: e.name
+            //     }
+            // }))
+            // console.log(displayVenues)
         }
         fetchSelectedEvent()
     }, [])
@@ -121,7 +128,10 @@ const EditForm = () => {
                         classNamePrefix="select"
                         closeMenuOnSelect={false}
                         onChange={handleChange}
-                        defaultValue={selectedEvent?.venues.map((venue) => venue.name)} />
+                        defaultValue={selectedEvent?.venues.map((e) =>( {
+                            value: e._id,
+                            label: e.name
+                        }))} />
                 </div>
                 <div className="submit-box">
                     <button type="submit" className="submit">Submit</button>
