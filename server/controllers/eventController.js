@@ -2,6 +2,7 @@ const {Event} = require('../models/eventModel')
 const User = require('../models/userModel')
 const {addEvent, removeEvent} = require('./userController')
 const mongoose = require('mongoose')
+const Venue = require('../models/venueModel')
 const {addBooking, deleteBooking} = require('./venueController')
 
 // create event
@@ -92,6 +93,7 @@ const updateEvent = async (req,res) => {
         return res.status(400).json({error: 'No such Event'})
     }
     event.venues = [...req.body.venues,...req.body.changedVenues.filter(e=>(e.checked==true))]
+    console(event.venues)
     // console.log(response)
     res.status(200).json(event)
 }
@@ -99,25 +101,39 @@ const updateEvent = async (req,res) => {
 // deleting event
 const deleteEvent = async (req,res) => {
     const {_id} = req.params
-    // let user = await User.find({email})
-
+    
     if(!mongoose.Types.ObjectId.isValid(_id)) {
         return res.status(400).json({error: 'No such Event'})
     }
-    const venues = await Event.findById(_id).venues;
-    console.log(venues)
-    const response = await Event.findByIdAndDelete(_id);
-    if(!response) {
+    const event = await Event.findByIdAndDelete(_id);
+    if(!event) {
         return res.status(400).json({error: 'No such Event'})
     }
+    let user = await User.findById(event.user)
+    const permissions = event.statusBar
+    const venues = event.venues;
+    console.log(event.venues)
+    user.events = user.events.filter((e)=>{
+        return e._id.toString()!==_id})
+    await user.save().then(console.log('Event removed from user'))
 
-    // user = removeEvent(_id,user[0]._id.toString())
+    permissions.forEach(async (perm)=>{
+        let authority = await Venue.findById(perm.authority)
+        authority.permissions = authority.permissions.filter((e)=>{
+            return e._id.toString()!==_id})
+        await authority.save().then(console.log('Event removed from faculty'))
+    })
 
-    // venues.forEach(async (venue)=>{ venue = venue.toString()
-    //     // console.log(venue)
-    //     await deleteBooking(_id,venue)})
+    venues.forEach(async (e)=>{ e = e.toString()
+        // console.log(e)
+        let venue = await Venue.findById(e)
+        venue.bookings = venue.bookings.filter((booking)=>{
+            return(booking.event.toString()!==_id)
+        })
+        await venue.save().then(console.log('Booking deleted'))
+    })
 
-    res.status(200).json(response)
+    res.status(200).json(event)
 }
 
 const populatePermissions = async (eventId,userId)=> {
