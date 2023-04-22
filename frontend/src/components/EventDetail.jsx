@@ -5,6 +5,7 @@ import { useAuthContext } from '../context/AuthContext';
 import moment from 'moment';
 import axios from 'axios';
 import { useNavigate, Link, Routes, Route } from 'react-router-dom';
+import {GrClose} from 'react-icons/gr';
 import { PermissionForm } from '../pages/permissions/PermissionForm';
 
 export const EventDetail = () => {
@@ -52,7 +53,7 @@ export const EventDetail = () => {
                 renderBackdrop={renderBackdrop}>
                 <div className='modal-container'>
                     <span className="close-button" onClick={handleClose}>
-                        X
+                        <GrClose/>
                     </span>
                     <div className='eventDetail'><h1 className='commName'>{selectedEvent.user.title}</h1></div>
                     <div className='eventDetail'><h2>Event Name: </h2><p className='content'>{selectedEvent.title}</p></div>
