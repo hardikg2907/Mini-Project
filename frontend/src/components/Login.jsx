@@ -42,14 +42,14 @@ const Login = () => {
 
             <div className="submit-box">
                 <div><button type="submit" className="submit" disabled={isLoading}>Log in</button></div>
-                <div style={{display: "flex", color:"#DCD8D8"}}>
-                    <hr style={{border: "1px solid #DCD8D8", width: "125px", borderRadius: "3px", backgroundColor:"#DCD8D8", height: "2px"}}/>
+                <div style={{display: "flex", color:"#a19f9f", alignItems:"center"}}>
+                    <hr style={{border: "1px solid #a19f9f", width: "125px", borderRadius: "3px", backgroundColor:"#a19f9f", height: "2px"}}/>
                     or
-                    <hr style={{border: "1px solid #DCD8D8", width: "125px", borderRadius: "3px", backgroundColor:"#DCD8D8", height: "2px"}}/>
+                    <hr style={{border: "1px solid #a19f9f", width: "125px", borderRadius: "3px", backgroundColor:"#a19f9f", height: "2px"}}/>
                 </div>
             </div>
             <div className="submit-box">
-                <button className="submit google" disabled={isLoading} onClick={signInWithGoogle}><i className="fa-brands fa-google fa-xl"></i>   Log in with Google</button>
+                <button className="submit google" disabled={isLoading} onClick={signInWithGoogle}><i className="fa-brands fa-google fa-1x"></i>   Log in with Google</button>
             </div>
             <div className="userType">
                 <div className={type=='Committee'?'committee yellow':'committee'} onClick={()=>{setType('Committee')}}>Committee</div>
