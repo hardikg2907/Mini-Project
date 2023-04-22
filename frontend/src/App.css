@@ -804,10 +804,12 @@ button {
   display: flex;
   padding-left: 4px;
   padding-right: 4px;
+  margin-right: 2px;
   box-sizing: border-box;
   align-items: center;
   transition: var(--transition);
   cursor: pointer;
+  width: 20px;
 }
 
 .fa-times{
@@ -815,14 +817,9 @@ button {
 }
 
 .fa-check{
-  color: rgb(0, 173, 0);
+  color: #10ff10;
+  opacity: 100%;
 }
-
-.prev-venue i:hover {
-  /* color: white; */
-}
-
 .faded{
-  color: grey;
-  background-color: ;
+  opacity: 40%;
 }
