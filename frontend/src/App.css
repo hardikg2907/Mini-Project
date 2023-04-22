@@ -6,7 +6,7 @@
   --table-title: #85878B;
   --table-head: #F7EFEF;
   --font: 'Poppins';
-  --stat-accept:#1AC517;
+  --stat-accept: #1AC517;
   --stat-reject: #EE1010;
   --stat-pending: #3DA6FC; /* ce9427 */
   --transition: 0.3s ease-in-out all;
@@ -177,10 +177,11 @@ body {
 
 .permDiv{
   display:flex;
+  display: flex;
   justify-content: center;
 }
 
-.reqPermBtn{
+.reqPermBtn {
   text-align: center;
   margin-left: 0;
   margin-top: 2rem;
@@ -259,7 +260,7 @@ body {
   box-shadow: rgba(0, 0, 0, 0.25);
 }
 
-.yellow{
+.yellow {
   background-color: var(--box-color) !important;
 }
 
@@ -314,17 +315,17 @@ body {
   right: 30px;
 }
 
-.venues-select{
+.venues-select {
   width: 49rem;
 }
 
-.pageHeader{
+.pageHeader {
   position: relative;
   left: 9rem;
   margin-top: 1.5rem;
 }
 
-.permHeader{
+.permHeader {
   position: relative;
   background-color: var(--box-color);
   padding-left: 1rem;
@@ -339,8 +340,7 @@ body {
   justify-content: center;
 }
 
-#menuToggle
-{
+#menuToggle {
   display: block;
   position: fixed;
   top: 2rem;
@@ -350,20 +350,17 @@ body {
   user-select: none;
 }
 
-#menuToggle a
-{
+#menuToggle a {
   text-decoration: none;
   color: var(--accent-color);
   transition: color 0.3s ease;
 }
 
-#menuToggle a:hover
-{
+#menuToggle a:hover {
   color: var(--box-color);
 }
 
-#menuToggle input
-{
+#menuToggle input {
   display: block;
   width: 40px;
   height: 32px;
@@ -371,15 +368,17 @@ body {
   top: -7px;
   left: -5px;
   cursor: pointer;
-  opacity: 0; /* hide this */
-  z-index: 2; /* and place it over the hamburger */
+  opacity: 0;
+  /* hide this */
+  z-index: 2;
+  /* and place it over the hamburger */
   -webkit-touch-callout: none;
 }
+
 /*
  * Just a quick hamburger
  */
-#menuToggle span
-{
+#menuToggle span {
   display: block;
   width: 33px;
   height: 4px;
@@ -389,18 +388,16 @@ body {
   border-radius: 3px;
   z-index: 1;
   transform-origin: 4px 0px;
-  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
-              background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
-              opacity 0.55s ease;
+  transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0),
+    background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0),
+    opacity 0.55s ease;
 }
 
-#menuToggle span:first-child
-{
+#menuToggle span:first-child {
   transform-origin: 0% 0%;
 }
 
-#menuToggle span:nth-last-child(2)
-{
+#menuToggle span:nth-last-child(2) {
   transform-origin: 0% 100%;
 }
 
@@ -408,8 +405,7 @@ body {
  * Transform all the slices of hamburger
  * into a crossmark.
  */
-#menuToggle input:checked ~ span
-{
+#menuToggle input:checked~span {
   opacity: 1;
   transform: rotate(45deg) translate(-2px, -1px);
   background: var(--accent-color);
@@ -418,8 +414,7 @@ body {
 /*
  * But let's hide the middle one.
  */
-#menuToggle input:checked ~ span:nth-last-child(3)
-{
+#menuToggle input:checked~span:nth-last-child(3) {
   opacity: 0;
   transform: rotate(0deg) scale(0.2, 0.2);
 }
@@ -427,8 +422,7 @@ body {
 /*
  * Ohyeah and the last one should go the other direction
  */
-#menuToggle input:checked ~ span:nth-last-child(2)
-{
+#menuToggle input:checked~span:nth-last-child(2) {
   transform: rotate(-45deg) translate(0, -1px);
 }
 
@@ -436,8 +430,7 @@ body {
  * Make this absolute positioned
  * at the top left of the screen
  */
-#menu
-{
+#menu {
   position: fixed;
   width: 15rem;
   height: 37rem;
@@ -450,11 +443,10 @@ body {
   /* to stop flickering of text in safari */
   transform-origin: 0% 0%;
   transform: translate(-70%, 0);
-  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+  transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0);
 }
 
-#menu li
-{
+#menu li {
   padding: 10px 0;
   font-size: 22px;
 }
@@ -462,12 +454,11 @@ body {
 /*
  * And let's slide it in from the left
  */
-#menuToggle input:checked ~ ul
-{
+#menuToggle input:checked~ul {
   transform: none;
 }
 
-.table{
+.table {
   top: 1rem;
   position: relative;
   width: 62rem;
@@ -476,7 +467,7 @@ body {
   border-radius: 1rem;
 }
 
-.titles{
+.titles {
   height: 2.2rem;
   position: relative;
   display: flex;
@@ -486,7 +477,7 @@ body {
   background-color: var(--table-title);
 }
 
-.tit{
+.tit {
   cursor: pointer;
   top: 0.6rem;
   padding-left: 1rem;
@@ -504,11 +495,11 @@ body {
   justify-content: center;
 }
 
-.under{
+.under {
   border-bottom: 0.2rem solid var(--box-color);
 }
 
-.headings{
+.headings {
   height: 1.8rem;
   left: 1rem;
   top: 1rem;
@@ -520,7 +511,7 @@ body {
   z-index: 1;
 }
 
-.hehe{
+.hehe {
   padding-left: 0.2rem;
   margin-left: 0.2rem;
   display: flex;
@@ -530,7 +521,7 @@ body {
   width: 100%;
 }
 
-.table .content{
+.table .content {
   height: 2rem;
   left: 1rem;
   top: 1.2rem;
@@ -541,35 +532,35 @@ body {
   cursor: pointer;
 }
 
-.table .content:hover{
+.table .content:hover {
   box-shadow: 0px 2px 10px 1px rgba(0, 0, 0, 0.2);
 }
 
-.content .status{
+.content .status {
   color: var(--stat-pending);
   text-transform: capitalize;
 }
 
-.approved{
+.approved {
   color: var(--stat-accept) !important;
 }
 
-.rejected{
+.rejected {
   color: var(--stat-reject) !important;
 }
 
-.content-container{
+.content-container {
   overflow: scroll;
   height: 15rem;
   overflow-x: hidden;
 }
 
-.permForm{
+.permForm {
   margin-left: 9rem;
   margin-top: 1.5rem;
 }
 
-.mainForm{
+.mainForm {
   background-color: var(--table-color);
   display: flex;
   flex-direction: column;
@@ -584,7 +575,7 @@ body {
   border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.form-container{
+.form-container {
   left: 0.2rem;
   top: 0.2rem;
   position: relative;
@@ -599,7 +590,8 @@ body {
   margin-top: 10px;
 } */
 
-.form-container input, textarea{
+.form-container input,
+textarea {
   outline: none;
   border: 2px solid #e5e7eb;
   background-color: #fff;
@@ -610,12 +602,13 @@ body {
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 
-.form-container input:focus, textarea:focus{
+.form-container input:focus,
+textarea:focus {
   border: 2px solid black;
   transition: all 0.2s ease-in-out;
 }
 
-.dateTime{
+.dateTime {
   /* left: 0.2rem; */
   display: flex;
   flex-direction: row;
@@ -623,20 +616,20 @@ body {
   /* border: #000 solid; */
 }
 
-.fc1{
+.fc1 {
   margin-right: 1rem;
 }
 
-.fc2{
+.fc2 {
   margin-left: 1rem;
 }
 
-textarea{
+textarea {
   resize: none;
 }
 
 /* .modal-overlay{ */
-  /* position: fixed;
+/* position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -647,24 +640,24 @@ textarea{
   transition: var(--transition);
   z-index: 100; */
 
-  /* height: 100vh;
+/* height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 } */
 
-.modal-container{
+.modal-container {
   /* width: 60rem; */
   /* height:80vh; */
   /* overflow: scroll; */
   overflow-x: hidden;
-  background-color:var(--accent-color);
+  background-color: var(--accent-color);
   border: none;
   /* border-radius: 1rem; */
 }
 
-.modal{
+.modal {
   position: fixed;
   width: 50rem;
   z-index: 1040;
@@ -734,11 +727,13 @@ button {
   background-color: #6c757d;
   /* background-color: var(--stat-pending); */
 }
+
 .approve-button {
   color: #fff;
   /* background-color: #007bff; */
   background-color: var(--stat-accept);
 }
+
 .reject-button {
   color: #fff;
   background-color: var(--stat-reject);
@@ -767,12 +762,12 @@ button {
   padding: 0rem;
 }
 
-.eventDetail h2{
+.eventDetail h2 {
   margin: 0rem;
   /* padding-top: 0.7rem; */
 }
 
-.eventDetail p{
+.eventDetail p {
   /* border: #000 solid; */
   /* margin: 0; */
   /* padding: 0; */
@@ -784,7 +779,7 @@ button {
   margin-bottom: 0.5rem;
 }
 
-.commName{
+.commName {
   margin: 0rem;
   padding: 0rem;
   text-align: center;
@@ -914,4 +909,67 @@ button {
 
 .editBtn p{
   margin-left: 0.3rem;
+
+.prev-venues-container {
+  outline: none;
+  border: 2px solid #e5e7eb;
+  background-color: #fff;
+  padding: 0.6rem;
+  font-size: 1rem;
+  /* line-height: 1rem; */
+  border-radius: 0.8rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  display: flex;
+  height: 40px;
+}
+
+.prev-venue {
+  display: flex;
+  min-width: 0;
+  background-color: hsl(0, 0%, 90%);
+  border-radius: 2px;
+  margin-right: 4px;
+  box-sizing: border-box;
+  transition: var(--transition);
+  align-items: center;
+}
+
+.prev-venue p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  border-radius: 2px;
+  color: hsl(0, 0%, 20%);
+  font-size: 100%;
+  padding-left: 6px;
+  box-sizing: border-box;
+  align-items: center;
+}
+
+.prev-venue i{
+  display: flex;
+  padding-left: 4px;
+  padding-right: 4px;
+  box-sizing: border-box;
+  align-items: center;
+  transition: var(--transition);
+  cursor: pointer;
+}
+
+.fa-times{
+  color: red;
+}
+
+.fa-check{
+  color: rgb(0, 173, 0);
+}
+
+.prev-venue i:hover {
+  /* color: white; */
+}
+
+.faded{
+  color: grey;
+  background-color: ;
+
 }

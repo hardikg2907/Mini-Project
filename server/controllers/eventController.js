@@ -6,7 +6,7 @@ const {addBooking, deleteBooking} = require('./venueController')
 
 // create event
 const createEvent = async (req,res) => {
-    const {title, description, startTime, endTime, venues,status, email} = req.body;
+    const {title, description, startTime, endTime, venues, email} = req.body;
     // console.log(email)
     let user = await User.find({email}).populate('facultyMentor')
     console.log(...user)
@@ -67,7 +67,7 @@ const getEvent = async (req,res) => {
     if(!mongoose.Types.ObjectId.isValid(_id)) {
         return res.status(404).json({error: 'No such Event'})
     }
-    const response = await Event.findById(_id);
+    const response = await Event.findById(_id).populate('venues');
 
     if(!response) {
         return res.status(400).json({error: 'No such Event'})
@@ -81,12 +81,13 @@ const updateEvent = async (req,res) => {
     const {_id} = req.params
 
     if(!mongoose.Types.ObjectId.isValid(_id)) {
-        return res.status(404).json({error: 'No such Event'})
+        return res.status(400).json({error: 'No such Event'})
     }
     // console.log(req.body)
     const response = await Event.findOneAndUpdate({_id},{
         ...req.body
     });
+    
 
     if(!response) {
         return res.status(400).json({error: 'No such Event'})
@@ -119,12 +120,28 @@ const deleteEvent = async (req,res) => {
     res.status(200).json(response)
 }
 
-const populatePermissions = async ()=> {
+const populatePermissions = async (eventId,userId)=> {
+    let perms = [];
+    perms.push('') // GS
+    const event = await Event.findById(eventId).populate('venues');
+    const user = await User.findById(userId);
+    if(user.facultyMentor) perms.push(user.facultyMentor)
+    perms.push('') // Talele Sir
+    if(event.venues!==[])
+    {
+        event.venues.forEach((e)=>
+        {
+            if(!perms.find(e.faculty)) perms.push(e.faculty)
+        })
+    }
 
+    user.statusBar = perms;
+    await user.save().then(console.log(perms))
+    .catch(error=>{throw new Error(error)})
 }
 
-const changeStatusBar = async (req,res) => {
-
+const updateStatusBar = async (req,res) => {
+    
 }
 
 module.exports = {
