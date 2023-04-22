@@ -16,7 +16,7 @@ const EditForm = () => {
     const [displayVenues, setDisplayVenues] = useState([])
     const navigate = useNavigate()
     const { user } = useAuthContext()
-    const { selectedEvent, setSelectedEvent, handleChange, venues } = useEventContext()
+    const { selectedEvent, setSelectedEvent, handleChange, venues,changedVenues,setChangedVenues } = useEventContext()
     const { id } = useParams()
 
     useEffect(() => {
@@ -27,34 +27,37 @@ const EditForm = () => {
             // console.log(response)
             const data = await response.data
             await setSelectedEvent(data)
-            console.log(selectedEvent)
+            // console.log(selectedEvent)
 
             setTitle(data.title)
             setDescription(data.description)
             setStartTime(moment.tz(data.startTime, "Asia/Kolkata").format().slice(0, -6))
-            // console.log(moment.tz(data.startTime, "Asia/Kolkata").format().slice(0,-6))
-            // console.log(new Date(data.startTime).toLocaleString("en-GB", {timeZone: "Asia/Kolkata"}))
             setEndTime(moment.tz(data.endTime, "Asia/Kolkata").format().slice(0, -6))
-            // setDisplayVenues(data.venues.map((e)=>{
-            //     return {
-            //         value: e._id,
-            //         label: e.name
-            //     }
-            // }))
-            // console.log(displayVenues)
+            setChangedVenues(
+                selectedEvent?.venues.map((e) => {
+                    console.log(e)
+                    return {
+                        _id: e._id,
+                        checked: true,
+                        name: e.name
+                    }
+                })
+            )
+            
         }
         fetchSelectedEvent()
+        
     }, [])
 
     useEffect(() => {
 
         const fetchData = async () => {
             if (startTime > endTime) return;
-            console.log(startTime)
+            // console.log(startTime)
             const response = await axios(`/api/venues?startTime=${new Date(startTime).getTime()}&endTime=${new Date(endTime).getTime()}`)
             const data = response.data
 
-            console.log(data)
+            // console.log(data)
 
             setDisplayVenues(data.map((e) => {
                 return {
@@ -70,29 +73,31 @@ const EditForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+        console.log('Submitted')
 
-        const response = await fetch(
-            '/api/events', {
-            method: 'PATCH',
-            body: JSON.stringify({
+        const response = await axios({
+            url: `/api/event/${selectedEvent._id}`,
+            method: 'patch',
+            data: {
                 title,
                 description,
                 startTime,
                 endTime,
                 venues,
+                changedVenues,
                 email: user.email
-            }),
+            },
             headers: {
-                'Content-Type': 'application/json'
-            }
+                'Accept': 'application/json',
+                'Content-Type': 'application/json;charset=UTF-8'
+            },
         })
             .then(async response => {
-                const json = await response.json()
-                console.log(json)
+                console.log(response.data)
             })
             .catch(error => console.log(error))
 
-        navigate('/permissions')
+        // navigate('/permissions')
 
     }
 
@@ -123,12 +128,12 @@ const EditForm = () => {
                     <div className="prev-venues-container">
                         {selectedEvent?.venues &&
                             selectedEvent?.venues.map((e) => {
-                                return <PrevVenue venue={e} key={e._id}/>
+                                return <PrevVenue venue={e} key={e._id} />
                             })
                         }
                     </div>
-
-
+                </div>
+                <div className="form-container">
                     <label>New Venues</label>
                     <Select
                         isMulti

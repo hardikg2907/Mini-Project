@@ -78,22 +78,22 @@ const getEvent = async (req,res) => {
 
 // updating event
 const updateEvent = async (req,res) => {
+    console.log(req.body)
     const {_id} = req.params
 
     if(!mongoose.Types.ObjectId.isValid(_id)) {
         return res.status(400).json({error: 'No such Event'})
     }
-    // console.log(req.body)
-    const response = await Event.findOneAndUpdate({_id},{
+    const event = await Event.findOneAndUpdate({_id},{
         ...req.body
     });
-    
 
-    if(!response) {
+    if(!event) {
         return res.status(400).json({error: 'No such Event'})
     }
+    event.venues = [...req.body.venues,...req.body.changedVenues.filter(e=>(e.checked==true))]
     // console.log(response)
-    res.status(200).json(response)
+    res.status(200).json(event)
 }
 
 // deleting event
