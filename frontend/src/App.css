@@ -8,7 +8,7 @@
   --font: 'Poppins';
   --stat-accept: #1AC517;
   --stat-reject: #EE1010;
-  --stat-pending: #ce9427;
+  --stat-pending: #3DA6FC; /* ce9427 */
   --transition: 0.3s ease-in-out all;
   /* --dark-bg-color: #150e60;  */
 }
@@ -97,7 +97,7 @@ body {
 }
 
 .input-container {
-  top: -1.2rem;
+  top: 0.4rem;
 }
 
 .input-container:last-child {
@@ -132,7 +132,7 @@ body {
 }
 
 .submit-box {
-  top: -0.8rem;
+  top: 0.2rem;
   text-align: center;
   font-size: 1rem;
 }
@@ -158,7 +158,25 @@ body {
   transition: all 0.2s ease-in-out;
 }
 
-.permDiv {
+.permSubmit{
+  width: 200px;
+}
+
+.permSubmitBox{
+  display: flex;
+  flex-direction: row;
+}
+
+.fa-google {
+  background: conic-gradient(from -45deg, #ea4335 110deg, #4285f4 90deg 180deg, #34a853 180deg 270deg, #fbbc05 270deg) 73% 55%/150% 150% no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+.permDiv{
+  display:flex;
   display: flex;
   justify-content: center;
 }
@@ -181,7 +199,7 @@ body {
   margin-left: 0.5rem;
   position: relative;
   text-align: center;
-  top: -1rem;
+  top: 0.2rem;
   font-size: 1rem;
   color: #ea4335;
   height: 20px;
@@ -190,7 +208,7 @@ body {
 .forgot {
   padding-left: 1px;
   position: relative;
-  top: -1.2rem;
+  top: 0.2rem;
   font-size: 0.85rem;
   color: #ea4335;
   cursor: pointer;
@@ -414,7 +432,7 @@ body {
  */
 #menu {
   position: fixed;
-  width: 18rem;
+  width: 15rem;
   height: 37rem;
   margin: -100px 0 0 -50px;
   padding: 50px;
@@ -671,14 +689,15 @@ textarea {
 
 .close-button {
   position: relative;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   font-weight: 700;
   line-height: 1;
   color: #000;
   border: none;
   opacity: 0.7;
   cursor: pointer;
-  left: 48.2rem;
+  left: 47.5rem;
+  top: 0.5rem;
 }
 
 button {
@@ -720,7 +739,19 @@ button {
   background-color: var(--stat-reject);
 }
 
-.eventDetail {
+.resub-button:hover{
+  background-color: #545e66;
+}
+
+.approve-button:hover{
+  background-color: #18a915;
+}
+
+.reject-button:hover{
+  background-color: #ba0f0f;
+}
+
+.eventDetail{
   position: relative;
   top: -1.5rem;
   left: 1rem;
@@ -763,6 +794,121 @@ button {
   width: 10rem;
   /* height: 5rem; */
 }
+
+.profileCard{
+  background-color: var(--table-color);
+  margin-top: 1rem;
+  width: 45rem;
+  min-height: max-content;
+  height: 50rem;
+  border-radius: 1.5rem;
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* justify-content: center; */
+  /* z-index: 1; */
+}
+
+.profileHeader{
+  position: relative;
+  border-top-right-radius: 1.5rem;
+  border-top-left-radius: 1.5rem;
+  height: 8rem;
+  background-color: var(--box-color);
+}
+
+.profilePic{
+  position: relative;
+  /* border: #000 solid 1px; */
+  height: 8.15rem;
+  width: 8.15rem;
+  top: 4rem;
+  left: 6rem;
+  margin: 0;
+  padding: 0;
+  /* z-index: 2; */
+}
+
+.picFill{
+  position: absolute;
+  height: 6rem;
+  width: 6rem;
+  border-radius: 50%;
+  background-color: var(--table-title);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* z-index: 0; */
+}
+
+.profPhoto{
+  position: relative;
+  color: var(--accent-color);
+  border: 0.6rem solid var(--table-color);
+  border-radius: 50%;
+  margin: 0rem;
+  padding: 0rem;
+  /* z-index:6; */
+}
+
+.profileDetails{
+  position: relative;
+  border-radius: 0.8rem;
+  margin: 1.9rem;
+  padding: 0;
+  height: fit-content;
+  /* display: flex;
+  flex-direction: column; */
+  justify-content: center;
+  border: transparent solid 1px;
+  box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.1);
+  top: 3rem;
+}
+
+.profileName h1, h3, h4, p{
+  margin: 0rem;
+  padding: 0rem;
+}
+
+.profileName, .profileContacts{
+  position: relative;
+  margin: 1rem;
+  top: 0.5rem;
+  border-bottom: 2px solid var(--table-title);
+}
+
+.profileContacts{
+  display: flex;
+  /* justify-content: center; */
+}
+
+.commDetails{
+  margin-right: 0.3rem;
+  /* border: #000 solid 1px; */
+  width: 100%;
+}
+
+.editProfileBtn{
+  margin-right: 2rem;
+  margin-left: 2rem;
+  margin-top: 1rem;
+  height: max-content;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.editBtn{
+  width: max-content;
+  padding: 0.4rem;
+  border-radius: 0.8rem;
+  color: var(--accent-color);
+  background-color: var(--table-title);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.editBtn p{
+  margin-left: 0.3rem;
 
 .prev-venues-container {
   outline: none;

@@ -103,8 +103,9 @@ export const PermissionForm = () => {
                         closeMenuOnSelect={false} 
                         onChange={handleChange}/>
                 </div>
-                <div className="submit-box">
-                    <button type="submit" className="submit">Submit</button>
+                <div className="submit-box permSubmitBox">
+                    <button className="submit permSubmit" onClick={()=>{navigate('/permissions')}}>Cancel</button>
+                    <button type="submit" className="submit permSubmit">Submit</button>
                 </div>
             </form>
         </div>

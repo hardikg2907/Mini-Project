@@ -1,4 +1,5 @@
 import { useAuthContext } from "../context/AuthContext";
+import { ProfileCard } from "../components/ProfileCard";
 
 export const Profile = () => {
 
@@ -7,8 +8,9 @@ export const Profile = () => {
     return (
         <div className='pageHeader'>
             <div className='permHeader'><h2>Profile</h2></div>
-            <h3>Name: </h3>
-            <p>{user.title}</p>
+            <div>
+                <ProfileCard/>
+            </div>
         </div>
     );
 }
