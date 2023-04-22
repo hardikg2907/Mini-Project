@@ -4,7 +4,7 @@ import { useParams, useNavigate } from "react-router-dom"
 import { useEventContext } from "../context/EventContext"
 import { useAuthContext } from "../context/AuthContext"
 import Select from "react-select"
-// import moment from "moment"
+import PrevVenue from "../components/PrevVenue"
 import * as moment from "moment-timezone"
 
 const EditForm = () => {
@@ -25,16 +25,16 @@ const EditForm = () => {
 
             const response = await axios(`/api/event/${id}`)
             // console.log(response)
-            const data = response.data
-            setSelectedEvent(data)
+            const data = await response.data
+            await setSelectedEvent(data)
             console.log(selectedEvent)
 
             setTitle(data.title)
             setDescription(data.description)
-            setStartTime(moment.tz(data.startTime, "Asia/Kolkata").format().slice(0,-6))
+            setStartTime(moment.tz(data.startTime, "Asia/Kolkata").format().slice(0, -6))
             // console.log(moment.tz(data.startTime, "Asia/Kolkata").format().slice(0,-6))
             // console.log(new Date(data.startTime).toLocaleString("en-GB", {timeZone: "Asia/Kolkata"}))
-            setEndTime(moment.tz(data.endTime, "Asia/Kolkata").format().slice(0,-6))
+            setEndTime(moment.tz(data.endTime, "Asia/Kolkata").format().slice(0, -6))
             // setDisplayVenues(data.venues.map((e)=>{
             //     return {
             //         value: e._id,
@@ -119,7 +119,17 @@ const EditForm = () => {
                     </div>
                 </div>
                 <div className="form-container">
-                    <label>Venues</label>
+                    <label>Previous Venues</label>
+                    <div className="prev-venues-container">
+                        {selectedEvent?.venues &&
+                            selectedEvent?.venues.map((e) => {
+                                return <PrevVenue venue={e} key={e._id}/>
+                            })
+                        }
+                    </div>
+
+
+                    <label>New Venues</label>
                     <Select
                         isMulti
                         name="colors"
@@ -127,11 +137,7 @@ const EditForm = () => {
                         className="basic-multi-select venues-select"
                         classNamePrefix="select"
                         closeMenuOnSelect={false}
-                        onChange={handleChange}
-                        defaultValue={selectedEvent?.venues.map((e) =>( {
-                            value: e._id,
-                            label: e.name
-                        }))} />
+                        onChange={handleChange} />
                 </div>
                 <div className="submit-box">
                     <button type="submit" className="submit">Submit</button>

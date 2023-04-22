@@ -22,7 +22,8 @@ const eventSchema = new mongoose.Schema({
             type: mongoose.SchemaTypes.ObjectId,
             ref: 'Venue'
         }],
-        // required: true
+        // required: true,
+        default: []
     },
     status: {
         type: String,
@@ -43,7 +44,7 @@ const eventSchema = new mongoose.Schema({
         type:mongoose.SchemaTypes.ObjectId,
         ref: 'User'
     },
-    comments: {
+    comments: {     
         type: [String]
     }
 })

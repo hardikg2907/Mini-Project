@@ -13,7 +13,11 @@ const venueSchema = mongoose.Schema({
                 ref: 'Event'
             }
         }
-    ]
+    ],
+    faculty: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: 'User'
+    }
 })
 
 module.exports = mongoose.model('Venue', venueSchema)

@@ -5,9 +5,11 @@ const userRoutes = require('./routes/user')
 const eventRoutes = require('./routes/events')
 const venueRoutes = require('./routes/venues')
 const cors = require('cors')
+const morgan = require('morgan')
 
 const app = express();
 
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms'))
 app.use(express.json())
 app.use(cors())
 

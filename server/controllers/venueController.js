@@ -5,7 +5,7 @@ const MomentRange = require('moment-range');
 const moment = MomentRange.extendMoment(Moment);
 
 const getVenues = async (req, res) => {
-    let { startTime, endTime } = req.query
+    let { startTime, endTime, includeEvent } = req.query
     console.log(req.query)
     startTime = new Date(parseInt(startTime))
     endTime = new Date(parseInt(endTime))
