@@ -36,12 +36,14 @@ export const EventDetail = () => {
     const deleteEvent = async (e) => {
         e.preventDefault();
 
-        console.log(selectedEvent._id)
+        // console.log(selectedEvent._id)
         const response = await axios({
             url: `/api/event/${selectedEvent._id}`, 
-            method: 'DELETE',
+            method: 'delete',
             headers: { 'Content-type': 'application/json' }
         })
+        console.log(response.data)
+        navigate('/')
     }
 
     return (
@@ -74,7 +76,8 @@ export const EventDetail = () => {
                             </button>
                         </div>) : selectedEvent.status == 'approved' ? (<div className='modal-footer'>Event Over</div>) : (<div className='modal-footer'>Event didnt happen</div>)
                     )}
-                    {user.type == 'Committee' && (new Date(selectedEvent.endTime).getTime()>new Date().getTime() ? (
+                    {user.type == 'Committee' && 
+                    // (new Date(selectedEvent.endTime).getTime()>new Date().getTime() ? (
                         <div className="modal-footer">
                             <button className="reject-button" onClick={deleteEvent}>
                                 Delete
@@ -82,7 +85,8 @@ export const EventDetail = () => {
                             <Link to={{ pathname: `/edit/${selectedEvent._id}` }}>
                                 <button className="approve-button">Edit</button>
                             </Link>
-                        </div>) : selectedEvent.status == 'approved' ? (<div className='modal-footer'>Event Over</div>) : (<div className='modal-footer'>Event didnt happen</div>))
+                        </div>
+                        // ) : selectedEvent.status == 'approved' ? (<div className='modal-footer'>Event Over</div>) : (<div className='modal-footer'>Event didnt happen</div>))
                     }
                 </div>
             </Modal>

@@ -16,6 +16,7 @@ const EditForm = () => {
     const [displayVenues, setDisplayVenues] = useState([])
     const navigate = useNavigate()
     const { user } = useAuthContext()
+    const [isFetched,setIsFetched] = useState(false)
     const { selectedEvent, setSelectedEvent, handleChange, venues,changedVenues,setChangedVenues } = useEventContext()
     const { id } = useParams()
 
@@ -44,6 +45,7 @@ const EditForm = () => {
                 })
             )
             
+            setIsFetched(true)
         }
         fetchSelectedEvent()
         
@@ -83,7 +85,7 @@ const EditForm = () => {
                 description,
                 startTime,
                 endTime,
-                venues,
+                newVenues:venues,
                 changedVenues,
                 email: user.email
             },
@@ -102,7 +104,9 @@ const EditForm = () => {
     }
 
     return (
-        <div className="permForm">
+        <>
+        {isFetched ? 
+            <div className="permForm">
             <div className="permHeader"><h2>Permissions Form</h2></div>
             <form className="mainForm" onSubmit={handleSubmit}>
                 <div className="form-container">
@@ -148,7 +152,8 @@ const EditForm = () => {
                     <button type="submit" className="submit">Submit</button>
                 </div>
             </form>
-        </div>
+        </div> : <p>Loading...</p>}
+        </>
     )
 }
 
