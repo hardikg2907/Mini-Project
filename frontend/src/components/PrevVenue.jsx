@@ -10,8 +10,9 @@ const PrevVenue = ({venue}) => {
         // venue.name = checked?"hello":"bye"
         const updatedVenues = changedVenues;
         updatedVenues?.forEach((e)=>{
-            if(e._id==venue._id) e.checked=checked;
+            if(e._id==venue._id) e.checked=!e.checked;
             if(e._id==venue._id) console.log('checked');
+            console.log(e.checked)
         })
         console.log(updatedVenues)
         setChangedVenues(updatedVenues)
