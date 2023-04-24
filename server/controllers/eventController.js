@@ -8,9 +8,8 @@ const { addBooking, deleteBooking } = require('./venueController')
 // create event
 const createEvent = async (req, res) => {
     const { title, description, startTime, endTime, venues, email } = req.body;
-    // console.log(email)
-    let user = await User.find({ email }).populate('facultyMentor')
-    console.log(...user)
+    let user = await User.find({ email })
+    // console.log(...user)
     // console.log(user[0]._id.valueOf())
 
 
@@ -25,21 +24,22 @@ const createEvent = async (req, res) => {
         })
         // console.log('event created')
 
-        user = await addEvent(event._id, user[0]._id.toString(), user[0].facultyMentor._id)
+        await addEvent(event._id, user[0]._id.toString())
         // console.log(user)
         // console.log(venues)
-
-        venues.forEach(async (venue) => {
+        for (let venue of venues) {
             venue = venue.toString()
             // console.log(venue)
             await addBooking(event._id, venue, startTime, endTime)
-        })
+        }
+        console.log('entering');
+        populatePermissions(event._id,user[0]._id.toString())
 
         if (event) res.status(200).json(req.body)
 
     }
     catch (error) {
-        return res.status(400).json({ error })
+        return res.status(400).json({ error: 'Error' })
     }
 }
 
@@ -93,27 +93,27 @@ const updateEvent = async (req, res) => {
     if (!event) {
         return res.status(400).json({ error: 'No such Event' })
     }
-    event.venues = [...newVenues, ...changedVenues.filter(e => (e.checked == true))]
+    event.venues = [...newVenues, ...changedVenues?.filter(e => (e.checked == true))]
     await event.save()
     // console.log(event.venues)
     let venues = await Venue.find({ _id: { $in: changedVenues } })
     console.log(venues)
-    venues?.forEach(async (venue, i) => {
+    venues.forEach(async (venue, i) => {
         if (!changedVenues[i].checked) {
-           await deleteBooking(_id, venue).then(console.log('deleted'))
+            await deleteBooking(_id, venue).then(console.log('deleted'))
         }
         else {
             let bookings = [];
             venue.bookings.forEach(booking => {
                 if (booking.event.toString() === _id) {
                     bookings.push({
-                        event:_id, startTime, endTime
+                        event: _id, startTime, endTime
                     })
                 }
                 else bookings.push(booking)
             })
             venue.bookings = bookings
-            await venue.save().then(console.log('booking changed'))
+            await venue.save().then(console.log(bookings))
         }
 
 
@@ -121,13 +121,13 @@ const updateEvent = async (req, res) => {
 
     console.log(newVenues)
     venues = await Venue.find({ _id: { $in: newVenues } })
-    venues.forEach(async (venue)=>{
+    venues.forEach(async (venue) => {
         let booking = {
-            event:_id,
+            event: _id,
             startTime,
             endTime
         }
-        venue.bookings = [...venue.bookings,booking]
+        venue.bookings = [...venue.bookings, booking]
         await venue.save().then('new booking added')
     })
     // console.log(response)
@@ -176,25 +176,84 @@ const deleteEvent = async (req, res) => {
 }
 
 const populatePermissions = async (eventId, userId) => {
+    console.log('entered')
     let perms = [];
-    perms.push('') // GS
+    // console.log(perms)
+    perms.push('64455b6d10122557a1a1fd32') // GS
+    console.log(perms)
+    await User.updateOne({ _id: perms[0] }, { $push: { permissions: eventId } })
     const event = await Event.findById(eventId).populate('venues');
     const user = await User.findById(userId);
-    if (user.facultyMentor) perms.push(user.facultyMentor)
-    perms.push('') // Talele Sir
+    if (user.facultyMentor){
+        perms.push(user.facultyMentor.toString())
+        await User.updateOne({ _id: user.facultyMentor.toString() }, { $push: { permissions: eventId } })
+    }
+    perms.push('64455bc9c5d851de3821a06f') // Talele Sir
     if (event.venues !== []) {
         event.venues.forEach((e) => {
-            if (!perms.find(e.faculty)) perms.push(e.faculty)
+            console.log(e.faculty.toString())
+            if (perms.indexOf(e.faculty.toString())==-1) perms.push(e.faculty.toString())
         })
     }
+    console.log(perms)
 
-    user.statusBar = perms;
-    await user.save().then(console.log(perms))
+    event.statusBar = perms.map(perm=>{return {
+        authority: perm,
+        status: 'pending'
+    }});
+    await event.save().then(console.log(perms))
         .catch(error => { throw new Error(error) })
 }
 
 const updateStatusBar = async (req, res) => {
+    const {status,email,eventId} = req.body;
+    let fac = await User.find({email})
+    console.log(status, email)
+    const event = await Event.findById(eventId)
+    fac = fac[0]
+    let facId = fac._id.toString()
+    event.statusBar = event.statusBar.map(e=>{
+        if(e.authority.toString()===facId){
+            e.status=status
+            return e
+        }
+        else 
+        {
+            return e
+        }
+    })
+    await event.save()
+    if(status=='rejected'){
+        event.status='rejected';
+        await event.save()
+        return;
+    }
 
+    let i=0
+    let flag =0
+    while(true)
+    {   
+        console.log(i)
+        if (i==event.statusBar.length){flag=1;break;}
+        if(event.statusBar[i].status!='approved') {break;}
+        i++;
+    }
+    if(flag==0)
+    {
+        if(event.statusBar[i-1].status=='approved' && i-1>1)
+        {   
+            await User.updateOne({ _id: event.statusBar[i].authority.toString() }, { $push: { permissions: eventId } })
+        }
+        else if(event.statusBar[0].status=='approved' && event.statusBar[1].status=='approved')
+        {
+            await User.updateOne({ _id: event.statusBar[2].authority.toString() }, { $push: { permissions: eventId } })
+        }
+    }
+    else if(event.statusBar[i-1].status=='approved'){
+        console.log('hi')
+        event.status='approved'
+        await event.save();
+    }
 }
 
 module.exports = {
@@ -203,5 +262,6 @@ module.exports = {
     getEvent,
     updateEvent,
     deleteEvent,
+    updateStatusBar
     // getEventsStatus
 }

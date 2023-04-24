@@ -1,5 +1,5 @@
 const express = require('express');
-const {createEvent, getAllEvents, getEvent, updateEvent, deleteEvent, getEventsStatus} = require('../controllers/eventController')
+const {createEvent, getAllEvents, getEvent, updateEvent, deleteEvent, getEventsStatus,updateStatusBar} = require('../controllers/eventController')
 
 const router = express.Router();
 
@@ -11,6 +11,8 @@ router.get('/events', getAllEvents)
 router.get('/event/:_id', getEvent)
 
 router.patch('/event/:_id', updateEvent)
+
+router.patch('/event/status/:_id',updateStatusBar)
 
 router.delete('/event/:_id', deleteEvent)
 
