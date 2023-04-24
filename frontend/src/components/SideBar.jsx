@@ -35,7 +35,7 @@ export const SideBar = () => {
                     <span></span>
                     <span></span>
                     <span></span>
-    
+
                     <ul id="menu">
                         {/* <h3>CampusConnect</h3> */}
                         <li>
@@ -54,7 +54,7 @@ export const SideBar = () => {
                             </Link>
                         </li>
                         <li>
-                            <Link onClick={handleClick} className='logOutBtn'>
+                            <Link to="/" onClick={handleClick} className='logOutBtn'>
                                 <FiLogOut size='1.8em'/>
                                 <h2>Log out</h2>
                             </Link>
@@ -62,6 +62,30 @@ export const SideBar = () => {
                     </ul>
                 </div>
                 </nav>
+                <div className='closed-menu'>
+                    <ul id="closedLogo">
+                        <li>
+                            <Link to='/profile'>
+                                <CgProfile size='1.8em'/><h2></h2>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to='/events'>
+                                <RiCalendarCheckFill size='1.8em'/><h2></h2>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to='/permissions'>
+                                <RiDraftLine size='1.8em'/><h2></h2>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/" onClick={handleClick} className='logOutBtn'>
+                                <FiLogOut size='1.8em'/><h2></h2>
+                            </Link>
+                        </li>
+                    </ul>
+                </div>
             </div>
             {sideOpen && 
                 <div id="sideFill">

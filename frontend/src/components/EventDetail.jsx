@@ -86,10 +86,7 @@ export const EventDetail = () => {
                                 <button className="approve-button">Edit</button>
                             </Link>
 
-                        </div>) : selectedEvent.status == 'approved' ? (<div className='modal-footer'>Event Over</div>) : (<div className='modal-footer'>Event Didn't Happen</div>))
-
                         </div>
-                        // ) : selectedEvent.status == 'approved' ? (<div className='modal-footer'>Event Over</div>) : (<div className='modal-footer'>Event didnt happen</div>))
 
                     }
                 </div>
