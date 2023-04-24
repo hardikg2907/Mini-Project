@@ -248,8 +248,7 @@ body {
   /* border: #000 solid; */
 }
 
-.committee,
-.faculty {
+.committee, .faculty {
   padding: 1rem;
   text-align: center;
   /* border: #000 solid; */
@@ -257,7 +256,7 @@ body {
   cursor: pointer;
   width: 100%;
   offset: 0px 4px;
-  box-shadow: rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 2px 10px 1px rgba(0, 0, 0, 0.2);
 }
 
 .yellow {
@@ -345,7 +344,7 @@ body {
   position: fixed;
   top: 2rem;
   left: 2rem;
-  z-index: 2;
+  z-index: 10;
   -webkit-user-select: none;
   user-select: none;
 }
@@ -354,6 +353,7 @@ body {
   text-decoration: none;
   color: var(--accent-color);
   transition: color 0.3s ease;
+  z-index: 10;
 }
 
 #menuToggle a:hover {
@@ -370,7 +370,7 @@ body {
   cursor: pointer;
   opacity: 0;
   /* hide this */
-  z-index: 2;
+  z-index: 10;
   /* and place it over the hamburger */
   -webkit-touch-callout: none;
 }
@@ -386,7 +386,7 @@ body {
   position: relative;
   background: var(--accent-color);
   border-radius: 3px;
-  z-index: 1;
+  z-index: 5;
   transform-origin: 4px 0px;
   transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0),
     background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0),
@@ -430,11 +430,11 @@ body {
  * Make this absolute positioned
  * at the top left of the screen
  */
-#menu {
+#menu{
   position: fixed;
-  width: 15rem;
+  width: 18.5rem;
   height: 37rem;
-  margin: -100px 0 0 -50px;
+  margin: -100px 0 0 -60px;
   padding: 50px;
   padding-top: 125px;
   background: var(--bg-color);
@@ -451,11 +451,46 @@ body {
   font-size: 22px;
 }
 
+#menu li a{
+  display: flex;
+  align-items: center;
+}
+
+#menu li a h2{
+  margin: 0;
+  padding: 0;
+  padding-left: 0.5rem;
+}
+
+/* .logOutBtn{
+  cursor: pointer;
+  width: max-content;
+  margin: 0px !important;
+  padding: 0;
+  border: #000 solid 1px;
+  background-color: var(--bg-color);
+} */
+
 /*
  * And let's slide it in from the left
  */
 #menuToggle input:checked~ul {
   transform: none;
+}
+
+#sideFill label{
+  position: fixed;
+  z-index: 3;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #000;
+  opacity: 0.6;
+}
+
+.closeSide label{
+  color: transparent;
 }
 
 .table {
@@ -909,6 +944,7 @@ button {
 
 .editBtn p{
   margin-left: 0.3rem;
+}
 
 .prev-venues-container {
   outline: none;
