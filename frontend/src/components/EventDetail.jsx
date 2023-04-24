@@ -9,7 +9,7 @@ import {GrClose} from 'react-icons/gr';
 import { PermissionForm } from '../pages/permissions/PermissionForm';
 
 export const EventDetail = () => {
-
+    console.log(selectedEvent);
     const { selectedEvent, setShowModal, showModal } = useEventContext()
     console.log(selectedEvent);
     // console.log(new Date().getTime())
@@ -60,9 +60,9 @@ export const EventDetail = () => {
                     <div className='eventDetail'><h1 className='commName'>{selectedEvent.user.title}</h1></div>
                     <div className='eventDetail'><h2>Event Name: </h2><p className='content'>{selectedEvent.title}</p></div>
                     <div className='eventDetail'><h2>Date: </h2><p>{moment(selectedEvent.startTime).format('LLL')} - {moment(selectedEvent.endTime).format('LLL')}</p></div>
-                    {/* <br/> */}
                     <div className='eventDetail'><h2>Description: </h2><p>{selectedEvent.description}</p></div>
                     <div className='eventDetail'><h2>Venues: </h2><p>{selectedEvent.venues.map(venue => `${venue.name},`)}</p></div>
+                    <div className='eventDetail'><h2>Contact: </h2><p>Deepak: +91 9820403116</p></div>
                     {user.type == 'Faculty' && (new Date(selectedEvent.endTime).getTime()>new Date().getTime() ? (
                         <div className="modal-footer">
                             <button className="reject-button" onClick={() => handleClick('rejected')}>
@@ -85,8 +85,12 @@ export const EventDetail = () => {
                             <Link to={{ pathname: `/edit/${selectedEvent._id}` }}>
                                 <button className="approve-button">Edit</button>
                             </Link>
+
+                        </div>) : selectedEvent.status == 'approved' ? (<div className='modal-footer'>Event Over</div>) : (<div className='modal-footer'>Event Didn't Happen</div>))
+
                         </div>
                         // ) : selectedEvent.status == 'approved' ? (<div className='modal-footer'>Event Over</div>) : (<div className='modal-footer'>Event didnt happen</div>))
+
                     }
                 </div>
             </Modal>
