@@ -6,10 +6,10 @@ const moment = MomentRange.extendMoment(Moment);
 
 const getVenues = async (req, res) => {
     let { startTime, endTime, includeEvent } = req.query
-    console.log(req.query)
+    // console.log(req.query)
     startTime = new Date(parseInt(startTime))
     endTime = new Date(parseInt(endTime))
-    console.log(startTime,endTime)
+    // console.log(startTime,endTime)
 
     try {
         let response = await Venue.find({})
@@ -51,11 +51,14 @@ const addBooking = async (eventId, venueId, startTime, endTime) => {
     }
 }
 
-const deleteBooking = async (eventId, venueId) => {
+const deleteBooking = async (eventId, venue) => {
     try {
-        const response = await Venue.updateOne({ _id: venueId }, { $pull: { bookings: { event: eventId } } })
+        // const response = await Venue.updateOne({ _id: venueId }, { $pull: { bookings: { event: eventId } } })
+        console.log(venue)
+        venue.bookings = venue.bookings.filter(e=>e.event.toString()!==eventId)
+        await venue.save()
 
-        return response
+        return venue.bookings
 
         // return json(response)    
     }
