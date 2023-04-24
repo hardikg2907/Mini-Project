@@ -41,8 +41,9 @@ const getVenues = async (req, res) => {
 const addBooking = async (eventId, venueId, startTime, endTime) => {
     try {
         const response = await Venue.updateOne({ _id: venueId }, { $push: { bookings: { startTime, endTime, event: eventId } } })
+        console.log('booking added')
 
-        return response
+        // return response
 
         // return json(response)    
     }
