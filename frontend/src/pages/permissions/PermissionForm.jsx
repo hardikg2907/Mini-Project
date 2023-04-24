@@ -44,26 +44,27 @@ export const PermissionForm = () => {
         e.preventDefault()
         console.log(venues)
 
-        const response = await fetch(
-            '/api/events', {
-            method: 'POST',
-            body: JSON.stringify({
+        const response = await axios(
+            {
+            url: '/api/events',
+            method: 'post',
+            data: {
                 title,
                 description,
                 startTime,
                 endTime,
                 venues,
                 email: user.email
-            }),
+            },
             headers: {
                 'Content-Type': 'application/json'
             }
         })
             .then(async response => {
-                const json = await response.json()
-                console.log(json)
+                const data = await response.data
+                console.log(data)
             })
-            .catch(error => console.log(error))
+            // .catch(error => console.log(error))
 
         navigate('/permissions')
 

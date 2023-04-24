@@ -23,10 +23,10 @@ export const EventDetail = () => {
     const handleClick = async (status) => {
         console.log(status)
         const response = await axios({
-            url: `/api/event/${selectedEvent._id}`,
+            url: `/api/event/status/${selectedEvent._id}`,
             method: 'PATCH',
             headers: { 'Content-type': 'application/json' },
-            data: { status,userId: user._id }
+            data: { status,email: user.email,eventId:selectedEvent._id }
         })
         console.log(response)
         handleClose();

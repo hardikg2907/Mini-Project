@@ -69,10 +69,9 @@ const changePassword = async (req, res) => {
 
 }
 
-const addEvent = async (eventId, userId,facId) => {
+const addEvent = async (eventId, userId) => {
     try {
         const user = await User.updateOne({ _id: userId }, { $push: { events: eventId } })
-        await User.updateOne({email: 'deepak@gmail.com'}, { $push: { permissions: eventId  } })
         // console.log('user created')
 
         return user
