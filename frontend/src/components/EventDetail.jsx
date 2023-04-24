@@ -85,6 +85,7 @@ export const EventDetail = () => {
                             <Link to={{ pathname: `/edit/${selectedEvent._id}` }}>
                                 <button className="approve-button">Edit</button>
                             </Link>
+
                         </div>
                         // ) : selectedEvent.status == 'approved' ? (<div className='modal-footer'>Event Over</div>) : (<div className='modal-footer'>Event didnt happen</div>))
                     }
