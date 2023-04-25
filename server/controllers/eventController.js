@@ -4,7 +4,7 @@ const { addEvent, removeEvent } = require('./userController')
 const mongoose = require('mongoose')
 const Venue = require('../models/venueModel')
 const { addBooking, deleteBooking } = require('./venueController')
-const {sendMail} = require('./mail')
+const {sendCommMail,sendFacultyMail} = require('./mail')
 
 // create event
 const createEvent = async (req, res) => {
@@ -189,7 +189,7 @@ const populatePermissions = async (eventId, userId) => {
     console.log(facEmail)
     facEmail = facEmail.email
         
-    await sendMail(facEmail,user.title,event.title)
+    await sendFacultyMail(facEmail,user.title,event.title)
 
     console.log(perms)
     await User.updateOne({ _id: perms[0] }, { $push: { permissions: eventId } })
@@ -199,7 +199,7 @@ const populatePermissions = async (eventId, userId) => {
         facEmail = await User.findById(perms[1])
         facEmail=facEmail.email
         
-        await sendMail(facEmail,user.title,event.title)
+        await sendFacultyMail(facEmail,user.title,event.title)
     }
     perms.push('64455bc9c5d851de3821a06f') // Talele Sir
     if (event.venues !== []) {
@@ -221,8 +221,9 @@ const populatePermissions = async (eventId, userId) => {
 const updateStatusBar = async (req, res) => {
     const {status,email,eventId} = req.body;
     let fac = await User.find({email})
-    console.log(status, email)
+    // console.log(status, email)
     const event = await Event.findById(eventId).populate('user')
+    console.log(event.user.email)
     fac = fac[0]
     let facId = fac._id.toString()
     event.statusBar = event.statusBar.map(e=>{
@@ -238,6 +239,7 @@ const updateStatusBar = async (req, res) => {
     await event.save()
     if(status=='rejected'){
         event.status='rejected';
+        await sendCommMail(event.user.email,event.title,'rejected')
         await event.save()
         return;
     }
@@ -259,7 +261,7 @@ const updateStatusBar = async (req, res) => {
             let facEmail = await User.findById(event.statusBar[i].authority.toString())
             facEmail=facEmail.email
         
-            await sendMail(facEmail,event.user.title,event.title)
+            await sendFacultyMail(facEmail,event.user.title,event.title)
         }
         else if(event.statusBar[0].status=='approved' && event.statusBar[1].status=='approved')
         {
@@ -267,12 +269,13 @@ const updateStatusBar = async (req, res) => {
             let facEmail = await User.findById(event.statusBar[2].authority.toString())
             facEmail=facEmail.email
         
-            await sendMail(facEmail,event.user.title,event.title)
+            await sendFacultyMail(facEmail,event.user.title,event.title)
         }
     }
     else if(event.statusBar[i-1].status=='approved'){
         console.log('hi')
         event.status='approved'
+        await sendCommMail(event.user.email,event.title,'approved')
         await event.save();
     }
 }
