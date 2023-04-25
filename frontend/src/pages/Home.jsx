@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import Login from '../components/Login'
 import Calendar from '../components/Calendar'
 import axios from 'axios'
+import { LoadingScreen } from "../components/LoadingScreen"
 
 export const Home = () => {
 
@@ -43,7 +44,7 @@ export const Home = () => {
                         {isFetched && <Calendar events={events} />}
                     </div>
                 </div>
-                : <p>Loading...</p>}
+                : <LoadingScreen/>}
         </div>
     );
 }
