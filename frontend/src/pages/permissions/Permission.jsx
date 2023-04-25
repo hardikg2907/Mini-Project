@@ -6,6 +6,8 @@ import { useAuthContext } from "../../context/AuthContext"
 import { PermissionsTable } from "../../components/PermissionsTable"
 import { useEventContext } from "../../context/EventContext"
 import { EventDetail } from "../../components/EventDetail"
+// import ReactLoading from 'react-loading';
+import { LoadingScreen } from "../../components/LoadingScreen"
 
 export const Permission = () => {
 
@@ -37,7 +39,10 @@ export const Permission = () => {
             </div>
             {isFetched? userEvents.filter(element=>element.status=='pending').map((event)=>{
                 // return <PendingPermissionCard key={event._id} permission={event} />
-            }) : <p>Loading...</p>}
+            }) : 
+            // <p>Loading...</p>
+            // <ReactLoading type={'balls'} color={"#03fc4e"} height={'20%'} width={'20%'} />
+                <LoadingScreen/>}
             <PermissionsTable events={userEvents}/>
             {user.type=='Committee' && <div className="permDiv"><Link to='/permissions/form' className="submit reqPermBtn">Request Permission</Link></div>}
             {showModal && <EventDetail />}
