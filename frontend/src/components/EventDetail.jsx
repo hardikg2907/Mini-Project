@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useEventContext } from '../context/EventContext';
 import Modal from "react-overlays/Modal";
 import { useAuthContext } from '../context/AuthContext';
@@ -11,6 +11,7 @@ import { PermissionForm } from '../pages/permissions/PermissionForm';
 export const EventDetail = () => {
 
     const { selectedEvent, setShowModal, showModal } = useEventContext()
+    const [disableBtn, setDisableBtn] =useState(false);
     console.log(selectedEvent);
     // console.log(new Date().getTime())
     // const [changeStatus, setChangeStatus] = useState('pending')
@@ -22,6 +23,7 @@ export const EventDetail = () => {
 
     const handleClick = async (status) => {
         console.log(status)
+        if(status==='approved' || status==='rejected') setDisableBtn(true);
         const response = await axios({
             url: `/api/event/status/${selectedEvent._id}`,
             method: 'PATCH',
@@ -65,13 +67,13 @@ export const EventDetail = () => {
                     <div className='eventDetail'><h2>Venues: </h2><p>{selectedEvent.venues.map(venue => `${venue.name},`)}</p></div>
                     {user.type == 'Faculty' && (new Date(selectedEvent.endTime).getTime()>new Date().getTime() ? (
                         <div className="modal-footer">
-                            <button className="reject-button" onClick={() => handleClick('rejected')}>
+                            <button className={disableBtn?'disabled-button':'reject-button'} onClick={() => handleClick('rejected')} disabled={disableBtn}>
                                 Reject
                             </button>
-                            <button className="resub-button" onClick={() => handleClick('Waiting for resubmission')}>
+                            <button className={disableBtn?'disabled-button':'resub-button'} onClick={() => handleClick('Waiting for resubmission')} disabled={disableBtn}>
                                 Re-Submit
                             </button>
-                            <button className="approve-button" onClick={() => handleClick('approved')}>
+                            <button className={disableBtn?'disabled-button':'approve-button'} onClick={() => handleClick('approved')} disabled={disableBtn}>
                                 Approve
                             </button>
                         </div>) : selectedEvent.status == 'approved' ? (<div className='modal-footer'>Event Over</div>) : (<div className='modal-footer'>Event didnt happen</div>)
