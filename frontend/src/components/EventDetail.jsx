@@ -54,15 +54,21 @@ export const EventDetail = () => {
                 onHide={handleClose}
                 renderBackdrop={renderBackdrop}>
                 <div className='modal-container'>
-                    <span className="close-button" onClick={handleClose}>
+                    <div className="close-button" onClick={handleClose}>
                         <GrClose/>
-                    </span>
-                    <div className='eventDetail'><h1 className='commName'>{selectedEvent.user.title}</h1></div>
+                    </div>
+                    <div className='eventDetail-com'>
+                    <img src="https://img.collegepravesh.com/2018/11/SPIT-Mumbai-Logo.png"  height="40rem"   alt="logo" class="logo"/>
+                    <div className="com"><h1 className='commName'>{selectedEvent.user.title}</h1></div>
+                    </div>
                     <div className='eventDetail'><h2>Event Name: </h2><p className='content'>{selectedEvent.title}</p></div>
                     <div className='eventDetail'><h2>Date: </h2><p>{moment(selectedEvent.startTime).format('LLL')} - {moment(selectedEvent.endTime).format('LLL')}</p></div>
                     {/* <br/> */}
                     <div className='eventDetail'><h2>Description: </h2><p>{selectedEvent.description}</p></div>
                     <div className='eventDetail'><h2>Venues: </h2><p>{selectedEvent.venues.map(venue => `${venue.name},`)}</p></div>
+                    <div className="eventDetail">
+                            <h2>Contact Person: </h2><p>Committee Coordinator (9819211564)</p>
+                    </div>
                     {user.type == 'Faculty' && (new Date(selectedEvent.endTime).getTime()>new Date().getTime() ? (
                         <div className="modal-footer">
                             <button className="reject-button" onClick={() => handleClick('rejected')}>
