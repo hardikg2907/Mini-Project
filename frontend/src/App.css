@@ -591,6 +591,10 @@ body {
   width: 100%;
 }
 
+.content{
+  min-height: 3rem;
+}
+
 .table .content {
   height: 2rem;
   left: 1rem;
@@ -600,23 +604,11 @@ body {
   width: 60rem;
   border-bottom: 0.1rem solid var(--table-title);
   cursor: pointer;
+  text-transform: capitalize;
 }
 
 .table .content:hover {
   box-shadow: 0px 2px 10px 1px rgba(0, 0, 0, 0.2);
-}
-
-.content .status {
-  color: var(--stat-pending);
-  text-transform: capitalize;
-}
-
-.approved {
-  color: var(--stat-accept) !important;
-}
-
-.rejected {
-  color: var(--stat-reject) !important;
 }
 
 .content-container {
@@ -760,7 +752,7 @@ textarea {
   left: 0;
   right: 0;
   background-color: #000;
-  opacity: 0.5;
+  opacity: 0.6;
 }
 
 .close-button {
@@ -808,7 +800,7 @@ button {
 
 .resub-button {
   color: #fff;
-  background-color: #6c757d;
+  background-color: var(--stat-pending);
   /* background-color: var(--stat-pending); */
 }
 
@@ -824,7 +816,7 @@ button {
 }
 
 .resub-button:hover{
-  background-color: #545e66;
+  background-color: #2a83cc;
 }
 
 .approve-button:hover{
@@ -833,6 +825,12 @@ button {
 
 .reject-button:hover{
   background-color: #ba0f0f;
+}
+
+.disabled-button{
+  color: #fff;
+  background-color: #6c757d;
+  cursor: not-allowed;
 }
 
 .eventDetail{
@@ -1099,4 +1097,112 @@ button {
   text-align: center;
   margin-bottom: 2rem;
   gap: 0.5rem;
+}
+
+  margin-top: -1.2%;
+}
+
+.barBody{
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* background: #f6f7fb; */
+}
+
+.bar-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  max-width: 400px;
+  width: 100%;
+}
+
+.bar-container .steps {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+.steps .circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  width: 30px;
+  color: #999;
+  font-size: 22px;
+  font-weight: 500;
+  border-radius: 50%;
+  background: #fff;
+  border: 3px solid #e0e0e0;
+  transition: all 200ms ease;
+  transition-delay: 0s;
+  z-index: 1;
+}
+
+.steps .circle.active {
+  transition-delay: 100ms;
+  border-color: #4070f4;
+  color: #4070f4;
+}
+
+.steps .progress-bar {
+  position: absolute;
+  height: 4px;
+  width: 100%;
+  background: #e0e0e0;
+  z-index: 0;
+}
+
+.progress-bar .indicator {
+  position: absolute;
+  height: 100%;
+  width: 0%;
+  background: #4070f4;
+  transition: all 300ms ease;
+}
+
+.bar-container .buttons {
+  display: flex;
+  gap: 20px;
+}
+
+/* .buttons button {
+  padding: 8px 25px;
+  background: #4070f4;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 400;
+  cursor: pointer;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
+  transition: all 200ms linear;
+}
+
+.buttons button:active {
+  transform: scale(0.97);
+}
+
+.buttons button:disabled {
+  background: #87a5f8;
+  cursor: not-allowed;
+} */
+
+.approved {
+  border-color: var(--stat-accept) !important;
+  color: var(--stat-accept);
+}
+
+.rejected {
+  border-color: var(--stat-reject) !important;
+  color: var(--stat-reject);
+}
+.pending {
+  border-color: var(--stat-pending) !important;
+  color: var(--stat-pending);
 }

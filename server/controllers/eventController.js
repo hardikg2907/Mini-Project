@@ -4,6 +4,7 @@ const { addEvent, removeEvent } = require('./userController')
 const mongoose = require('mongoose')
 const Venue = require('../models/venueModel')
 const { addBooking, deleteBooking } = require('./venueController')
+const {sendCommMail,sendFacultyMail} = require('./mail')
 
 // create event
 const createEvent = async (req, res) => {
@@ -154,13 +155,15 @@ const deleteEvent = async (req, res) => {
     })
     await user.save().then(console.log('Event removed from user'))
 
-    permissions.forEach(async (perm) => {
+    for(let perm of permissions)
+    {
         let authority = await Venue.findById(perm.authority)
-        authority.permissions = authority.permissions.filter((e) => {
+        if(authority==null) break;
+        authority.permissions = authority?.permissions.filter((e) => {
             return e._id.toString() !== _id
         })
         await authority.save().then(console.log('Event removed from faculty'))
-    })
+    }
 
     venues.forEach(async (e) => {
         e = e.toString()
@@ -180,13 +183,23 @@ const populatePermissions = async (eventId, userId) => {
     let perms = [];
     // console.log(perms)
     perms.push('64455b6d10122557a1a1fd32') // GS
+    const event = await Event.findById(eventId).populate('venues');
+    let facEmail = await User.findById(perms[0])
+    const user = await User.findById(userId);
+    console.log(facEmail)
+    facEmail = facEmail.email
+        
+    await sendFacultyMail(facEmail,user.title,event.title)
+
     console.log(perms)
     await User.updateOne({ _id: perms[0] }, { $push: { permissions: eventId } })
-    const event = await Event.findById(eventId).populate('venues');
-    const user = await User.findById(userId);
     if (user.facultyMentor){
         perms.push(user.facultyMentor.toString())
         await User.updateOne({ _id: user.facultyMentor.toString() }, { $push: { permissions: eventId } })
+        facEmail = await User.findById(perms[1])
+        facEmail=facEmail.email
+        
+        await sendFacultyMail(facEmail,user.title,event.title)
     }
     perms.push('64455bc9c5d851de3821a06f') // Talele Sir
     if (event.venues !== []) {
@@ -208,8 +221,9 @@ const populatePermissions = async (eventId, userId) => {
 const updateStatusBar = async (req, res) => {
     const {status,email,eventId} = req.body;
     let fac = await User.find({email})
-    console.log(status, email)
-    const event = await Event.findById(eventId)
+    // console.log(status, email)
+    const event = await Event.findById(eventId).populate('user')
+    console.log(event.user.email)
     fac = fac[0]
     let facId = fac._id.toString()
     event.statusBar = event.statusBar.map(e=>{
@@ -225,6 +239,7 @@ const updateStatusBar = async (req, res) => {
     await event.save()
     if(status=='rejected'){
         event.status='rejected';
+        await sendCommMail(event.user.email,event.title,'rejected')
         await event.save()
         return;
     }
@@ -243,15 +258,24 @@ const updateStatusBar = async (req, res) => {
         if(event.statusBar[i-1].status=='approved' && i-1>1)
         {   
             await User.updateOne({ _id: event.statusBar[i].authority.toString() }, { $push: { permissions: eventId } })
+            let facEmail = await User.findById(event.statusBar[i].authority.toString())
+            facEmail=facEmail.email
+        
+            await sendFacultyMail(facEmail,event.user.title,event.title)
         }
         else if(event.statusBar[0].status=='approved' && event.statusBar[1].status=='approved')
         {
             await User.updateOne({ _id: event.statusBar[2].authority.toString() }, { $push: { permissions: eventId } })
+            let facEmail = await User.findById(event.statusBar[2].authority.toString())
+            facEmail=facEmail.email
+        
+            await sendFacultyMail(facEmail,event.user.title,event.title)
         }
     }
     else if(event.statusBar[i-1].status=='approved'){
         console.log('hi')
         event.status='approved'
+        await sendCommMail(event.user.email,event.title,'approved')
         await event.save();
     }
 }
