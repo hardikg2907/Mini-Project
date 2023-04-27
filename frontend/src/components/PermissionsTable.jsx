@@ -40,10 +40,9 @@ export const PermissionsTable = ({events}) => {
                 .map((event)=>{
                     return (
                     <div className='content' key={event._id} onClick={()=>selectEvent(event)}>
-                        {user.type=='Faculty' && <div className="hehe">{event.user.title}</div>}
+                        {user.type=='Faculty' && <div className="hehe">{event.user.name}</div>}
                         <div className="hehe">{event.title}</div>
                         <div className="hehe">{moment(event.startTime).format('LL')}</div>
-                        {/* <div className={`hehe status ${event.status}`}>{JSON.stringify(event.statusBar.map(e=>e.status))}</div> */}
                         <div className="hehe"><ProgressBar event={event}/></div>
                     </div>)
                 })}

@@ -38,7 +38,8 @@ const eventSchema = new mongoose.Schema({
         status: {
             type: String,
             default: 'pending'
-        }
+        },
+        authorityName: String
     }],
     user:{
         type:mongoose.SchemaTypes.ObjectId,

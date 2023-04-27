@@ -578,7 +578,7 @@ body {
   background-color: var(--table-head);
   border-radius: 0.5rem;
   width: 60rem;
-  z-index: 1;
+  z-index: 2;
 }
 
 .hehe {
@@ -1099,8 +1099,8 @@ button {
   gap: 0.5rem;
 }
 
-  margin-top: -1.2%;
-}
+  /* margin-top: -1.2%;
+} */
 
 .barBody{
   height: 100vh;
@@ -1127,7 +1127,7 @@ button {
   position: relative;
 }
 
-.steps .circle {
+.steps .circle{
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1155,7 +1155,7 @@ button {
   height: 4px;
   width: 100%;
   background: #e0e0e0;
-  z-index: 0;
+  z-index: -1;
 }
 
 .progress-bar .indicator {
@@ -1205,4 +1205,12 @@ button {
 .pending {
   border-color: var(--stat-pending) !important;
   color: var(--stat-pending);
+}
+
+.steps .popup{
+  width: 30px;
+  height:30px;
+  position: relative;
+  background-color: white;
+  opacity: 20%;
 }
