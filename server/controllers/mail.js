@@ -50,7 +50,7 @@ const sendCommMail = async (email, event, status) => {
         from: "hardik.garg@spit.ac.in",
         to: email,
         subject: `Your event ${event} got ${status}${status == 'approved' ? "!!" : " :("}`,
-        text: `Your event ${event} got ${status}${status == 'approved' ? "!!" : " :("}`
+        text: `Your event ${event} got ${status}${status == 'approved' ? "!!" : " :("}`,
     }
     console.log("email= ", email)
     mailTransporter.sendMail(details, (err) => {

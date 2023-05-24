@@ -2,8 +2,18 @@ import React, { useState } from "react";
 import {CgClose} from 'react-icons/cg'
 import {FaCheck} from 'react-icons/fa'
 import {FiClock} from 'react-icons/fi'
-import { Popup } from "./Popup";
 
+const Popup = ({authority}) => {
+
+  // console.log(authority)
+
+  return (
+      <div className="popup">
+          <h4>{authority.authorityName}</h4>
+          <p>{authority.status}</p>
+      </div>
+  )
+}
 
 export const ProgressBar=({event})=>{
 
