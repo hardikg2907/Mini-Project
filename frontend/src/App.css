@@ -10,6 +10,7 @@
   --stat-reject: #EE1010;
   --stat-pending: #3DA6FC; /* ce9427 */
   --transition: 0.3s ease-in-out all;
+  --border-radius: 10px;
   /* --dark-bg-color: #150e60;  */
 }
 
@@ -578,7 +579,7 @@ body {
   background-color: var(--table-head);
   border-radius: 0.5rem;
   width: 60rem;
-  z-index: 1;
+  z-index: 2;
 }
 
 .hehe {
@@ -630,7 +631,7 @@ body {
   padding: 1rem;
   height: fit-content;
   width: fit-content;
-  border-radius: 30px;
+  border-radius: var(--border-radius);
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   position: relative;
   top: 2rem;
@@ -1099,8 +1100,8 @@ button {
   gap: 0.5rem;
 }
 
-  margin-top: -1.2%;
-}
+  /* margin-top: -1.2%;
+} */
 
 .barBody{
   height: 100vh;
@@ -1127,7 +1128,7 @@ button {
   position: relative;
 }
 
-.steps .circle {
+.steps .circle{
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1155,7 +1156,7 @@ button {
   height: 4px;
   width: 100%;
   background: #e0e0e0;
-  z-index: 0;
+  z-index: -1;
 }
 
 .progress-bar .indicator {
@@ -1205,4 +1206,13 @@ button {
 .pending {
   border-color: var(--stat-pending) !important;
   color: var(--stat-pending);
+}
+
+.steps .popup{
+  width: auto;
+  height:auto;
+  position: relative;
+  background-color: white;
+  opacity: 40%;
+  overflow: hidden;
 }

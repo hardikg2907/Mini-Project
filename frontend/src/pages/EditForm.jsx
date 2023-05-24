@@ -127,16 +127,16 @@ const EditForm = () => {
                         <input type="datetime-local" onChange={(e) => { setEndTime(e.currentTarget.value) }} required value={endTime} />
                     </div>
                 </div>
-                <div className="form-container">
+                {selectedEvent?.venues.length>0 && <div className="form-container">
                     <label>Previous Venues</label>
                     <div className="prev-venues-container">
-                        {selectedEvent?.venues &&
+                        {
                             selectedEvent?.venues.map((e) => {
                                 return <PrevVenue venue={e} key={e._id} />
                             })
                         }
                     </div>
-                </div>
+                </div>}
                 <div className="form-container">
                     <label>New Venues</label>
                     <Select

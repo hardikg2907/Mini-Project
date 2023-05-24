@@ -4,15 +4,14 @@ import Modal from "react-overlays/Modal";
 import { useAuthContext } from '../context/AuthContext';
 import moment from 'moment';
 import axios from 'axios';
-import { useNavigate, Link, Routes, Route } from 'react-router-dom';
+import { useNavigate, Link} from 'react-router-dom';
 import {GrClose} from 'react-icons/gr';
-import { PermissionForm } from '../pages/permissions/PermissionForm';
 
-export const EventDetail = () => {
+export const EventDetail = ({allEvents}) => {
 
     const { selectedEvent, setShowModal, showModal } = useEventContext()
     const [disableBtn, setDisableBtn] =useState(false);
-    console.log(selectedEvent);
+    // console.log(selectedEvent);
     // console.log(new Date().getTime())
     // const [changeStatus, setChangeStatus] = useState('pending')
     const { user } = useAuthContext()
@@ -22,7 +21,7 @@ export const EventDetail = () => {
     var handleClose = () => setShowModal(false);
 
     const handleClick = async (status) => {
-        console.log(status)
+        // console.log(status)
         if(status==='approved' || status==='rejected') setDisableBtn(true);
         const response = await axios({
             url: `/api/event/status/${selectedEvent._id}`,
@@ -30,8 +29,8 @@ export const EventDetail = () => {
             headers: { 'Content-type': 'application/json' },
             data: { status,email: user.email,eventId:selectedEvent._id }
         })
-        console.log(response)
-        handleClose();
+        // console.log(response)
+        // setShowModal(false)
         navigate('/');
     }
 
@@ -44,7 +43,8 @@ export const EventDetail = () => {
             method: 'delete',
             headers: { 'Content-type': 'application/json' }
         })
-        console.log(response.data)
+        // console.log(response.data)
+        setShowModal(false)
         navigate('/')
     }
 
@@ -60,18 +60,18 @@ export const EventDetail = () => {
                         <GrClose/>
                     </div>
                     <div className='eventDetail-com'>
-                    <img src="https://img.collegepravesh.com/2018/11/SPIT-Mumbai-Logo.png"  height="40rem"   alt="logo" class="logo"/>
-                    <div className="com"><h1 className='commName'>{selectedEvent.user.title}</h1></div>
+                    <img src="https://img.collegepravesh.com/2018/11/SPIT-Mumbai-Logo.png"  height="40rem"   alt="logo" className="logo"/>
+                    <div className="com"><h1 className='commName'>{selectedEvent.user.name}</h1></div>
                     </div>
                     <div className='eventDetail'><h2>Event Name: </h2><p className='content'>{selectedEvent.title}</p></div>
                     <div className='eventDetail'><h2>Date: </h2><p>{moment(selectedEvent.startTime).format('LLL')} - {moment(selectedEvent.endTime).format('LLL')}</p></div>
                     {/* <br/> */}
                     <div className='eventDetail'><h2>Description: </h2><p>{selectedEvent.description}</p></div>
-                    <div className='eventDetail'><h2>Venues: </h2><p>{selectedEvent.venues.map(venue => `${venue.name},`)}</p></div>
+                    <div className='eventDetail'><h2>Venues: </h2><p>{selectedEvent.venues.length==0 ?"N/A":selectedEvent.venues.map(venue => `${venue.name},`)}</p></div>
                     <div className="eventDetail">
                             <h2>Contact Person: </h2><p>Committee Coordinator (9819211564)</p>
                     </div>
-                    {user.type == 'Faculty' && (new Date(selectedEvent.endTime).getTime()>new Date().getTime() ? (
+                    {user.type == 'Faculty' && !allEvents && (new Date(selectedEvent.endTime).getTime()>new Date().getTime() ? (
                         <div className="modal-footer">
                             <button className={disableBtn?'disabled-button':'reject-button'} onClick={() => handleClick('rejected')} disabled={disableBtn}>
                                 Reject
@@ -84,8 +84,8 @@ export const EventDetail = () => {
                             </button>
                         </div>) : selectedEvent.status == 'approved' ? (<div className='modal-footer'>Event Over</div>) : (<div className='modal-footer'>Event didnt happen</div>)
                     )}
-                    {user.type == 'Committee' && 
-                    // (new Date(selectedEvent.endTime).getTime()>new Date().getTime() ? (
+                    {user.type == 'Committee' && !allEvents &&
+                    (new Date(selectedEvent.endTime).getTime()>new Date().getTime() ? (
                         <div className="modal-footer">
                             <button className="reject-button" onClick={deleteEvent}>
                                 Delete
@@ -95,7 +95,7 @@ export const EventDetail = () => {
                             </Link>
 
                         </div>
-                        // ) : selectedEvent.status == 'approved' ? (<div className='modal-footer'>Event Over</div>) : (<div className='modal-footer'>Event didnt happen</div>))
+                        ) : selectedEvent.status == 'approved' ? (<div className='modal-footer'>Event Over</div>) : (<div className='modal-footer'>Event didnt happen</div>))
                     }
                 </div>
             </Modal>
