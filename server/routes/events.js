@@ -1,5 +1,6 @@
 const express = require('express');
 const {createEvent, getAllEvents, getEvent, updateEvent, deleteEvent, getEventsStatus,updateStatusBar} = require('../controllers/eventController')
+const {addComment, addReply} = require('../controllers/commentController')
 
 const router = express.Router();
 
@@ -15,5 +16,9 @@ router.patch('/event/:_id', updateEvent)
 router.patch('/event/status/:_id',updateStatusBar)
 
 router.delete('/event/:_id', deleteEvent)
+
+router.post('/event/comment', addComment)
+
+router.post('/event/reply',addReply)
 
 module.exports = router
