@@ -903,6 +903,11 @@ button {
   background-color: #2a83cc;
 }
 
+.modal-footer button:last-child{
+  /* border: 2px solid black; */
+  align-self: flex-start !important;
+}
+
 .eventDetail{
   position: relative;
   top: -1.5rem;
