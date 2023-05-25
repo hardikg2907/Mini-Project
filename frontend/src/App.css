@@ -588,14 +588,14 @@ body {
   position: relative;
   /* display: flex; */
   display: grid;
-  grid-template-columns: 1.5fr 2fr 1.5fr 3fr 1.5fr;
+  grid-template-columns: 2fr 2fr 1.5fr 3fr 1.5fr;
   grid-gap: 0.2rem;
   background-color: var(--table-head);
   width: 64.5rem;
   border-radius: var(--border-radius);
-  width: 60rem;
   z-index: 5;
   transition: all 0.2s ease-in-out;
+  align-items: center;
 }
 
 .hehe {
@@ -605,15 +605,16 @@ body {
   /* display: flex; */
   /* flex-direction: column; */
   justify-content: center;
-  /* border: #000 solid; */
-  width: 100%;
+  /* width: 100%; */
 }
 
 .content{
+  position: relative;
   min-height: 3rem;
-  display: grid;
-  grid-template-columns: 1.5fr 2fr 1fr 3fr 1.5fr;
+  display: grid !important;
+  grid-template-columns: 2fr 2fr 1.5fr 3fr 1.5fr !important;
   grid-gap: 0.2rem;
+  align-items: center;
 }
 
 .table{
@@ -628,8 +629,6 @@ body {
   top: 1.2rem;
   position: relative;
   display: flex;
-  /* display: grid;
-  grid-template-columns: 2fr 2fr 1fr 3fr 1.5fr; */
   width: 64.5rem;
   border-bottom: 0.1rem solid var(--table-title);
   cursor: pointer;
@@ -647,7 +646,7 @@ body {
   overflow: scroll;
   height: 15rem;
   overflow-x: hidden;
-  /* border: 2px solid black; */
+  /* width: 64.5rem; */
 }
 
 .permForm {
@@ -804,7 +803,7 @@ textarea {
   /* border: 2px solid black; */
   opacity: 0.7;
   cursor: pointer;
-  left: 47rem;
+  left: 47.6rem;
   top: 0.5rem;
   /* ----------------------------------new changes--------------------------------------------------- */
   height: 2rem;
@@ -875,13 +874,15 @@ button {
   left: 1rem;
   display: flex;
   width: 47rem;
-  /* border: #000 solid; */
+  /* border: #000 solid 2px; */
   margin: 0rem;
   padding: 0rem;
 }
 
 .eventDetail h2 {
   margin: 0rem;
+  /* border-bottom: #000 solid 2px; */
+  width: 12.5rem;
   /* padding-top: 0.7rem; */
 }
 
@@ -1144,7 +1145,7 @@ button {
 } */
 
 .barBody{
-  height: 100vh;
+  /* height: auto; */
   display: flex;
   align-items: center;
   justify-content: center;
