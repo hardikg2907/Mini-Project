@@ -9,7 +9,7 @@ const Popup = ({authority}) => {
 
   return (
       <div className="popup">
-          <h4>{authority.authorityName}</h4>
+          <h4>{authority.authorityName}: </h4>
           <p>{authority.status}</p>
       </div>
   )
@@ -18,7 +18,7 @@ const Popup = ({authority}) => {
 export const ProgressBar=({event})=>{
 
     // console.log(event.statusBar)
-    const [isHovering,setIsHovering] = useState(false)
+    const [isHovering,setIsHovering] = useState(null)
 
     return(
         <div className="barBody">
@@ -27,10 +27,10 @@ export const ProgressBar=({event})=>{
                 {
                     event.statusBar.map((e)=>{
                         return <div key={e.authority}>
-                        <span className={`circle ${e.status}`} onMouseOver={()=>setIsHovering(true)} onMouseOut={()=>setIsHovering(false)}>
+                        <span className={`circle ${e.status}`} onMouseOver={()=>setIsHovering(e.authority)} onMouseOut={()=>setIsHovering(null)}>
                           {e.status=='approved'?<FaCheck className="approved"/>:e.status=='rejected'?<CgClose className="rejected"/>:<FiClock className="pending"/>}
                         </span>
-                        {isHovering && <Popup authority={e}/>}
+                        {isHovering==e.authority && <Popup authority={e}/>}
                       </div>
                     })
                 }
