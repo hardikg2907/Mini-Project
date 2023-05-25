@@ -33,6 +33,7 @@ export const PermissionsTable = ({events}) => {
                 {user.type=='Faculty' && <div className="hehe">Committee</div>}
                 <div className="hehe">Event Name</div>
                 <div className="hehe">Date</div>
+                <div className="hehe">Progress</div>
                 <div className="hehe">Status</div>
             </div>
             <div className='content-container'>
@@ -44,6 +45,7 @@ export const PermissionsTable = ({events}) => {
                         <div className="hehe">{event.title}</div>
                         <div className="hehe">{moment(event.startTime).format('LL')}</div>
                         <div className="hehe"><ProgressBar event={event}/></div>
+                        <div className="hehe">{event.status}</div>
                     </div>)
                 })}
             </div>
