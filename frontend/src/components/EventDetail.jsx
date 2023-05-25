@@ -11,6 +11,8 @@ export const EventDetail = ({allEvents}) => {
 
     const { selectedEvent, setShowModal, showModal } = useEventContext()
     const [disableBtn, setDisableBtn] =useState(false);
+    const [commentPanel, setCommentPanel]=useState(false);
+    const [clickedOption, setClickedOption]=useState('');
     // console.log(selectedEvent);
     // console.log(new Date().getTime())
     // const [changeStatus, setChangeStatus] = useState('pending')
@@ -20,8 +22,27 @@ export const EventDetail = ({allEvents}) => {
     const renderBackdrop = (props) => <div className="backdrop" {...props} />;
     var handleClose = () => setShowModal(false);
 
+    const [optionName,setOptionName]=useState('');
+    const confirmClickHander=(status)=>{
+        switch (status) {
+            case "delete": setOptionName("Delete");
+                break;
+            case "rejected": setOptionName("Reject");
+                break;
+            case "approved": setOptionName("Approve");
+                break;
+            case "Waiting for resubmission": setOptionName("Re-Submit");
+                break;
+            default:
+                break;
+        }
+        setClickedOption(status);
+        setCommentPanel(true);
+    }
+
     const handleClick = async (status) => {
         // console.log(status)
+        if(status==='delete') deleteEvent();
         if(status==='approved' || status==='rejected') setDisableBtn(true);
         const response = await axios({
             url: `/api/event/status/${selectedEvent._id}`,
@@ -31,6 +52,7 @@ export const EventDetail = ({allEvents}) => {
         })
         // console.log(response)
         // setShowModal(false)
+        setCommentPanel(false);
         navigate('/');
     }
 
@@ -71,23 +93,23 @@ export const EventDetail = ({allEvents}) => {
                     <div className="eventDetail">
                             <h2>Contact Person: </h2><p>Committee Coordinator (9819211564)</p>
                     </div>
-                    {user.type == 'Faculty' && !allEvents && (new Date(selectedEvent.endTime).getTime()>new Date().getTime() ? (
+                    {user.type == 'Faculty' && !commentPanel && !allEvents && (new Date(selectedEvent.endTime).getTime()>new Date().getTime() ? (
                         <div className="modal-footer">
-                            <button className={disableBtn?'disabled-button':'reject-button'} onClick={() => handleClick('rejected')} disabled={disableBtn}>
+                            <button className={disableBtn?'disabled-button':'reject-button'} onClick={() => confirmClickHander('rejected')} disabled={disableBtn}>
                                 Reject
                             </button>
-                            <button className={disableBtn?'disabled-button':'resub-button'} onClick={() => handleClick('Waiting for resubmission')} disabled={disableBtn}>
+                            <button className={disableBtn?'disabled-button':'resub-button'} onClick={() => confirmClickHander('Waiting for resubmission')} disabled={disableBtn}>
                                 Re-Submit
                             </button>
-                            <button className={disableBtn?'disabled-button':'approve-button'} onClick={() => handleClick('approved')} disabled={disableBtn}>
+                            <button className={disableBtn?'disabled-button':'approve-button'} onClick={() => confirmClickHander('approved')} disabled={disableBtn}>
                                 Approve
                             </button>
                         </div>) : selectedEvent.status == 'approved' ? (<div className='modal-footer'>Event Over</div>) : (<div className='modal-footer'>Event didnt happen</div>)
                     )}
-                    {user.type == 'Committee' && !allEvents &&
+                    {user.type == 'Committee' && !commentPanel && !allEvents &&
                     (new Date(selectedEvent.endTime).getTime()>new Date().getTime() ? (
                         <div className="modal-footer">
-                            <button className="reject-button" onClick={deleteEvent}>
+                            <button className="reject-button" onClick={()=>{confirmClickHander('delete')}}>
                                 Delete
                             </button>
                             <Link to={{ pathname: `/edit/${selectedEvent._id}` }}>
@@ -96,6 +118,22 @@ export const EventDetail = ({allEvents}) => {
 
                         </div>
                         ) : selectedEvent.status == 'approved' ? (<div className='modal-footer'>Event Over</div>) : (<div className='modal-footer'>Event didnt happen</div>))
+                    }
+                    {commentPanel &&
+                        <div className='comment-footer'>
+                            <form className="form-container">
+                                <label>Add a Comment</label>
+                                <textarea style={{height: "2rem", width:"46rem"}} required={optionName!="Approve"} />
+                            </form>
+                            <div className='commentOptions'>
+                                <button className="cancelBtn" onClick={()=>setCommentPanel(false)}>
+                                    Cancel
+                                </button>
+                                <button className='confirmBtn' onClick={()=>handleClick(clickedOption)}>
+                                    Confirm {optionName}
+                                </button>
+                            </div>
+                        </div>
                     }
                 </div>
             </Modal>
