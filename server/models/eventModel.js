@@ -1,5 +1,46 @@
 const mongoose = require('mongoose')
 
+const replySchema = new mongoose.Schema({
+    user: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: 'User'
+    },
+    content: {
+        type: String,
+        required: true
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    }
+});
+
+const Reply = mongoose.model('Reply', replySchema)
+
+const commentSchema = new mongoose.Schema({
+    user: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: 'User'
+    },
+    content: {
+        type: String,
+        required: true
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    },
+    replies: {
+        type: [{
+            type: mongoose.SchemaTypes.ObjectId,
+            ref: 'Reply'
+        }],
+        default: []
+    } // An array of replies associated with the comment
+});
+
+const Comment = mongoose.model('Comment', commentSchema)
+
 const eventSchema = new mongoose.Schema({
     title:{
         type: String,
@@ -46,10 +87,18 @@ const eventSchema = new mongoose.Schema({
         ref: 'User'
     },
     comments: {     
-        type: [String]
+        type: [{
+            type: mongoose.SchemaTypes.ObjectId,
+            ref: 'Comment'
+        }],
+        default: []
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now()
     }
 })
 
 const Event = mongoose.model('Event', eventSchema)
 
-module.exports = {Event, eventSchema}
+module.exports = {Event, eventSchema, Reply, Comment}

@@ -63,7 +63,7 @@ export const EventDetail = ({allEvents}) => {
                     <img src="https://img.collegepravesh.com/2018/11/SPIT-Mumbai-Logo.png"  height="40rem"   alt="logo" className="logo"/>
                     <div className="com"><h1 className='commName'>{selectedEvent.user.name}</h1></div>
                     </div>
-                    <div className='eventDetail'><h2>Event Name: </h2><p className='content'>{selectedEvent.title}</p></div>
+                    <div className='eventDetail'><h2>Event Name: </h2><p>{selectedEvent.title}</p></div>
                     <div className='eventDetail'><h2>Date: </h2><p>{moment(selectedEvent.startTime).format('LLL')} - {moment(selectedEvent.endTime).format('LLL')}</p></div>
                     {/* <br/> */}
                     <div className='eventDetail'><h2>Description: </h2><p>{selectedEvent.description}</p></div>
