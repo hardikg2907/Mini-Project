@@ -538,6 +538,13 @@ body {
   background-color: var(--bg-color);
 }
 
+.allEventsCalendar{
+  width: 66.5rem;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  border-radius: var(--border-radius);
+}
+
 .table {
   top: 1rem;
   position: relative;
@@ -547,6 +554,10 @@ body {
   border-radius: var(--border-radius);
   z-index: 0;
 }
+
+/* .allEventsTable{
+  width: 33rem !important;
+} */
 
 .titles {
   height: 2.2rem;
@@ -589,7 +600,7 @@ body {
   /* display: flex; */
   display: grid;
   grid-template-columns: 2fr 2fr 1.5fr 3fr 1.5fr;
-  grid-gap: 0.2rem;
+  grid-gap: 0.6rem;
   background-color: var(--table-head);
   width: 64.5rem;
   border-radius: var(--border-radius);
@@ -599,13 +610,14 @@ body {
 }
 
 .eventHeading, .eventContent{
+  /* width: 31rem; */
   display: grid;
   grid-template-columns: 3fr 3fr 2fr 2fr !important;
 }
 
 .commHeading, .commContent{
   display: grid;
-  grid-template-columns: 2fr 2fr 3fr 2fr !important;
+  grid-template-columns: 2fr 1.2fr 3fr 2fr !important;
 }
 
 .hehe {
@@ -623,7 +635,7 @@ body {
   min-height: 3rem;
   display: grid !important;
   grid-template-columns: 2fr 2fr 1.5fr 3fr 1.5fr;
-  grid-gap: 0.2rem;
+  grid-gap: 0.6rem;
   align-items: center;
 }
 
