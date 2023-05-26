@@ -14,6 +14,8 @@ export const EventDetail = ({isAllEvents}) => {
     const [disableBtn, setDisableBtn] =useState(false);
     const [commentPanel, setCommentPanel]=useState(false);
     const [commentContent, setCommentContent] = useState("");
+    const [commentsSection, setCommentsSection] = useState(false);
+    const [comments, setComments] = useState([])
     const [clickedOption, setClickedOption]=useState('');
   
     // console.log(selectedEvent);
@@ -43,22 +45,23 @@ export const EventDetail = ({isAllEvents}) => {
         setCommentPanel(true);
     }
 
-    const handleClick = async (status) => {
+    const handleClick = async (e,status) => {
+        e.preventDefault()
 
         console.log(status)
-        if(status==='delete') deleteEvent();
-        if(status==='approved' || status==='rejected') setDisableBtn(true);
+        // if(status==='delete') deleteEvent();
+        // if(status==='approved' || status==='rejected') setDisableBtn(true);
         let response = await axios({
             url: `/api/event/status/${selectedEvent._id}`,
             method: 'patch',
             headers: { 'Content-type': 'application/json' },
             data: { status, email: user.email, eventId: selectedEvent._id }
         })
-        // console.log(response)
+        console.log(response.data)
         // setShowModal(false)
 
-        setCommentPanel(false);
-        window.location.reload(true);
+        // setCommentPanel(false);
+        // window.location.reload(true);
         // setCommentPanel(false);
         // navigate('/');
         // console.log(response)
@@ -73,6 +76,15 @@ export const EventDetail = ({isAllEvents}) => {
             headers: { 'Content-type': 'application/json' }
         })
         console.log(response.data);
+    }
+
+    const getAllComments = async ()=>{
+        const response = await axios({
+            url: `/api/comments`,
+        })
+        console.log(response.data);
+        const filteredComm = response.data.filter((e)=>e.eventId==selectedEvent._id)
+        setComments(filteredComm)
     }
 
     const deleteEvent = async (e) => {
@@ -115,7 +127,7 @@ export const EventDetail = ({isAllEvents}) => {
 
                     {user.type == 'Faculty' && !commentPanel && !isAllEvents && (new Date(selectedEvent.endTime).getTime()>new Date().getTime() ? (
                         <div className="modal-footer">
-                            <button className="commentsDiv" onClick={() => { setCommentsSection(!commentsSection) }}>
+                            <button className="commentsDiv" onClick={() => { setCommentsSection(!commentsSection); getAllComments() }}>
                                 Comments
                             </button>
                             <button className={disableBtn ? 'disabled-button' : 'reject-button'} onClick={() => confirmClickHander('rejected')} disabled={disableBtn}>
@@ -130,10 +142,10 @@ export const EventDetail = ({isAllEvents}) => {
                         </div>) : selectedEvent.status == 'approved' ? (<div className='modal-footer'>Event Over</div>) : (<div className='modal-footer'>Event didnt happen</div>)
                     )}
 
-                    {user.type == 'Committee' && !commentPanel && !allEvents &&
+                    {user.type == 'Committee' && !commentPanel && !isAllEvents &&
                         (new Date(selectedEvent.endTime).getTime() > new Date().getTime() ? (
                             <div className="modal-footer">
-                                <button className="commentsDiv" onClick={() => { setCommentsSection(!commentsSection) }}>
+                                <button className="commentsDiv" onClick={() => { setCommentsSection(!commentsSection); getAllComments() }}>
                                     Comments
                                 </button>
                                 <button className="reject-button" onClick={() => { confirmClickHander('delete') }}>
@@ -148,16 +160,16 @@ export const EventDetail = ({isAllEvents}) => {
                     {commentPanel &&
                         <div className='comment-footer'>
                             <form>
-                                {optionName != "Delete" &&
+                                {optionName != "Delete" &&  
                                     <div className="form-container">
                                         <label>Add a Comment</label>
-                                        <textarea style={{ height: "2rem", width: "46rem" }} required={optionName != "Approve"} />
+                                        <textarea style={{ height: "2rem", width: "46rem" }} required={optionName != "Approve"} onChange={(e)=>setCommentContent(e.currentTarget.value)}/>
                                     </div>}
                                 <div className='commentOptions'>
                                     <button className="cancelBtn" onClick={() => setCommentPanel(false)}>
                                         Cancel
                                     </button>
-                                    <button className='confirmBtn' onClick={() => handleClick(clickedOption)}>
+                                    <button className='confirmBtn' onClick={(e) => handleClick(e,clickedOption)}>
                                         Confirm {optionName}
                                     </button>
                                 </div>
@@ -165,7 +177,7 @@ export const EventDetail = ({isAllEvents}) => {
                         </div>
                     }
                     {commentsSection &&
-                        <Comments />
+                        <Comments comments={comments}/>
                         // <div>hello</div>
                     }
                 </div>

@@ -6,6 +6,7 @@ const eventRoutes = require('./routes/events')
 const venueRoutes = require('./routes/venues')
 const cors = require('cors')
 const morgan = require('morgan')
+const {getAllComments} = require('./controllers/commentController')
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use(cors())
 app.use('/api',userRoutes)
 app.use('/api', eventRoutes)
 app.use('/api',venueRoutes)
+app.get('/api/comments', getAllComments)
 
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true })
     .then(() => {
