@@ -46,6 +46,21 @@ body {
   background: #555;
 }
 
+.userProfileName{
+  position: absolute;
+  /* border: 2px solid black; */
+  /* width: 100%; */
+  right: 0;
+  margin-right: 4rem;
+  top: 2rem;
+  display: flex;
+  align-items: center;
+}
+
+.userProfileName h4{
+  padding-left: 0.4rem;
+}
+
 .page-container{
   position: relative;
   left: 9rem;
