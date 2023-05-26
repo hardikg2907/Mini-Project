@@ -6,7 +6,6 @@ import moment from 'moment';
 import axios from 'axios';
 import { useNavigate, Link} from 'react-router-dom';
 import {GrClose} from 'react-icons/gr';
-import Comments from './Comments';
 
 export const EventDetail = ({allEvents}) => {
 
@@ -14,7 +13,6 @@ export const EventDetail = ({allEvents}) => {
     const [disableBtn, setDisableBtn] =useState(false);
     const [commentPanel, setCommentPanel]=useState(false);
     const [clickedOption, setClickedOption]=useState('');
-    const [commentsSection, setCommentsSection]=useState(false);
     // console.log(selectedEvent);
     // console.log(new Date().getTime())
     // const [changeStatus, setChangeStatus] = useState('pending')
@@ -97,9 +95,6 @@ export const EventDetail = ({allEvents}) => {
                     </div>
                     {user.type == 'Faculty' && !commentPanel && !allEvents && (new Date(selectedEvent.endTime).getTime()>new Date().getTime() ? (
                         <div className="modal-footer">
-                            <button className="commentsDiv" onClick={()=>{setCommentsSection(true)}}>
-                                Comments
-                            </button>
                             <button className={disableBtn?'disabled-button':'reject-button'} onClick={() => confirmClickHander('rejected')} disabled={disableBtn}>
                                 Reject
                             </button>
@@ -114,15 +109,12 @@ export const EventDetail = ({allEvents}) => {
                     {user.type == 'Committee' && !commentPanel && !allEvents &&
                     (new Date(selectedEvent.endTime).getTime()>new Date().getTime() ? (
                         <div className="modal-footer">
-                            <button className="commentsDiv" onClick={()=>{setCommentsSection(true)}}>
-                                Comments
-                            </button>
-                            <button className="reject-button" onClick={()=>{confirmClickHander('delete')}}>
-                                Delete
-                            </button>
                             <Link to={{ pathname: `/edit/${selectedEvent._id}` }}>
                                 <button className="approve-button">Edit</button>
                             </Link>
+                            <button className="reject-button" onClick={()=>{confirmClickHander('delete')}}>
+                                Delete
+                            </button>
 
                         </div>
                         ) : selectedEvent.status == 'approved' ? (<div className='modal-footer'>Event Over</div>) : (<div className='modal-footer'>Event didnt happen</div>))
@@ -148,9 +140,6 @@ export const EventDetail = ({allEvents}) => {
                     }
                 </div>
             </Modal>
-            {commentsSection &&
-                <Comments/>
-            }
         </aside>
     );
 }
