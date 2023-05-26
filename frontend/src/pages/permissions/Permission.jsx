@@ -44,7 +44,7 @@ export const Permission = () => {
                 <LoadingScreen/>}
             <PermissionsTable events={userEvents}/>
             {user.type=='Committee' && <div className="permDiv"><Link to='/permissions/form' className="submit reqPermBtn">Request Permission</Link></div>}
-            {showModal && <EventDetail allEvents={false}/>}
+            {showModal && <EventDetail isAllEvents={false}/>}
         </div>
     )
 }
