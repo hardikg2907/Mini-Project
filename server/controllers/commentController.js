@@ -8,7 +8,6 @@ const getAllComments = async(req,res)=>{
         let comments = await Comment.find({}).populate('user');;
         // comments = comments.map(async (e)=>{
         //     const user = await e
-        //     return user
         // })
         console.log(comments)
         res.status(200).json(comments);
@@ -27,7 +26,7 @@ const addComment = async (req, res) => {
         const event = await Event.findById(eventId);
         if (!event) {
             return res.status(404).json({ error: 'Event not found' });
-        }
+        }   
 
         const user = await User.find({email})
         console.log(user[0])

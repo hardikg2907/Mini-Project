@@ -49,8 +49,8 @@ export const EventDetail = ({isAllEvents}) => {
         e.preventDefault()
 
         console.log(status)
-        // if(status==='delete') deleteEvent();
-        // if(status==='approved' || status==='rejected') setDisableBtn(true);
+        if(status==='delete') {deleteEvent(); return;}
+        if(status==='approved' || status==='rejected') setDisableBtn(true);
         let response = await axios({
             url: `/api/event/status/${selectedEvent._id}`,
             method: 'patch',
@@ -58,24 +58,27 @@ export const EventDetail = ({isAllEvents}) => {
             data: { status, email: user.email, eventId: selectedEvent._id }
         })
         console.log(response.data)
-        // setShowModal(false)
+        setShowModal(false)
 
-        // setCommentPanel(false);
+        setCommentPanel(false);
         // window.location.reload(true);
         // setCommentPanel(false);
-        // navigate('/');
+        navigate('/');
         // console.log(response)
-        response = await axios({
-            url: `/api/event/comment`,
-            method: 'post',
-            data: {
-                eventId: selectedEvent._id,
-                email: user.email,
-                content: commentContent
-            },
-            headers: { 'Content-type': 'application/json' }
-        })
-        console.log(response.data);
+        if(commentContent!=""){
+            response = await axios({
+                url: `/api/event/comment`,
+                method: 'post',
+                data: {
+                    eventId: selectedEvent._id,
+                    email: user.email,
+                    content: commentContent
+                },
+                headers: { 'Content-type': 'application/json' }
+            })
+            console.log(response.data);
+
+        }
     }
 
     const getAllComments = async ()=>{
@@ -87,8 +90,8 @@ export const EventDetail = ({isAllEvents}) => {
         setComments(filteredComm)
     }
 
-    const deleteEvent = async (e) => {
-        e.preventDefault();
+    const deleteEvent = async () => {
+        // e.preventDefault();
 
         // console.log(selectedEvent._id)
         const response = await axios({
@@ -128,8 +131,8 @@ export const EventDetail = ({isAllEvents}) => {
                     {user.type == 'Faculty' && !commentPanel && !isAllEvents && (new Date(selectedEvent.endTime).getTime()>new Date().getTime() ? (
                         <div className="modal-footer">
                             <button className="commentsDiv" onClick={() => { setCommentsSection(!commentsSection); getAllComments() }}>
-                                Comments
-                            </button>
+                                    Comments   <i class={commentsSection?"arrow up":"arrow down"}></i>
+                                </button>
                             <button className={disableBtn ? 'disabled-button' : 'reject-button'} onClick={() => confirmClickHander('rejected')} disabled={disableBtn}>
                                 Reject
                             </button>
@@ -146,7 +149,7 @@ export const EventDetail = ({isAllEvents}) => {
                         (new Date(selectedEvent.endTime).getTime() > new Date().getTime() ? (
                             <div className="modal-footer">
                                 <button className="commentsDiv" onClick={() => { setCommentsSection(!commentsSection); getAllComments() }}>
-                                    Comments
+                                    Comments   <i class={commentsSection?"arrow up":"arrow down"}></i>
                                 </button>
                                 <button className="reject-button" onClick={() => { confirmClickHander('delete') }}>
                                     Delete
@@ -177,8 +180,7 @@ export const EventDetail = ({isAllEvents}) => {
                         </div>
                     }
                     {commentsSection &&
-                        <Comments comments={comments}/>
-                        // <div>hello</div>
+                        <Comments comments={comments} setCommentsSection={setCommentsSection}/>
                     }
                 </div>
             </Modal>
