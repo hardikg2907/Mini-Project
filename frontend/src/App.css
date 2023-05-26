@@ -834,8 +834,10 @@ button {
   border-top: 1px solid #e9ecef;
   box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.2);
   /* border-radius: 5px; */
-  display: flex;
-  justify-content: flex-end;
+  /* display: flex; */
+  /* justify-content: flex-end; */
+  display: grid;
+  grid-template-columns: 200fr 1fr 1fr 0.5fr;
   gap: 8px;
 }
 
@@ -907,6 +909,11 @@ button {
 
 .confirmBtn:hover{
   background-color: #2a83cc;
+}
+
+.modal-footer button:last-child{
+  /* border: 2px solid black; */
+  align-self: flex-start !important;
 }
 
 .eventDetail{
