@@ -36,7 +36,10 @@ const commentSchema = new mongoose.Schema({
             ref: 'Reply'
         }],
         default: []
-    } // An array of replies associated with the comment
+    }, // An array of replies associated with the comment
+    eventId: {
+        type: String
+    }
 });
 
 const Comment = mongoose.model('Comment', commentSchema)

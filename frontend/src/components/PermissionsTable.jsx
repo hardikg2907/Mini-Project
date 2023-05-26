@@ -18,6 +18,7 @@ export const PermissionsTable = ({events}) => {
     const selectEvent = (event) =>
     {   
         setSelectedEvent(event)
+        console.log(event)
         setShowModal(true)
     }
 

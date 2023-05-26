@@ -50,7 +50,7 @@ const getAllEvents = async (req, res) => {
     try {
         const status = req.query.status
         // console.log(req.query)
-        const response = Object.keys(req.query).length !== 0 ? await Event.find({ status }).populate('user comments comments.replies') : await Event.find({}).populate('user comments comments.replies')
+        const response = Object.keys(req.query).length !== 0 ? await Event.find({ status }).populate('user comments') : await Event.find({}).populate('user comments')
         // console.log(response)
         // const resp = response.map(e=>e.populate('user'))
 
@@ -281,6 +281,8 @@ const updateStatusBar = async (req, res) => {
         await sendCommMail(event.user.email,event.title,'approved')
         await event.save();
     }
+
+    return res.status(200).json("updated status ");
 }
 
 module.exports = {
