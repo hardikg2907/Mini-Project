@@ -7,11 +7,12 @@ import axios from 'axios';
 import { useNavigate, Link} from 'react-router-dom';
 import {GrClose} from 'react-icons/gr';
 
-export const EventDetail = ({allEvents}) => {
+export const EventDetail = ({isAllEvents}) => {
 
     const { selectedEvent, setShowModal, showModal } = useEventContext()
     const [disableBtn, setDisableBtn] =useState(false);
     const [commentPanel, setCommentPanel]=useState(false);
+    const [commentContent, setCommentContent] = useState("");
     const [clickedOption, setClickedOption]=useState('');
     // console.log(selectedEvent);
     // console.log(new Date().getTime())
@@ -41,19 +42,31 @@ export const EventDetail = ({allEvents}) => {
     }
 
     const handleClick = async (status) => {
-        // console.log(status)
+        console.log(status)
         if(status==='delete') deleteEvent();
         if(status==='approved' || status==='rejected') setDisableBtn(true);
-        const response = await axios({
+        let response = await axios({
             url: `/api/event/status/${selectedEvent._id}`,
-            method: 'PATCH',
+            method: 'patch',
             headers: { 'Content-type': 'application/json' },
             data: { status,email: user.email,eventId:selectedEvent._id }
         })
         // console.log(response)
         // setShowModal(false)
-        setCommentPanel(false);
-        navigate('/');
+        // setCommentPanel(false);
+        // navigate('/');
+        // console.log(response)
+        response = await axios({
+            url: `/api/event/comment`,
+            method: 'post',
+            data: {
+                eventId: selectedEvent._id,
+                email: user.email,
+                content: commentContent
+            },
+            headers: { 'Content-type': 'application/json' }
+        })
+        console.log(response.data);
     }
 
     const deleteEvent = async (e) => {
@@ -93,7 +106,7 @@ export const EventDetail = ({allEvents}) => {
                     <div className="eventDetail">
                             <h2>Contact Person: </h2><p>Committee Coordinator (9819211564)</p>
                     </div>
-                    {user.type == 'Faculty' && !commentPanel && !allEvents && (new Date(selectedEvent.endTime).getTime()>new Date().getTime() ? (
+                    {user.type == 'Faculty' && !commentPanel && !isAllEvents && (new Date(selectedEvent.endTime).getTime()>new Date().getTime() ? (
                         <div className="modal-footer">
                             <button className={disableBtn?'disabled-button':'reject-button'} onClick={() => confirmClickHander('rejected')} disabled={disableBtn}>
                                 Reject
@@ -106,7 +119,7 @@ export const EventDetail = ({allEvents}) => {
                             </button>
                         </div>) : selectedEvent.status == 'approved' ? (<div className='modal-footer'>Event Over</div>) : (<div className='modal-footer'>Event didnt happen</div>)
                     )}
-                    {user.type == 'Committee' && !commentPanel && !allEvents &&
+                    {user.type == 'Committee' && !commentPanel && !isAllEvents &&
                     (new Date(selectedEvent.endTime).getTime()>new Date().getTime() ? (
                         <div className="modal-footer">
                             <button className="reject-button" onClick={()=>{confirmClickHander('delete')}}>
@@ -123,7 +136,7 @@ export const EventDetail = ({allEvents}) => {
                         <div className='comment-footer'>
                             <form className="form-container">
                                 <label>Add a Comment</label>
-                                <textarea style={{height: "2rem", width:"46rem"}} required={optionName!="Approve"} />
+                                <textarea style={{height: "2rem", width:"46rem"}} required={optionName!="Approve"} onChange={(e)=>setCommentContent(e.currentTarget.value)}/>
                             </form>
                             <div className='commentOptions'>
                                 <button className="cancelBtn" onClick={()=>setCommentPanel(false)}>

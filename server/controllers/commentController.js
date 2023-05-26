@@ -1,23 +1,27 @@
 const { Event, Reply, Comment } = require('../models/eventModel');
+const User = require('../models/userModel')
 
 // Controller function to add a comment to an event
 const addComment = async (req, res) => {
-    const { eventId, userId, content } = req.body;
+    const { eventId, email, content } = req.body;
 
     try {
         const event = await Event.findById(eventId);
         if (!event) {
             return res.status(404).json({ error: 'Event not found' });
         }
+
+        const user = await User.find({email})
         const newComment = new Comment({
-            user: userId,
+            user: user._id,
             content
         })
         
         await newComment.save()
-        .then(comment=> {const id = comment._id});
+        .then(comment=> {const id = comment._id;
+            event.comments.push(id);
+        });
 
-        event.comments.push(id);
         await event.save();
 
         res.status(200).json({ message: 'Comment added successfully' });
@@ -29,7 +33,7 @@ const addComment = async (req, res) => {
 
 // Controller function to add a reply to a comment
 const addReply = async (req, res) => {
-    const { eventId, commentId, userId, content } = req.body;
+    const { eventId, commentId, content } = req.body;
 
     try {
         const event = await Event.findById(eventId);
