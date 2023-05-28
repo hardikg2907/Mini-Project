@@ -7,17 +7,23 @@ import { SideBar } from './components/SideBar'
 import {Permission} from './pages/permissions/Permission'
 import { useAuthContext } from './context/AuthContext'
 import { PermissionForm } from './pages/permissions/PermissionForm'
+import {CgProfile} from 'react-icons/cg'
 import EditForm from './pages/EditForm'
 import AllEvents from './pages/AllEvents'
 
 export default function App() {
-
     const {user} = useAuthContext();
+    console.log(user);
 
     return (
         <main className="container">
             <BrowserRouter>
-                    {user && <SideBar/>}
+                    {user && 
+                        <div>
+                            <SideBar/>
+                            <div className='userProfileName'><CgProfile size="1.8em"/><h4>{user.email}</h4></div>
+                        </div>
+                    }
                 <Routes>
                     <Route exact path="/" element={!user?<Home/>:<Navigate to='/permissions'/>}/>
                     <Route path='/profile' element={user?<Profile/>:<Navigate to='/'/>}/>
