@@ -13,6 +13,7 @@ export const EventContextProvider = ({ children }) => {
     const [showModal, setShowModal] = useState(false)
     const [selectedEvent,setSelectedEvent] = useState(null)
     const [changedVenues,setChangedVenues] = useState([])
+    const [calendarEvents, setCalendarEvents] = useState([])
     const [venues,setVenues] = useState([])
     const {user} = useAuthContext()
     const {id} = useParams()
@@ -40,7 +41,7 @@ export const EventContextProvider = ({ children }) => {
         console.log(venues)
     }
 
-    return (<EventContext.Provider value={{setAllEvents,allEvents,isFetched,showModal,setShowModal,selectedEvent,setSelectedEvent,handleChange,venues,setVenues,changedVenues,setChangedVenues}}>
+    return (<EventContext.Provider value={{setAllEvents,allEvents,isFetched,showModal,setShowModal,selectedEvent,setSelectedEvent,handleChange,venues,setVenues,changedVenues,setChangedVenues,calendarEvents,setCalendarEvents}}>
         {children}
     </EventContext.Provider>)
 }

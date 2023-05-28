@@ -46,6 +46,21 @@ body {
   background: #555;
 }
 
+.userProfileName{
+  position: absolute;
+  /* border: 2px solid black; */
+  /* width: 100%; */
+  right: 0;
+  margin-right: 4rem;
+  top: 2rem;
+  display: flex;
+  align-items: center;
+}
+
+.userProfileName h4{
+  padding-left: 0.4rem;
+}
+
 .page-container{
   position: relative;
   left: 9rem;
@@ -538,6 +553,13 @@ body {
   background-color: var(--bg-color);
 }
 
+.allEventsCalendar{
+  width: 66.5rem;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  border-radius: var(--border-radius);
+}
+
 .table {
   top: 1rem;
   position: relative;
@@ -547,6 +569,10 @@ body {
   border-radius: var(--border-radius);
   z-index: 0;
 }
+
+/* .allEventsTable{
+  width: 33rem !important;
+} */
 
 .titles {
   height: 2.2rem;
@@ -595,13 +621,24 @@ body {
   /* display: flex; */
   display: grid;
   grid-template-columns: 2fr 2fr 1.5fr 3fr 1.5fr;
-  grid-gap: 0.2rem;
+  grid-gap: 0.6rem;
   background-color: var(--table-head);
   width: 64.5rem;
   border-radius: var(--border-radius);
   z-index: 5;
   transition: all 0.2s ease-in-out;
   align-items: center;
+}
+
+.eventHeading, .eventContent{
+  /* width: 31rem; */
+  display: grid;
+  grid-template-columns: 3fr 3fr 2fr 2fr !important;
+}
+
+.commHeading, .commContent{
+  display: grid;
+  grid-template-columns: 2fr 1.2fr 3fr 2fr !important;
 }
 
 .hehe {
@@ -618,8 +655,8 @@ body {
   position: relative;
   min-height: 3rem;
   display: grid !important;
-  grid-template-columns: 2fr 2fr 1.5fr 3fr 1.5fr !important;
-  grid-gap: 0.2rem;
+  grid-template-columns: 2fr 2fr 1.5fr 3fr 1.5fr;
+  grid-gap: 0.6rem;
   align-items: center;
 }
 
@@ -909,11 +946,6 @@ button {
 
 .confirmBtn:hover{
   background-color: #2a83cc;
-}
-
-.modal-footer button:last-child{
-  /* border: 2px solid black; */
-  align-self: flex-start !important;
 }
 
 .eventDetail{
