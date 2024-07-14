@@ -100,7 +100,7 @@ const getUserEvents = async (req, res) => {
 const removeEvent = async (eventId, userId) => {
     try {
         const user = await User.updateOne({ _id: userId }, { $pull: { events: eventId } })
-        await User.updateOne({email: 'deepak@gandu.com'}, { $pull: { permissions: eventId  } })
+        await User.updateOne({email: 'deepak@.com'}, { $pull: { permissions: eventId  } })
         // console.log('user created')
 
         return user
